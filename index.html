@@ -41,7 +41,7 @@ figcaption{color:#8b949e;font-size:.78rem;margin-bottom:.5rem;display:flex;justi
 <h1>⚡ Alt Analysis</h1>
 <p class="meta">Alpha Data Room · updated 2026-08-23 · consistent chart suite per token
 (01 price · 02 attention · 03 who · 04 dynamics · 05 streams) · price log-scale,
-anchored to first traded bar · price candles overlaid on every panel · build 1787482384</p>
+anchored to first traded bar · price candles overlaid on every panel · build 1787482582</p>
 
 <div class="bar"><span class="lbl">Token:</span><button class="tok" data-token="CYBERLEEK">CYBERLEEK</button><button class="tok" data-token="YOMOGI">YOMOGI</button><button class="tok" data-token="NEKO">NEKO</button>
 <span class="sep">|</span><span class="lbl">Timeframe:</span><button class="tf" data-tf="1h">1h</button><button class="tf" data-tf="4h">4h</button><button class="tf" data-tf="6h">6h</button><button class="tf" data-tf="12h">12h</button><button class="tf" data-tf="daily">daily</button><button class="tf" data-tf="special">special</button><button class="tf" data-tf="all">all</button>
@@ -2359,6 +2359,7 @@ volume nor narrative source. Below every threshold the platform tracks; nothing 
 
 
 <script>
+const AVAIL={"CYBERLEEK": {"interactive": ["1h", "4h", "6h", "12h", "daily"], "static": ["1h", "4h", "6h", "12h", "daily", "special"]}, "YOMOGI": {"interactive": ["1h"], "static": ["1h"]}, "NEKO": {"interactive": ["1h", "4h"], "static": ["1h", "4h"]}};
 const tokBtns=document.querySelectorAll('button.tok'),tfBtns=document.querySelectorAll('button.tf'),
 figs=document.querySelectorAll('figure.chart'),panels=document.querySelectorAll('[data-token].panel, .tokfigs'),
 count=document.getElementById('count');
@@ -2367,6 +2368,14 @@ const vwBtns=document.querySelectorAll('button.vw');
 const wrap=document.getElementById('interactive-wrap'),ifr=document.getElementById('ifr'),
 figsBox=document.getElementById('figs');
 function render(){
+  const avail=(AVAIL[TOK]||{})[VIEW==='interactive'?'interactive':'static']||[];
+  tfBtns.forEach(b=>{
+    const ok=(b.dataset.tf==='all')||avail.includes(b.dataset.tf);
+    b.disabled=!ok; b.style.opacity=ok?'1':'0.28';
+    b.style.cursor=ok?'pointer':'not-allowed';
+    b.title=ok?'':'no '+b.dataset.tf+' charts for '+TOK;
+  });
+  if(TF!=='all'&&!avail.includes(TF)){TF=avail.includes('4h')?'4h':(avail[0]||'all');}
   let shown=0;
   figs.forEach(f=>{const v=f.dataset.token===TOK&&(TF==='all'||f.dataset.tf===TF);
     f.style.display=v?'':'none';if(v)shown++;});
@@ -2377,8 +2386,8 @@ function render(){
   const inter=(VIEW==='interactive');
   wrap.style.display=inter?'':'none';figsBox.style.display=inter?'none':'';
   vwBtns.forEach(b=>b.classList.toggle('active',b.dataset.view===VIEW));
-  if(inter){const tfi=(TF==='all'||TF==='special')?'4h':TF;
-    const src='interactive/'+TOK+'_'+tfi+'.html?v=1787482384';
+  if(inter){const tfi=(TF==='all'||TF==='special')?(avail.includes('4h')?'4h':avail[0]):TF;
+    const src='interactive/'+TOK+'_'+tfi+'.html?v=1787482582';
     if(ifr.getAttribute('src')!==src)ifr.setAttribute('src',src);}
   count.textContent=TOK+' · '+(inter?'interactive':shown+' charts');
   history.replaceState(null,'','#'+TOK+':'+TF);
