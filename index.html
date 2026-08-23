@@ -4,44 +4,42 @@
 <title>CYBERLEEK — Alt Analysis</title>
 <style>
 body{margin:0;background:#0d1117;color:#e6edf3;font:15px/1.65 "Segoe UI",system-ui,sans-serif}
-main{max-width:1180px;margin:0 auto;padding:1.5rem 1rem 4rem}
-h1{font-size:1.6rem;margin:0 0 .3rem}
-.md h2{font-size:1.05rem;color:#e6edf3;margin:1.8rem 0 .6rem;
+main{max-width:1180px;margin:0 auto;padding:1.2rem 1rem 4rem}
+h1{font-size:1.55rem;margin:0 0 .2rem}
+.md h2{font-size:1.05rem;color:#e6edf3;margin:1.7rem 0 .55rem;
 border-bottom:1px solid #30363d;padding-bottom:.35rem}
-.md p{margin:.55rem 0;font-size:.92rem}
-.md ul{padding-left:1.25rem;margin:.4rem 0} .md li{margin:.28rem 0;font-size:.9rem}
-.md table{border-collapse:collapse;margin:.7rem 0 1.2rem;font-size:.85rem;width:100%}
-.md th{background:#10151c;color:#8b949e;text-align:left;padding:.4rem .7rem;
+.md p{margin:.5rem 0;font-size:.92rem}
+.md ul{padding-left:1.25rem;margin:.4rem 0} .md li{margin:.26rem 0;font-size:.9rem}
+.md table,table.snap{border-collapse:collapse;margin:.6rem 0 1.1rem;font-size:.86rem;width:100%}
+.md th,table.snap th{background:#10151c;color:#8b949e;text-align:left;padding:.42rem .75rem;
 border-bottom:1px solid #30363d;font-weight:600}
-.md td{padding:.32rem .7rem;border-bottom:1px solid #21262d;vertical-align:top}
+.md td,table.snap td{padding:.36rem .75rem;border-bottom:1px solid #21262d;vertical-align:top}
 .md tr:hover td{background:#181e26}
 .md strong{color:#fff} .md code{background:#10151c;padding:.05rem .35rem;border-radius:3px}
 .panel{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:1rem 1.4rem;margin:1rem 0}
+.snapwrap table td:first-child{color:#8b949e;white-space:nowrap;width:9.5rem}
 details.log summary{cursor:pointer;color:#58a6ff;font-size:.9rem;padding:.3rem 0}
-details.log[open] summary{margin-bottom:.6rem}
-.logwrap{max-height:520px;overflow:auto;border:1px solid #21262d;border-radius:8px}
-.bar{position:sticky;top:0;z-index:9;background:#161b22ee;backdrop-filter:blur(6px);
-border:1px solid #30363d;border-radius:10px;padding:.7rem 1rem;margin:1rem 0;
-display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-.bar .lbl{color:#8b949e;font-size:.8rem}
+.logwrap{max-height:520px;overflow:auto;border:1px solid #21262d;border-radius:8px;margin-top:.6rem}
+.bar{position:sticky;top:0;z-index:20;background:#161b22f2;backdrop-filter:blur(8px);
+border:1px solid #30363d;border-radius:10px;padding:.65rem 1rem;margin:.9rem 0;
+display:flex;gap:.45rem;align-items:center;flex-wrap:wrap}
+.bar .lbl{color:#8b949e;font-size:.8rem;margin-right:.15rem}
 button.tf{background:transparent;color:#8b949e;border:1px solid #30363d;border-radius:14px;
-padding:.28rem .85rem;font-size:.85rem;cursor:pointer;font-family:inherit}
+padding:.28rem .9rem;font-size:.85rem;cursor:pointer;font-family:inherit}
 button.tf:hover{color:#e6edf3;border-color:#8b949e}
-button.tf.active{color:#d29922;border-color:#d29922}
+button.tf.active{color:#d29922;border-color:#d29922;background:#d2992218}
 figure.chart{margin:1rem 0;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:.8rem}
 figure.chart img{max-width:100%;border:1px solid #21262d;border-radius:8px;display:block}
 figcaption{color:#8b949e;font-size:.78rem;margin-bottom:.5rem;display:flex;
 justify-content:space-between;gap:1rem}
 .tag{color:#d29922;border:1px solid #30363d;border-radius:10px;padding:0 .5rem;font-size:.7rem}
-.meta{color:#8b949e;font-size:.8rem} #count{color:#8b949e;font-size:.78rem;margin-left:auto}
+.meta{color:#8b949e;font-size:.78rem} #count{color:#8b949e;font-size:.78rem;margin-left:auto}
 </style></head><body><main>
 <h1>⚡ CYBERLEEK — Alt Analysis</h1>
-<p class="meta">Static export from Alpha Data Room · updated 2026-08-23 · price panels
-log-scale, anchored to first traded bar, stamped with candle time · sources: X (cashtag
-+ plain-name streams), GeckoTerminal OHLCV, GoPlus contract security</p>
+<p class="meta">Alpha Data Room · updated 2026-08-23 08:00 UTC · price log-scale, anchored to
+first traded bar · sources: X (cashtag + plain-name), GeckoTerminal, GoPlus</p>
 
-<div class="panel md"><h2>Snapshot</h2>
-<table>
+<div class="panel snapwrap md"><table>
 <thead>
 <tr>
 <th></th>
@@ -74,8 +72,12 @@ log-scale, anchored to first traded bar, stamped with candle time · sources: X 
 <td>4,269 tweets, 2,961 unique authors, two streams</td>
 </tr>
 </tbody>
-</table>
-<h2>Verdict</h2>
+</table></div>
+
+<div class="bar"><span class="lbl">Charts — timeframe:</span><button class="tf active" data-tf="all">all</button><button class="tf" data-tf="1h">1h</button><button class="tf" data-tf="4h">4h</button><button class="tf" data-tf="6h">6h</button><button class="tf" data-tf="12h">12h</button><button class="tf" data-tf="daily">daily</button><button class="tf" data-tf="special">special</button><span id="count"></span></div>
+<div id="charts"><figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_cohortsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_cohortsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_cohortsplit_1h.png" loading="lazy" alt="CYBERLEEK_cohortsplit_1h.png"></a></figure><figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segments_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segments_1h.png" target="_blank"><img src="charts/CYBERLEEK_segments_1h.png" loading="lazy" alt="CYBERLEEK_segments_1h.png"></a></figure><figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segmentsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segmentsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_segmentsplit_1h.png" loading="lazy" alt="CYBERLEEK_segmentsplit_1h.png"></a></figure><figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_social_8d_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_social_8d_1h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_1h.png" loading="lazy" alt="CYBERLEEK_social_8d_1h.png"></a></figure><figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_acceleration_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_acceleration_4h.png" target="_blank"><img src="charts/CYBERLEEK_acceleration_4h.png" loading="lazy" alt="CYBERLEEK_acceleration_4h.png"></a></figure><figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_cohorts_8d_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_cohorts_8d_4h.png" target="_blank"><img src="charts/CYBERLEEK_cohorts_8d_4h.png" loading="lazy" alt="CYBERLEEK_cohorts_8d_4h.png"></a></figure><figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_cohortsplit_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_cohortsplit_4h.png" target="_blank"><img src="charts/CYBERLEEK_cohortsplit_4h.png" loading="lazy" alt="CYBERLEEK_cohortsplit_4h.png"></a></figure><figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_content_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_content_4h.png" target="_blank"><img src="charts/CYBERLEEK_content_4h.png" loading="lazy" alt="CYBERLEEK_content_4h.png"></a></figure><figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_engagement_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_engagement_4h.png" target="_blank"><img src="charts/CYBERLEEK_engagement_4h.png" loading="lazy" alt="CYBERLEEK_engagement_4h.png"></a></figure><figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_social_8d_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_social_8d_4h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_4h.png" loading="lazy" alt="CYBERLEEK_social_8d_4h.png"></a></figure><figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_twostream_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_twostream_4h.png" target="_blank"><img src="charts/CYBERLEEK_twostream_4h.png" loading="lazy" alt="CYBERLEEK_twostream_4h.png"></a></figure><figure class="chart" data-tf="6h"><figcaption>CYBERLEEK_social_8d_6h.png<span class="tag">6h</span></figcaption><a href="charts/CYBERLEEK_social_8d_6h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_6h.png" loading="lazy" alt="CYBERLEEK_social_8d_6h.png"></a></figure><figure class="chart" data-tf="12h"><figcaption>CYBERLEEK_social_8d_12h.png<span class="tag">12h</span></figcaption><a href="charts/CYBERLEEK_social_8d_12h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_12h.png" loading="lazy" alt="CYBERLEEK_social_8d_12h.png"></a></figure><figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_cohorts_8d_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_cohorts_8d_daily.png" target="_blank"><img src="charts/CYBERLEEK_cohorts_8d_daily.png" loading="lazy" alt="CYBERLEEK_cohorts_8d_daily.png"></a></figure><figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_content_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_content_daily.png" target="_blank"><img src="charts/CYBERLEEK_content_daily.png" loading="lazy" alt="CYBERLEEK_content_daily.png"></a></figure><figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_social_8d_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_social_8d_daily.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_daily.png" loading="lazy" alt="CYBERLEEK_social_8d_daily.png"></a></figure><figure class="chart" data-tf="special"><figcaption>CYBERLEEK_h12_legtiming.png<span class="tag">special</span></figcaption><a href="charts/CYBERLEEK_h12_legtiming.png" target="_blank"><img src="charts/CYBERLEEK_h12_legtiming.png" loading="lazy" alt="CYBERLEEK_h12_legtiming.png"></a></figure><figure class="chart" data-tf="special"><figcaption>CYBERLEEK_newsline.png<span class="tag">special</span></figcaption><a href="charts/CYBERLEEK_newsline.png" target="_blank"><img src="charts/CYBERLEEK_newsline.png" loading="lazy" alt="CYBERLEEK_newsline.png"></a></figure></div>
+
+<div class="panel md"><h2>Verdict</h2>
 <p><strong>Strongest narrative structure measured this cycle, at the worst possible entry.</strong></p>
 <p>The good: a real cross-domain catalyst stream (gaming media, not just CT), 67–100%
 daily new-author share, engagement-per-mention <em>rising</em> into the vertical (18 → 31),
@@ -225,10 +227,44 @@ the genuine pickup wave. The crypto-native +11.2%/1h reflects the small group of
 accounts who post at the very start of a leg. Everything here is n=1 token, one week,
 heavily overlapping windows — treat as descriptive, not a rule.</p>
 <p><strong>The one robust takeaway:</strong> the events that mattered were external (leaks, media
-pickups), and the tokens' own crypto conversation was a <em>reaction</em> to them.</p></div>
+pickups), and the tokens' own crypto conversation was a <em>reaction</em> to them.</p>
+<p><strong>Significant tweets timeline (news-wise, UTC)</strong> — leaks, media pickups,
+large-account arrivals; price talk excluded:</p>
+<ul>
+<li><code>Aug 18 18:44</code> <strong>LEAK</strong> @porquehaybardo (56k f, 358 eng, gaming): Porque a Rockstar se le siguen filtrando videos de GTA 6, los fragmentos serían de hace años, un chavalin llam</li>
+<li><code>Aug 18 18:44</code> <strong>MEDIA</strong> @saudigamer (518k f, 245 eng, media): 🚨🚨🚨🚨🚨  مخاوف من تكرار سيناريو The Last of Us 2؟😯  🔹إذ تم تسريب أهم لقطات القصة (مصير جول) قبل إصدار لعبة The L</li>
+<li><code>Aug 18 18:46</code> <strong>CULTURE</strong> @lowcychin (45k f, 1236 eng, general): @NikTek Cyberleek right now: https://t.co/W4HOmFPX0D</li>
+<li><code>Aug 18 18:46</code> <strong>CULTURE</strong> @jaumbuticaba (0k f, 5231 eng, gaming): O cara vai vazar o jogo todo em protesto ao fim da mídia física.  Cyberleek é um herói. https://t.co/dpT1KLQme</li>
+<li><code>Aug 18 18:50</code> <strong>LEAK</strong> @MrAhmedBrown (54k f, 674 eng, media): قصة Gta6 وسبب التسريب اللي طلع قديم 🙆🏿‍♂️  خلف الموضوع Cyberleek عصابة جديدة طلعت حرفيا مع تسريبات اليوم  سبب </li>
+<li><code>Aug 18 18:52</code> <strong>CULTURE</strong> @orenjixbt (20k f, 277 eng, gaming): cyberleek will be part of GTA 6 history.</li>
+<li><code>Aug 18 18:56</code> <strong>LEAK</strong> @KifflomGames (15k f, 37950 eng, media): 🚨/ Última Hora:  Comunicado Oficial de Cyberleek, el grupo detrás de la nueva filtración de GTA VI donde exige</li>
+<li><code>Aug 18 18:57</code> <strong>CULTURE</strong> @TheTrueMisterC (0k f, 155 eng, general): @SrLinguicaVIVE Cyberleek, nem te conheço mas já te considero pacas https://t.co/nmMtmLc2R7</li>
+<li><code>Aug 18 18:59</code> <strong>MEDIA</strong> @NotSoEasyMoney (147k f, 108 eng, media): DID GTA6 JUST GET LEAKED!?!   That is what many people believe.   After hacker group "Cyber Leek" launched a w</li>
+<li><code>Aug 18 19:05</code> <strong>CULTURE</strong> @Flint_C0ckwood (0k f, 289 eng, gaming): @NikTek Cyberleek the goat https://t.co/xl4shClEHx</li>
+<li><code>Aug 18 19:08</code> <strong>CULTURE</strong> @MatiXE03 (0k f, 6270 eng, general): @KifflomGames Cyberleek de la mismísima nada (lo recontramil re banco): https://t.co/MDKslJ3l45</li>
+<li><code>Aug 18 19:10</code> <strong>MEDIA</strong> @GGamingAR (126k f, 68 eng, media): 🚨 مجموعة Cyberleek تعلن مسؤوليتها عن تسريبات GTA 6  🔸 لا للطلبات المسبقة الرقمية 🔸 لا لإصدار DLC وهمي للطور ال</li>
+<li><code>Aug 18 19:11</code> <strong>CULTURE</strong> @conkerax (70k f, 1229 eng, gaming): Cyberleek en mode #NoCDNoGTAVI 💿</li>
+<li><code>Aug 18 19:12</code> <strong>LEAK</strong> @SucumbaGames (112k f, 2403 eng, media): Hacker que está vazando várias coisas de GTA VI está fazendo isso forma de protesto contra a Rockstar e a favo</li>
+<li><code>Aug 18 19:12</code> <strong>MEDIA</strong> @clashreport (877k f, 257 eng, media): GTA 6 leak today: Gameplay footage and map screenshots surfaced from a group called “Cyberleek,” claiming to p</li>
+<li><code>Aug 18 19:13</code> <strong>LEAK</strong> @academiadgamers (39k f, 6071 eng, media): Cyberleek, responsável pelos supostos vazamentos do mapa e de gameplays de GTA VI, afirmou que não pretende pa</li>
+<li><code>Aug 18 19:17</code> <strong>LEAK</strong> @GatorKeys_ (1k f, 518 eng, media): Rockstar will not give in to the demands from "Cyberleek".  We’re a week away from the GTA 6 Extended Look. On</li>
+<li><code>Aug 18 19:30</code> <strong>MEDIA</strong> @playb0y4L (8k f, 281 eng, gaming): The hacker group “Cyberleek” is reportedly claiming responsibility for the GTA VI leak, allegedly because Rock</li>
+<li><code>Aug 18 19:33</code> <strong>LEAK</strong> @demarkegaming (120k f, 196 eng, media): GTA 6 sızıntılarının arkasındaki Cyberleek, Rockstar Games kamuoyundan özür dileyene kadar sızıntılara devam e</li>
+<li><code>Aug 18 19:39</code> <strong>CULTURE</strong> @DailyInterw6ac (1k f, 162 eng, media): C'mon cyberleek give us more leaks related to Gta 6 man.</li>
+<li><code>Aug 18 19:40</code> <strong>MEDIA</strong> @halt_addicted (4k f, 1087 eng, gaming): Cyberleek just turned GTA 6 into today’s biggest gaming drama 👀  Alleged gameplay, map leaks, new mechanics - </li>
+<li><code>Aug 18 19:46</code> <strong>LEAK</strong> @gamingskew (3k f, 202 eng, crypto): Message from Cyberleek to GTA VI’s games and rockstar here is the reason why he did it https://t.co/TFRlF94DY2</li>
+<li><code>Aug 18 19:57</code> <strong>LEAK</strong> @3DJuegosLATAM (78k f, 499 eng, media): ¡TODO ES POR EL FORMATO FÍSICO!  Cyberleek, señalado como la persona detrás de la supuesta filtración del mapa</li>
+<li><code>Aug 18 20:03</code> <strong>LEAK</strong> @HadesPlays_ (24k f, 2693 eng, gaming): Comunicado Oficial da Cyberleek que vazou o GTA 6!  O grupo por trás da nova filtragem de GTA VI, Cyberleek, e</li>
+<li><code>Aug 18 20:07</code> <strong>LEAK</strong> @videotech (218k f, 9934 eng, media): The leaking group 'CYBERLEEK' threatens companies such as Sony due to all-digital future. https://t.co/fHcji1K</li>
+<li><code>Aug 18 20:11</code> <strong>LEAK</strong> @RinoTheBouncer (98k f, 895 eng, media): Grand Theft Auto VI leaker issues a statement threatening Rockstar and other publishers to abide by their “thr</li>
+<li><code>Aug 18 20:16</code> <strong>CULTURE</strong> @GFSN1414 (0k f, 289 eng, gaming): @Pirat_Nation Cyberleek https://t.co/7rg6qThT0N</li>
+<li><code>Aug 18 20:22</code> <strong>LEAK</strong> @N4ZVIK (2k f, 164 eng, gaming): سالفة تسريبات GTA 6 اليوم شكلها أكبر من مجرد مقطع مفبرك وانتهينا منه 👎🏼👎🏼  قبل شوي بدت تنتشر مقاطع ترجع لمجموع</li>
+<li><code>Aug 18 20:32</code> <strong>LEAK</strong> @michaelpcmaster (22k f, 670 eng, gaming): Ojooooo!! Se filtró gameplay del GTA VI, así como el mapa entero del juego, el material es real (no es IA) y p</li>
+<li><code>Aug 18 20:32</code> <strong>MEDIA</strong> @MovistareSports (149k f, 1071 eng, media): 🟣 Cyberleek, quien se atribuye las nuevas filtraciones de GTA 6, explica los motivos detrás de sus acciones:  </li>
+</ul></div>
 
-<div class="panel"><details class="log"><summary>▸ Full news event log — all 170 events
-with price at post time and +1h / +4h / +24h moves</summary>
+<div class="panel"><details class="log"><summary>▸ Full news event log — 170 events with
+price at post time and +1h / +4h / +24h moves</summary>
 <div class="logwrap md"><table>
 <thead>
 <tr>
@@ -2287,34 +2323,6 @@ with price at post time and +1h / +4h / +24h moves</summary>
 </tr>
 </tbody>
 </table></div></details></div>
-
-<div class="bar"><span class="lbl">Timeframe:</span><button class="tf active" data-tf="all">all</button>
-<button class="tf" data-tf="1h">1h</button>
-<button class="tf" data-tf="4h">4h</button>
-<button class="tf" data-tf="6h">6h</button>
-<button class="tf" data-tf="12h">12h</button>
-<button class="tf" data-tf="daily">daily</button>
-<button class="tf" data-tf="special">special</button>
-<span id="count"></span></div>
-<div id="charts"><figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_cohortsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_cohortsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_cohortsplit_1h.png" loading="lazy" alt="CYBERLEEK_cohortsplit_1h.png"></a></figure>
-<figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segments_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segments_1h.png" target="_blank"><img src="charts/CYBERLEEK_segments_1h.png" loading="lazy" alt="CYBERLEEK_segments_1h.png"></a></figure>
-<figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segmentsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segmentsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_segmentsplit_1h.png" loading="lazy" alt="CYBERLEEK_segmentsplit_1h.png"></a></figure>
-<figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_social_8d_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_social_8d_1h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_1h.png" loading="lazy" alt="CYBERLEEK_social_8d_1h.png"></a></figure>
-<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_acceleration_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_acceleration_4h.png" target="_blank"><img src="charts/CYBERLEEK_acceleration_4h.png" loading="lazy" alt="CYBERLEEK_acceleration_4h.png"></a></figure>
-<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_cohorts_8d_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_cohorts_8d_4h.png" target="_blank"><img src="charts/CYBERLEEK_cohorts_8d_4h.png" loading="lazy" alt="CYBERLEEK_cohorts_8d_4h.png"></a></figure>
-<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_cohortsplit_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_cohortsplit_4h.png" target="_blank"><img src="charts/CYBERLEEK_cohortsplit_4h.png" loading="lazy" alt="CYBERLEEK_cohortsplit_4h.png"></a></figure>
-<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_content_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_content_4h.png" target="_blank"><img src="charts/CYBERLEEK_content_4h.png" loading="lazy" alt="CYBERLEEK_content_4h.png"></a></figure>
-<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_engagement_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_engagement_4h.png" target="_blank"><img src="charts/CYBERLEEK_engagement_4h.png" loading="lazy" alt="CYBERLEEK_engagement_4h.png"></a></figure>
-<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_social_8d_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_social_8d_4h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_4h.png" loading="lazy" alt="CYBERLEEK_social_8d_4h.png"></a></figure>
-<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_twostream_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_twostream_4h.png" target="_blank"><img src="charts/CYBERLEEK_twostream_4h.png" loading="lazy" alt="CYBERLEEK_twostream_4h.png"></a></figure>
-<figure class="chart" data-tf="6h"><figcaption>CYBERLEEK_social_8d_6h.png<span class="tag">6h</span></figcaption><a href="charts/CYBERLEEK_social_8d_6h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_6h.png" loading="lazy" alt="CYBERLEEK_social_8d_6h.png"></a></figure>
-<figure class="chart" data-tf="12h"><figcaption>CYBERLEEK_social_8d_12h.png<span class="tag">12h</span></figcaption><a href="charts/CYBERLEEK_social_8d_12h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_12h.png" loading="lazy" alt="CYBERLEEK_social_8d_12h.png"></a></figure>
-<figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_cohorts_8d_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_cohorts_8d_daily.png" target="_blank"><img src="charts/CYBERLEEK_cohorts_8d_daily.png" loading="lazy" alt="CYBERLEEK_cohorts_8d_daily.png"></a></figure>
-<figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_content_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_content_daily.png" target="_blank"><img src="charts/CYBERLEEK_content_daily.png" loading="lazy" alt="CYBERLEEK_content_daily.png"></a></figure>
-<figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_social_8d_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_social_8d_daily.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_daily.png" loading="lazy" alt="CYBERLEEK_social_8d_daily.png"></a></figure>
-<figure class="chart" data-tf="special"><figcaption>CYBERLEEK_h12_legtiming.png<span class="tag">special</span></figcaption><a href="charts/CYBERLEEK_h12_legtiming.png" target="_blank"><img src="charts/CYBERLEEK_h12_legtiming.png" loading="lazy" alt="CYBERLEEK_h12_legtiming.png"></a></figure>
-<figure class="chart" data-tf="special"><figcaption>CYBERLEEK_newsline.png<span class="tag">special</span></figcaption><a href="charts/CYBERLEEK_newsline.png" target="_blank"><img src="charts/CYBERLEEK_newsline.png" loading="lazy" alt="CYBERLEEK_newsline.png"></a></figure>
-</div>
 
 <script>
 const btns=document.querySelectorAll('button.tf'),figs=document.querySelectorAll('figure.chart'),
