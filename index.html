@@ -3,100 +3,2290 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>CYBERLEEK — Alt Analysis</title>
 <style>
-body{margin:0;background:#0d1117;color:#e6edf3;font:15px/1.6 "Segoe UI",system-ui,sans-serif}
-main{max-width:1200px;margin:0 auto;padding:1.5rem 1rem}
-h1{font-size:1.5rem;margin:0 0 .3rem}
-h2{font-size:.85rem;text-transform:uppercase;letter-spacing:1.2px;color:#8b949e;
-border-bottom:1px solid #21262d;padding-bottom:.4rem}
-.panel{background:#161b22;border:1px solid #30363d;border-radius:10px;
-padding:1rem 1.2rem;margin:1rem 0}
-.bar{position:sticky;top:0;z-index:9;background:#161b22cc;backdrop-filter:blur(6px);
+body{margin:0;background:#0d1117;color:#e6edf3;font:15px/1.65 "Segoe UI",system-ui,sans-serif}
+main{max-width:1180px;margin:0 auto;padding:1.5rem 1rem 4rem}
+h1{font-size:1.6rem;margin:0 0 .3rem}
+.md h2{font-size:1.05rem;color:#e6edf3;margin:1.8rem 0 .6rem;
+border-bottom:1px solid #30363d;padding-bottom:.35rem}
+.md p{margin:.55rem 0;font-size:.92rem}
+.md ul{padding-left:1.25rem;margin:.4rem 0} .md li{margin:.28rem 0;font-size:.9rem}
+.md table{border-collapse:collapse;margin:.7rem 0 1.2rem;font-size:.85rem;width:100%}
+.md th{background:#10151c;color:#8b949e;text-align:left;padding:.4rem .7rem;
+border-bottom:1px solid #30363d;font-weight:600}
+.md td{padding:.32rem .7rem;border-bottom:1px solid #21262d;vertical-align:top}
+.md tr:hover td{background:#181e26}
+.md strong{color:#fff} .md code{background:#10151c;padding:.05rem .35rem;border-radius:3px}
+.panel{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:1rem 1.4rem;margin:1rem 0}
+details.log summary{cursor:pointer;color:#58a6ff;font-size:.9rem;padding:.3rem 0}
+details.log[open] summary{margin-bottom:.6rem}
+.logwrap{max-height:520px;overflow:auto;border:1px solid #21262d;border-radius:8px}
+.bar{position:sticky;top:0;z-index:9;background:#161b22ee;backdrop-filter:blur(6px);
 border:1px solid #30363d;border-radius:10px;padding:.7rem 1rem;margin:1rem 0;
 display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
-.bar .lbl{color:#8b949e;font-size:.8rem;margin-right:.2rem}
-button.tf{background:transparent;color:#8b949e;border:1px solid #30363d;
-border-radius:14px;padding:.28rem .85rem;font-size:.85rem;cursor:pointer;
-font-family:inherit}
+.bar .lbl{color:#8b949e;font-size:.8rem}
+button.tf{background:transparent;color:#8b949e;border:1px solid #30363d;border-radius:14px;
+padding:.28rem .85rem;font-size:.85rem;cursor:pointer;font-family:inherit}
 button.tf:hover{color:#e6edf3;border-color:#8b949e}
 button.tf.active{color:#d29922;border-color:#d29922}
-figure.chart{margin:1rem 0;background:#161b22;border:1px solid #30363d;
-border-radius:10px;padding:.8rem}
+figure.chart{margin:1rem 0;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:.8rem}
 figure.chart img{max-width:100%;border:1px solid #21262d;border-radius:8px;display:block}
-figcaption{color:#8b949e;font-size:.78rem;margin-bottom:.5rem;
-display:flex;justify-content:space-between;gap:1rem}
+figcaption{color:#8b949e;font-size:.78rem;margin-bottom:.5rem;display:flex;
+justify-content:space-between;gap:1rem}
 .tag{color:#d29922;border:1px solid #30363d;border-radius:10px;padding:0 .5rem;font-size:.7rem}
-.meta{color:#8b949e;font-size:.8rem} ul{padding-left:1.2rem}
-li{margin:.25rem 0;font-size:.86rem} #count{color:#8b949e;font-size:.78rem;margin-left:auto}
+.meta{color:#8b949e;font-size:.8rem} #count{color:#8b949e;font-size:.78rem;margin-left:auto}
 </style></head><body><main>
 <h1>⚡ CYBERLEEK — Alt Analysis</h1>
 <p class="meta">Static export from Alpha Data Room · updated 2026-08-23 · price panels
-log-scale, anchored to first traded bar, stamped with candle time · sources: X (two
-streams), GeckoTerminal OHLCV, GoPlus</p>
+log-scale, anchored to first traded bar, stamped with candle time · sources: X (cashtag
++ plain-name streams), GeckoTerminal OHLCV, GoPlus contract security</p>
 
-<div class="panel"><h2>Deep dive + significant-tweets timeline</h2><p>CyberLeek (CYBERLEEK) — Solana memecoin attached to an active GTA 6 leaker who signs</p>
-<p>leaks with the token. Launched Aug 15; ~300x from launch pool; $13.7M mcap; GoPlus clean;</p>
-<p>$1.3M liq vs $19M daily vol (churn 14.8 — hot).</p>
-<p>Verdict: strongest narrative structure measured this cycle (real cross-domain catalyst</p>
-<p>stream + 67-100% daily new-author share) at the worst possible entry (day-7, post-10x,</p>
-<p>71%-bull/4%-bear euphoria print). No chase. Stalk: H9 flush(-40%)+base+reclaim, or the</p>
-<p>automatic ladder alert on a MEXC/Gate listing (H8 rung). Kill switch: leaker goes dark /</p>
-<p>takedown — one headline, can fire at 4am.</p>
-<p>Measured findings:</p>
-<ul>
-<li>Two streams: plain-name (gaming) conversation is 4x the cashtag stream and carries the</li>
-</ul>
-<p>  narrative (79% leak+culture); the crypto stream is 32% price-plumbing and structurally late.</p>
-<ul>
-<li>H12 lead chain (Aug 22): gaming-media viral wave 09:24-10:32 (65k-like tweet) -> +60%</li>
-</ul>
-<p>  price bin at 12:00 -> cashtag crowd 16:00+. Outside stream led price by 1-3h, led crypto</p>
-<p>  Twitter by 5-8h. Follow-on leaks only: the original Aug 18 leak ignited everything at once.</p>
-<ul>
-<li>All aggregate flows LAG: sentiment/mentions/whale-trackers/listing-chat all negative vs</li>
-</ul>
-<p>  forward returns; attention-record bin marked the local top (-20% next bin).</p>
-<ul>
-<li>Quadrant test: price-up + mentions-DOWN (quiet strength) was the best forward config</li>
-</ul>
-<p>  (median +25%/12h, 83% hit, n=6); the popular price+mentions confluence was worst (+1.9%, 50%).</p>
-<ul>
-<li>Shakeout micro-pattern: stagnation -> sentiment bleed -> max-bear bin (net -20, bear 47%,</li>
-</ul>
-<p>  Aug 21 16:00) -> vertical 20h later. Second occurrence of the family (PEPE daily was first).</p>
-<p>Significant tweets timeline (news-wise, UTC) — leaks, media pickups,</p>
-<p>large-account arrivals; price talk excluded:</p>
-<ul>
-<li>Aug 18 18:44 LEAK @porquehaybardo (56k f, 358 eng, gaming): Porque a Rockstar se le siguen filtrando videos de GTA 6, los fragmentos serían de hace años, un chavalin llam</li>
-<li>Aug 18 18:44 MEDIA @saudigamer (518k f, 245 eng, media): 🚨🚨🚨🚨🚨  مخاوف من تكرار سيناريو The Last of Us 2؟😯  🔹إذ تم تسريب أهم لقطات القصة (مصير جول) قبل إصدار لعبة The L</li>
-<li>Aug 18 18:46 CULTURE @lowcychin (45k f, 1236 eng, general): @NikTek Cyberleek right now: https://t.co/W4HOmFPX0D</li>
-<li>Aug 18 18:46 CULTURE @jaumbuticaba (0k f, 5231 eng, gaming): O cara vai vazar o jogo todo em protesto ao fim da mídia física.  Cyberleek é um herói. https://t.co/dpT1KLQme</li>
-<li>Aug 18 18:50 LEAK @MrAhmedBrown (54k f, 674 eng, media): قصة Gta6 وسبب التسريب اللي طلع قديم 🙆🏿‍♂️  خلف الموضوع Cyberleek عصابة جديدة طلعت حرفيا مع تسريبات اليوم  سبب </li>
-<li>Aug 18 18:52 CULTURE @orenjixbt (20k f, 277 eng, gaming): cyberleek will be part of GTA 6 history.</li>
-<li>Aug 18 18:56 LEAK @KifflomGames (15k f, 37950 eng, media): 🚨/ Última Hora:  Comunicado Oficial de Cyberleek, el grupo detrás de la nueva filtración de GTA VI donde exige</li>
-<li>Aug 18 18:57 CULTURE @TheTrueMisterC (0k f, 155 eng, general): @SrLinguicaVIVE Cyberleek, nem te conheço mas já te considero pacas https://t.co/nmMtmLc2R7</li>
-<li>Aug 18 18:59 MEDIA @NotSoEasyMoney (147k f, 108 eng, media): DID GTA6 JUST GET LEAKED!?!   That is what many people believe.   After hacker group "Cyber Leek" launched a w</li>
-<li>Aug 18 19:05 CULTURE @Flint_C0ckwood (0k f, 289 eng, gaming): @NikTek Cyberleek the goat https://t.co/xl4shClEHx</li>
-<li>Aug 18 19:08 CULTURE @MatiXE03 (0k f, 6270 eng, general): @KifflomGames Cyberleek de la mismísima nada (lo recontramil re banco): https://t.co/MDKslJ3l45</li>
-<li>Aug 18 19:10 MEDIA @GGamingAR (126k f, 68 eng, media): 🚨 مجموعة Cyberleek تعلن مسؤوليتها عن تسريبات GTA 6  🔸 لا للطلبات المسبقة الرقمية 🔸 لا لإصدار DLC وهمي للطور ال</li>
-<li>Aug 18 19:11 CULTURE @conkerax (70k f, 1229 eng, gaming): Cyberleek en mode #NoCDNoGTAVI 💿</li>
-<li>Aug 18 19:12 LEAK @SucumbaGames (112k f, 2403 eng, media): Hacker que está vazando várias coisas de GTA VI está fazendo isso forma de protesto contra a Rockstar e a favo</li>
-<li>Aug 18 19:12 MEDIA @clashreport (877k f, 257 eng, media): GTA 6 leak today: Gameplay footage and map screenshots surfaced from a group called “Cyberleek,” claiming to p</li>
-<li>Aug 18 19:13 LEAK @academiadgamers (39k f, 6071 eng, media): Cyberleek, responsável pelos supostos vazamentos do mapa e de gameplays de GTA VI, afirmou que não pretende pa</li>
-<li>Aug 18 19:17 LEAK @GatorKeys_ (1k f, 518 eng, media): Rockstar will not give in to the demands from "Cyberleek".  We’re a week away from the GTA 6 Extended Look. On</li>
-<li>Aug 18 19:30 MEDIA @playb0y4L (8k f, 281 eng, gaming): The hacker group “Cyberleek” is reportedly claiming responsibility for the GTA VI leak, allegedly because Rock</li>
-<li>Aug 18 19:33 LEAK @demarkegaming (120k f, 196 eng, media): GTA 6 sızıntılarının arkasındaki Cyberleek, Rockstar Games kamuoyundan özür dileyene kadar sızıntılara devam e</li>
-<li>Aug 18 19:39 CULTURE @DailyInterw6ac (1k f, 162 eng, media): C'mon cyberleek give us more leaks related to Gta 6 man.</li>
-<li>Aug 18 19:40 MEDIA @halt_addicted (4k f, 1087 eng, gaming): Cyberleek just turned GTA 6 into today’s biggest gaming drama 👀  Alleged gameplay, map leaks, new mechanics - </li>
-<li>Aug 18 19:46 LEAK @gamingskew (3k f, 202 eng, crypto): Message from Cyberleek to GTA VI’s games and rockstar here is the reason why he did it https://t.co/TFRlF94DY2</li>
-<li>Aug 18 19:57 LEAK @3DJuegosLATAM (78k f, 499 eng, media): ¡TODO ES POR EL FORMATO FÍSICO!  Cyberleek, señalado como la persona detrás de la supuesta filtración del mapa</li>
-<li>Aug 18 20:03 LEAK @HadesPlays_ (24k f, 2693 eng, gaming): Comunicado Oficial da Cyberleek que vazou o GTA 6!  O grupo por trás da nova filtragem de GTA VI, Cyberleek, e</li>
-<li>Aug 18 20:07 LEAK @videotech (218k f, 9934 eng, media): The leaking group 'CYBERLEEK' threatens companies such as Sony due to all-digital future. https://t.co/fHcji1K</li>
-<li>Aug 18 20:11 LEAK @RinoTheBouncer (98k f, 895 eng, media): Grand Theft Auto VI leaker issues a statement threatening Rockstar and other publishers to abide by their “thr</li>
-<li>Aug 18 20:16 CULTURE @GFSN1414 (0k f, 289 eng, gaming): @Pirat_Nation Cyberleek https://t.co/7rg6qThT0N</li>
-<li>Aug 18 20:22 LEAK @N4ZVIK (2k f, 164 eng, gaming): سالفة تسريبات GTA 6 اليوم شكلها أكبر من مجرد مقطع مفبرك وانتهينا منه 👎🏼👎🏼  قبل شوي بدت تنتشر مقاطع ترجع لمجموع</li>
-<li>Aug 18 20:32 LEAK @michaelpcmaster (22k f, 670 eng, gaming): Ojooooo!! Se filtró gameplay del GTA VI, así como el mapa entero del juego, el material es real (no es IA) y p</li>
-<li>Aug 18 20:32 MEDIA @MovistareSports (149k f, 1071 eng, media): 🟣 Cyberleek, quien se atribuye las nuevas filtraciones de GTA 6, explica los motivos detrás de sus acciones:  </li>
-</ul></div>
+<div class="panel md"><h2>Snapshot</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What it is</td>
+<td>Solana memecoin tied to an <strong>active GTA 6 leaker</strong> who signs each leak with the token (writes "LEEK" in-game, embeds $CYBERLEEK in watermarks)</td>
+</tr>
+<tr>
+<td>Launched</td>
+<td>Aug 15 2026, 21:00 UTC</td>
+</tr>
+<tr>
+<td>Move</td>
+<td>~$0.000045 → ~$0.019–0.027 (<strong>400x+ from first traded bar</strong>)</td>
+</tr>
+<tr>
+<td>Mcap / liquidity</td>
+<td>~$13.7M–27M / $1.3M — churn 14.8 (hot end of our band)</td>
+</tr>
+<tr>
+<td>Contract</td>
+<td>GoPlus <strong>clean</strong> — no mint authority, no freeze, no honeypot</td>
+</tr>
+<tr>
+<td>Social corpus</td>
+<td>4,269 tweets, 2,961 unique authors, two streams</td>
+</tr>
+</tbody>
+</table>
+<h2>Verdict</h2>
+<p><strong>Strongest narrative structure measured this cycle, at the worst possible entry.</strong></p>
+<p>The good: a real cross-domain catalyst stream (gaming media, not just CT), 67–100%
+daily new-author share, engagement-per-mention <em>rising</em> into the vertical (18 → 31),
+copy-paste share only 2–4%, whales resident from day one.</p>
+<p>The bad: day-7 entry after a 400x, euphoria sentiment print (71% bull / 4% bear),
+thin exit liquidity, and a <strong>single-headline kill switch</strong> — the catalyst is a person
+committing an ongoing crime against Take-Two. The last major GTA6 leaker was arrested.</p>
+<p><strong>No chase. Stalk:</strong> H9 flush(−40%) + base + reclaim, or the automatic ladder alert
+if it lists on MEXC/Gate (H8 rung). <strong>Invalidation to write down now:</strong> leaker goes
+dark or takedown — can fire at 4am.</p>
+<h2>How the story broke</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>When</th>
+<th>What happened</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Launch</td>
+<td>Aug 15 21:00</td>
+<td>Token created; ~$109k volume day one, no attention</td>
+</tr>
+<tr>
+<td><strong>Ignition</strong></td>
+<td><strong>Aug 18 17:00–19:00</strong></td>
+<td>Leak drops. Within 10 minutes gaming media in <strong>4 languages</strong> posts it: @saudigamer (518k), Spanish, Portuguese, Arabic accounts. Price +2,241% in one 4h bin</td>
+</tr>
+<tr>
+<td>Consolidation</td>
+<td>Aug 19–21</td>
+<td>Price flat/−1%; sentiment bleeds, bears rise 15%→21%, big accounts halve</td>
+</tr>
+<tr>
+<td><strong>Shakeout</strong></td>
+<td><strong>Aug 21 16:00</strong></td>
+<td>Worst sentiment bin of its life: net −20, bear 47%</td>
+</tr>
+<tr>
+<td><strong>Vertical</strong></td>
+<td><strong>Aug 22 09:24–20:00</strong></td>
+<td>Gaming-media wave (65k-like tweet 10:32) → +60% bin at 12:00 → +191% at 16:00 → crypto crowd arrives 16:00+ → attention record 20:00 = local top (−20% next bin)</td>
+</tr>
+</tbody>
+</table>
+<h2>Measured findings</h2>
+<p><strong>Two streams, two different conversations</strong>
+- Plain-name (gaming) stream is <strong>4x</strong> the cashtag stream and carries the narrative: 79% leak-content + culture
+- Cashtag (crypto) stream is 32% price-plumbing — charts, whale bots, listing spec — and is structurally <strong>late</strong></p>
+<p><strong>H12 lead chain (Aug 22, timestamped)</strong>
+- Outside stream led price by <strong>1–3h</strong>, led crypto Twitter by <strong>5–8h</strong>
+- Only true for <em>follow-on</em> leaks: the original Aug 18 event ignited everything at once</p>
+<p><strong>All aggregate flows LAG</strong>
+- Sentiment, mention counts, whale-trackers, listing-chat: all negatively correlated with forward returns
+- The attention-record bin marked the local top (−20% next bin)
+- Quadrant test: price-up + mentions-DOWN ("quiet strength") was the <em>best</em> forward config (median +25%/12h, 83% hit, n=6); the intuitive price+mentions confluence was the <em>worst</em> (+1.9%, 50%)</p>
+<p><strong>Shakeout micro-pattern (2nd occurrence of the family; PEPE daily was 1st)</strong>
+- Stagnation → sentiment bleed → max-bear bin → vertical ~20h later</p>
+<p><strong>Who talks, and when (domain x size, 2,961 accounts classified)</strong>
+- Ignition (Aug 18): gaming-retail 37%, general 19%, media 17% — <em>the outside world</em>
+- Pre-leg (Aug 22 08–12): <strong>crypto-retail 74%</strong> — degens positioning in the quiet hours
+- Vertical (Aug 22 12–20): crypto-retail 72% + bots 13% — chasing</p>
+<h2>News events vs price — what actually moved it</h2>
+<p>170 news-significant posts (leaks, media pickups, large accounts; price-talk excluded)
+matched to price at post time and forward moves. Medians:</p>
+<table>
+<thead>
+<tr>
+<th>Event type</th>
+<th>n</th>
+<th>+1h</th>
+<th>+4h</th>
+<th>+24h</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MEDIA pickup</strong></td>
+<td>31</td>
+<td><strong>+1.2%</strong></td>
+<td><strong>+21.4%</strong></td>
+<td>−14.5%</td>
+</tr>
+<tr>
+<td>LEAK content</td>
+<td>91</td>
+<td>−7.6%</td>
+<td>−2.9%</td>
+<td>−2.5%</td>
+</tr>
+<tr>
+<td>CULTURE</td>
+<td>47</td>
+<td>−0.9%</td>
+<td>−1.2%</td>
+<td>−10.5%</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Poster domain</th>
+<th>n</th>
+<th>+1h</th>
+<th>+4h</th>
+<th>+24h</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>crypto-native</strong></td>
+<td>12</td>
+<td><strong>+11.2%</strong></td>
+<td><strong>+15.7%</strong></td>
+<td>+2.8%</td>
+</tr>
+<tr>
+<td>gaming</td>
+<td>58</td>
+<td>+0.1%</td>
+<td>+4.4%</td>
+<td>+5.5%</td>
+</tr>
+<tr>
+<td>general</td>
+<td>16</td>
+<td>−0.2%</td>
+<td>−2.1%</td>
+<td>−19.1%</td>
+</tr>
+<tr>
+<td>media</td>
+<td>83</td>
+<td>−9.1%</td>
+<td>−12.1%</td>
+<td>−14.5%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Read carefully — this is a timing artifact, not a contradiction.</strong> Individual media
+posts show negative forward moves because most of them <em>cluster after</em> a move has
+happened (they are reporting it). The MEDIA <em>type</em> aggregate at +4h (+21.4%) captures
+the genuine pickup wave. The crypto-native +11.2%/1h reflects the small group of CT
+accounts who post at the very start of a leg. Everything here is n=1 token, one week,
+heavily overlapping windows — treat as descriptive, not a rule.</p>
+<p><strong>The one robust takeaway:</strong> the events that mattered were external (leaks, media
+pickups), and the tokens' own crypto conversation was a <em>reaction</em> to them.</p></div>
+
+<div class="panel"><details class="log"><summary>▸ Full news event log — all 170 events
+with price at post time and +1h / +4h / +24h moves</summary>
+<div class="logwrap md"><table>
+<thead>
+<tr>
+<th>When (UTC)</th>
+<th>Type</th>
+<th>Account</th>
+<th>Reach</th>
+<th>Eng</th>
+<th>Price</th>
+<th>+1h</th>
+<th>+4h</th>
+<th>+24h</th>
+<th>What happened</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aug 18 18:44</td>
+<td>LEAK</td>
+<td>@porquehaybardo</td>
+<td>56k</td>
+<td>358</td>
+<td>$0.00213</td>
+<td>-9%</td>
+<td>+56%</td>
+<td>-19%</td>
+<td>Porque a Rockstar se le siguen filtrando videos de GTA 6, los fragmentos serían de hace años, u</td>
+</tr>
+<tr>
+<td>Aug 18 18:44</td>
+<td>MEDIA</td>
+<td>@saudigamer</td>
+<td>518k</td>
+<td>245</td>
+<td>$0.00213</td>
+<td>-9%</td>
+<td>+56%</td>
+<td>-19%</td>
+<td>🚨🚨🚨🚨🚨  مخاوف من تكرار سيناريو The Last of Us 2؟😯  🔹إذ تم تسريب أهم لقطات القصة (مصير جول) قبل إ</td>
+</tr>
+<tr>
+<td>Aug 18 18:46</td>
+<td>CULTURE</td>
+<td>@lowcychin</td>
+<td>45k</td>
+<td>1236</td>
+<td>$0.00213</td>
+<td>-9%</td>
+<td>+56%</td>
+<td>-19%</td>
+<td>@NikTek Cyberleek right now: https://t.co/W4HOmFPX0D</td>
+</tr>
+<tr>
+<td>Aug 18 18:46</td>
+<td>CULTURE</td>
+<td>@jaumbuticaba</td>
+<td>0k</td>
+<td>5231</td>
+<td>$0.00213</td>
+<td>-9%</td>
+<td>+56%</td>
+<td>-19%</td>
+<td>O cara vai vazar o jogo todo em protesto ao fim da mídia física.  Cyberleek é um herói. https:/</td>
+</tr>
+<tr>
+<td>Aug 18 18:50</td>
+<td>LEAK</td>
+<td>@MrAhmedBrown</td>
+<td>54k</td>
+<td>674</td>
+<td>$0.00213</td>
+<td>-9%</td>
+<td>+56%</td>
+<td>-19%</td>
+<td>قصة Gta6 وسبب التسريب اللي طلع قديم 🙆🏿‍♂️  خلف الموضوع Cyberleek عصابة جديدة طلعت حرفيا مع تسري</td>
+</tr>
+<tr>
+<td>Aug 18 18:52</td>
+<td>CULTURE</td>
+<td>@orenjixbt</td>
+<td>20k</td>
+<td>277</td>
+<td>$0.00213</td>
+<td>-9%</td>
+<td>+56%</td>
+<td>-19%</td>
+<td>cyberleek will be part of GTA 6 history.</td>
+</tr>
+<tr>
+<td>Aug 18 18:56</td>
+<td>LEAK</td>
+<td>@KifflomGames</td>
+<td>15k</td>
+<td>37950</td>
+<td>$0.00213</td>
+<td>-9%</td>
+<td>+56%</td>
+<td>-19%</td>
+<td>🚨/ Última Hora:  Comunicado Oficial de Cyberleek, el grupo detrás de la nueva filtración de GTA</td>
+</tr>
+<tr>
+<td>Aug 18 19:05</td>
+<td>CULTURE</td>
+<td>@Flint_C0ckwood</td>
+<td>0k</td>
+<td>289</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>@NikTek Cyberleek the goat https://t.co/xl4shClEHx</td>
+</tr>
+<tr>
+<td>Aug 18 19:08</td>
+<td>CULTURE</td>
+<td>@MatiXE03</td>
+<td>0k</td>
+<td>6270</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>@KifflomGames Cyberleek de la mismísima nada (lo recontramil re banco): https://t.co/MDKslJ3l45</td>
+</tr>
+<tr>
+<td>Aug 18 19:11</td>
+<td>CULTURE</td>
+<td>@conkerax</td>
+<td>70k</td>
+<td>1229</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>Cyberleek en mode #NoCDNoGTAVI 💿</td>
+</tr>
+<tr>
+<td>Aug 18 19:12</td>
+<td>LEAK</td>
+<td>@SucumbaGames</td>
+<td>112k</td>
+<td>2403</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>Hacker que está vazando várias coisas de GTA VI está fazendo isso forma de protesto contra a Ro</td>
+</tr>
+<tr>
+<td>Aug 18 19:12</td>
+<td>MEDIA</td>
+<td>@clashreport</td>
+<td>877k</td>
+<td>257</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>GTA 6 leak today: Gameplay footage and map screenshots surfaced from a group called “Cyberleek,</td>
+</tr>
+<tr>
+<td>Aug 18 19:13</td>
+<td>LEAK</td>
+<td>@academiadgamers</td>
+<td>39k</td>
+<td>6071</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>Cyberleek, responsável pelos supostos vazamentos do mapa e de gameplays de GTA VI, afirmou que</td>
+</tr>
+<tr>
+<td>Aug 18 19:17</td>
+<td>LEAK</td>
+<td>@GatorKeys_</td>
+<td>1k</td>
+<td>518</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>Rockstar will not give in to the demands from "Cyberleek".  We’re a week away from the GTA 6 Ex</td>
+</tr>
+<tr>
+<td>Aug 18 19:30</td>
+<td>MEDIA</td>
+<td>@playb0y4L</td>
+<td>8k</td>
+<td>281</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>The hacker group “Cyberleek” is reportedly claiming responsibility for the GTA VI leak, alleged</td>
+</tr>
+<tr>
+<td>Aug 18 19:40</td>
+<td>MEDIA</td>
+<td>@halt_addicted</td>
+<td>4k</td>
+<td>1087</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>Cyberleek just turned GTA 6 into today’s biggest gaming drama 👀  Alleged gameplay, map leaks, n</td>
+</tr>
+<tr>
+<td>Aug 18 19:46</td>
+<td>LEAK</td>
+<td>@gamingskew</td>
+<td>3k</td>
+<td>202</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>Message from Cyberleek to GTA VI’s games and rockstar here is the reason why he did it https://</td>
+</tr>
+<tr>
+<td>Aug 18 19:57</td>
+<td>LEAK</td>
+<td>@3DJuegosLATAM</td>
+<td>78k</td>
+<td>499</td>
+<td>$0.00194</td>
+<td>-15%</td>
+<td>+70%</td>
+<td>-20%</td>
+<td>¡TODO ES POR EL FORMATO FÍSICO!  Cyberleek, señalado como la persona detrás de la supuesta filt</td>
+</tr>
+<tr>
+<td>Aug 18 20:03</td>
+<td>LEAK</td>
+<td>@HadesPlays_</td>
+<td>24k</td>
+<td>2693</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>Comunicado Oficial da Cyberleek que vazou o GTA 6!  O grupo por trás da nova filtragem de GTA V</td>
+</tr>
+<tr>
+<td>Aug 18 20:07</td>
+<td>LEAK</td>
+<td>@videotech</td>
+<td>218k</td>
+<td>9934</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>The leaking group 'CYBERLEEK' threatens companies such as Sony due to all-digital future. https</td>
+</tr>
+<tr>
+<td>Aug 18 20:11</td>
+<td>LEAK</td>
+<td>@RinoTheBouncer</td>
+<td>98k</td>
+<td>895</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>Grand Theft Auto VI leaker issues a statement threatening Rockstar and other publishers to abid</td>
+</tr>
+<tr>
+<td>Aug 18 20:16</td>
+<td>CULTURE</td>
+<td>@GFSN1414</td>
+<td>0k</td>
+<td>289</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>@Pirat_Nation Cyberleek https://t.co/7rg6qThT0N</td>
+</tr>
+<tr>
+<td>Aug 18 20:32</td>
+<td>LEAK</td>
+<td>@michaelpcmaster</td>
+<td>22k</td>
+<td>670</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>Ojooooo!! Se filtró gameplay del GTA VI, así como el mapa entero del juego, el material es real</td>
+</tr>
+<tr>
+<td>Aug 18 20:32</td>
+<td>MEDIA</td>
+<td>@MovistareSports</td>
+<td>149k</td>
+<td>1071</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>🟣 Cyberleek, quien se atribuye las nuevas filtraciones de GTA 6, explica los motivos detrás de</td>
+</tr>
+<tr>
+<td>Aug 18 20:33</td>
+<td>CULTURE</td>
+<td>@GLZK7693</td>
+<td>1k</td>
+<td>434</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>@NikTek Cyberleek the next day in Rockstar Headquarters if they do not give an apology: https:/</td>
+</tr>
+<tr>
+<td>Aug 18 20:35</td>
+<td>MEDIA</td>
+<td>@MarioNawfal</td>
+<td>3863k</td>
+<td>75</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>More alleged GTA 6 gameplay and screenshots of the Leonida map are circulating online, this tim</td>
+</tr>
+<tr>
+<td>Aug 18 20:35</td>
+<td>LEAK</td>
+<td>@MrMrKlNG</td>
+<td>202k</td>
+<td>33</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>🚨🚨نشر CYBERLEEK المسرب للقطات GTA 6 بيان كامل يوضح فيه «وصاياه الثلاث» ضد ناشري الألعاب  1️⃣ مم</td>
+</tr>
+<tr>
+<td>Aug 18 20:43</td>
+<td>MEDIA</td>
+<td>@InfoXbox_</td>
+<td>2k</td>
+<td>9192</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>🚨 / INFORMACIÓN ACTUALIZADA SOBRE EL CASO DE LOS LEAKS DE GTA 6.  ◽Rockstar y Take Two están bo</td>
+</tr>
+<tr>
+<td>Aug 18 20:48</td>
+<td>MEDIA</td>
+<td>@CryptoGorilla</td>
+<td>172k</td>
+<td>390</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>Unreleased GTA6 footage was just leaked by Cyberleeks  Alongside a $CYBERLEEK memecoin  Here's</td>
+</tr>
+<tr>
+<td>Aug 18 20:51</td>
+<td>LEAK</td>
+<td>@Aidavalraven</td>
+<td>5k</td>
+<td>402</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>لیکر GTA VI یعنی CYBERLEEK گفته به لیک کردنش ادامه میده تا وقتی که راکستار و بقیه ناشرا بابت سی</td>
+</tr>
+<tr>
+<td>Aug 18 20:52</td>
+<td>MEDIA</td>
+<td>@Rockstar_Mag</td>
+<td>64k</td>
+<td>677</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>Les leaks de ce soir proviendrait d’un hackeur nommé Cyberleek. Il s’en prend à Rockstar et men</td>
+</tr>
+<tr>
+<td>Aug 18 20:52</td>
+<td>LEAK</td>
+<td>@EndymionYT</td>
+<td>38k</td>
+<td>709</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>CYBERLEEK vows to leak anything the games industry is making if they don’t respect gamers more</td>
+</tr>
+<tr>
+<td>Aug 18 20:54</td>
+<td>CULTURE</td>
+<td>@Chris_Klippel</td>
+<td>26k</td>
+<td>452</td>
+<td>$0.00164</td>
+<td>+5%</td>
+<td>+46%</td>
+<td>-14%</td>
+<td>Le mouv’ est totalement débile. Tu veux lutter contre des décisionnaires et de grandes entrepri</td>
+</tr>
+<tr>
+<td>Aug 18 21:00</td>
+<td>LEAK</td>
+<td>@TendenciasMX</td>
+<td>160k</td>
+<td>656</td>
+<td>$0.00173</td>
+<td>+93%</td>
+<td>+17%</td>
+<td>-28%</td>
+<td>Rockstar : Un grupo de hackers llamado Cyberleek ha filtrado mucho contenido de GTA VI y lo seg</td>
+</tr>
+<tr>
+<td>Aug 18 21:08</td>
+<td>LEAK</td>
+<td>@NotiPlay_</td>
+<td>130k</td>
+<td>4983</td>
+<td>$0.00173</td>
+<td>+93%</td>
+<td>+17%</td>
+<td>-28%</td>
+<td>A ver, para no saturarlos de posts, haré uno recopilando toda la información que ha salido dura</td>
+</tr>
+<tr>
+<td>Aug 18 21:20</td>
+<td>MEDIA</td>
+<td>@Polygon</td>
+<td>1227k</td>
+<td>32</td>
+<td>$0.00173</td>
+<td>+93%</td>
+<td>+17%</td>
+<td>-28%</td>
+<td>'GTA 6' Hackers Say New Gameplay Leak Is Retaliation Against Rockstar Games https://t.co/Qw9fAD</td>
+</tr>
+<tr>
+<td>Aug 18 21:34</td>
+<td>MEDIA</td>
+<td>@TechTudo</td>
+<td>808k</td>
+<td>104</td>
+<td>$0.00173</td>
+<td>+93%</td>
+<td>+17%</td>
+<td>-28%</td>
+<td>Um novo vazamento de GTA 6 começou a circular nas redes sociais, nesta terça-feira (18), e pode</td>
+</tr>
+<tr>
+<td>Aug 18 21:38</td>
+<td>LEAK</td>
+<td>@Ataritacom</td>
+<td>55k</td>
+<td>209</td>
+<td>$0.00173</td>
+<td>+93%</td>
+<td>+17%</td>
+<td>-28%</td>
+<td>GTA 6 sızıntılarını yapan CyberLeek, 2 veya 4 sızıntının daha geleceğini söyledi. https://t.co/</td>
+</tr>
+<tr>
+<td>Aug 18 21:52</td>
+<td>CULTURE</td>
+<td>@ReaperGYATT</td>
+<td>0k</td>
+<td>511</td>
+<td>$0.00173</td>
+<td>+93%</td>
+<td>+17%</td>
+<td>-28%</td>
+<td>Rockstar employee finally meeting cyberleek #GTA6 #Rockstar #Cyberleek https://t.co/ZwwcyZwov2</td>
+</tr>
+<tr>
+<td>Aug 18 21:55</td>
+<td>CULTURE</td>
+<td>@sfvuk</td>
+<td>0k</td>
+<td>747</td>
+<td>$0.00173</td>
+<td>+93%</td>
+<td>+17%</td>
+<td>-28%</td>
+<td>Rockstar Games when they get their hands on Cyberleek: https://t.co/OSiBu1DR3U</td>
+</tr>
+<tr>
+<td>Aug 18 22:24</td>
+<td>DISCOVERY</td>
+<td>@InspectorMNBL</td>
+<td>17k</td>
+<td>242</td>
+<td>$0.00332</td>
+<td>-1%</td>
+<td>-49%</td>
+<td>-62%</td>
+<td>GTA 6 gameplay leaked it finally happened… but is it real?  Cyberleek did it and they have a to</td>
+</tr>
+<tr>
+<td>Aug 18 22:33</td>
+<td>MEDIA</td>
+<td>@TheInsiderPaper</td>
+<td>482k</td>
+<td>61</td>
+<td>$0.00332</td>
+<td>-1%</td>
+<td>-49%</td>
+<td>-62%</td>
+<td>NEW: GTA 6 leaker Cyberleek threatens more leaks after gameplay and map reveal  https://t.co/Q5</td>
+</tr>
+<tr>
+<td>Aug 18 22:51</td>
+<td>CULTURE</td>
+<td>@bloomjpg</td>
+<td>8k</td>
+<td>3477</td>
+<td>$0.00332</td>
+<td>-1%</td>
+<td>-49%</td>
+<td>-62%</td>
+<td>xQc goes OFF on GTA 6 leaker "CyberLeek" saying he's not a real gamer 😳👀  "If you're a leaker,</td>
+</tr>
+<tr>
+<td>Aug 18 23:01</td>
+<td>LEAK</td>
+<td>@politicalpen_</td>
+<td>14k</td>
+<td>326</td>
+<td>$0.00329</td>
+<td>-27%</td>
+<td>-59%</td>
+<td>-65%</td>
+<td>New GTA 6 Gameplay and Map Leak Online  A hacker group named "Cyberleek" leaked new GTA 6 gamep</td>
+</tr>
+<tr>
+<td>Aug 18 23:40</td>
+<td>LEAK</td>
+<td>@IntCyberDigest</td>
+<td>207k</td>
+<td>681</td>
+<td>$0.00329</td>
+<td>-27%</td>
+<td>-59%</td>
+<td>-65%</td>
+<td>‼️BREAKING: An actor named CyberLeek is leaking gameplay footage of the unreleased game GTA VI</td>
+</tr>
+<tr>
+<td>Aug 18 23:42</td>
+<td>LEAK</td>
+<td>@GTA_VI_6_</td>
+<td>9k</td>
+<td>12713</td>
+<td>$0.00329</td>
+<td>-27%</td>
+<td>-59%</td>
+<td>-65%</td>
+<td>Give us more cyberleek! https://t.co/JxDwNr0hgJ</td>
+</tr>
+<tr>
+<td>Aug 19 03:18</td>
+<td>MEDIA</td>
+<td>@CryptoGorilla</td>
+<td>172k</td>
+<td>245</td>
+<td>$0.00136</td>
+<td>+14%</td>
+<td>+25%</td>
+<td>-51%</td>
+<td>What you missed today in memecoins, August 18th  - $CYBERLEEK leaked GTA6 footage with a manife</td>
+</tr>
+<tr>
+<td>Aug 19 10:01</td>
+<td>LEAK</td>
+<td>@MrMrKlNG</td>
+<td>202k</td>
+<td>43</td>
+<td>$0.00127</td>
+<td>+25%</td>
+<td>+55%</td>
+<td>-17%</td>
+<td>المسرب يغرد من جديد..  روك ستار ما عاد عندكم مجال للانتظار اليوم.. الوقت قاعد ينفد، يا تلَبّون</td>
+</tr>
+<tr>
+<td>Aug 19 11:12</td>
+<td>CULTURE</td>
+<td>@cryptoadina</td>
+<td>205k</td>
+<td>89</td>
+<td>$0.00159</td>
+<td>+8%</td>
+<td>+6%</td>
+<td>-13%</td>
+<td>Who is holding $CYBERLEEK 👀</td>
+</tr>
+<tr>
+<td>Aug 19 14:44</td>
+<td>CULTURE</td>
+<td>@CryptoAlanReal</td>
+<td>73k</td>
+<td>239</td>
+<td>$0.00197</td>
+<td>-15%</td>
+<td>-13%</td>
+<td>-47%</td>
+<td>THE CYBERLEEK SIGNAL IS LIVE  $CYBERLEEK is bringing a different energy to Solana.  A memorable</td>
+</tr>
+<tr>
+<td>Aug 19 18:22</td>
+<td>MEDIA</td>
+<td>@SucumbaGames</td>
+<td>112k</td>
+<td>1573</td>
+<td>$0.00172</td>
+<td>-10%</td>
+<td>-27%</td>
+<td>-43%</td>
+<td>Já fazem mais de 24 horas desde que o 1° novo vazamento de GTA 6 aconteceu, ontem por volta das</td>
+</tr>
+<tr>
+<td>Aug 19 18:22</td>
+<td>CULTURE</td>
+<td>@themindfulthink</td>
+<td>0k</td>
+<td>643</td>
+<td>$0.00172</td>
+<td>-10%</td>
+<td>-27%</td>
+<td>-43%</td>
+<td>Cyberleek 13 seconds before the FBI kicks his front door in https://t.co/0lNy7RGBga</td>
+</tr>
+<tr>
+<td>Aug 19 18:36</td>
+<td>LEAK</td>
+<td>@PaiaoGamesYT</td>
+<td>0k</td>
+<td>20227</td>
+<td>$0.00172</td>
+<td>-10%</td>
+<td>-27%</td>
+<td>-43%</td>
+<td>Essa é a única cutscene presente nos vazamentos do GTA 6  Cyberleek tá tirando sarro da rocksta</td>
+</tr>
+<tr>
+<td>Aug 19 18:59</td>
+<td>CULTURE</td>
+<td>@NelsonSpencerZ</td>
+<td>0k</td>
+<td>34095</td>
+<td>$0.00172</td>
+<td>-10%</td>
+<td>-27%</td>
+<td>-43%</td>
+<td>- Papá, por qué me llamo CyberLeek?  - https://t.co/6Gm1Kx6DRK</td>
+</tr>
+<tr>
+<td>Aug 19 19:03</td>
+<td>LEAK</td>
+<td>@DailyInterw6ac</td>
+<td>1k</td>
+<td>2017</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>After looking closely to all the Gta 6 leaks, I can confirm that all these leaks are "fake" som</td>
+</tr>
+<tr>
+<td>Aug 19 19:37</td>
+<td>LEAK</td>
+<td>@CartoonsOTMoon</td>
+<td>198k</td>
+<td>41083</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>Cyberleek (el hacker de GTA 6) filtró una escena solo para hacer una autorreferencia:  💬 Jason:</td>
+</tr>
+<tr>
+<td>Aug 19 19:38</td>
+<td>LEAK</td>
+<td>@MrMrKlNG</td>
+<td>202k</td>
+<td>74</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>مسرب GTA 6 نزل تصويت يسأل فيه المتابعين وش يبغون ينزل لهم  👀  - سيارة بالنهار - سيارة بالليل -</td>
+</tr>
+<tr>
+<td>Aug 19 19:38</td>
+<td>LEAK</td>
+<td>@GTASixInfo</td>
+<td>81k</td>
+<td>7444</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>Cyberleek is currently running a poll on his website of what GTA 6 gameplay to leak next 💀 http</td>
+</tr>
+<tr>
+<td>Aug 19 19:39</td>
+<td>LEAK</td>
+<td>@NotiPlay_</td>
+<td>130k</td>
+<td>4261</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>Cyberleek ha publicado en su página web una encuesta para que los usuarios voten por el próximo</td>
+</tr>
+<tr>
+<td>Aug 19 19:41</td>
+<td>CULTURE</td>
+<td>@GodDemon_Master</td>
+<td>0k</td>
+<td>7034</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>@CartoonsOTMoon Cyberleek después de tener 5 estrellas en la vida real: https://t.co/rlrASDpm4y</td>
+</tr>
+<tr>
+<td>Aug 19 19:49</td>
+<td>CULTURE</td>
+<td>@deltasyn</td>
+<td>0k</td>
+<td>220</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>@Gerard_J_ @GTASixInfo I heard Strauss Zelnick has red strobe light in his office that goes off</td>
+</tr>
+<tr>
+<td>Aug 19 19:49</td>
+<td>LEAK</td>
+<td>@GTAVInewz</td>
+<td>86k</td>
+<td>432</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>Rockstar fans have voted for plane footage to be leaked next.  GTA 6 leaks are expected to incr</td>
+</tr>
+<tr>
+<td>Aug 19 19:59</td>
+<td>LEAK</td>
+<td>@GGamingAR</td>
+<td>126k</td>
+<td>368</td>
+<td>$0.00154</td>
+<td>-9%</td>
+<td>-26%</td>
+<td>-38%</td>
+<td>🚨 Cyberleek يجري تصويتًا على التسريب القادم لـ GTA 6 💀💀  🔸 التصويت يحدد نوع الـGameplay الذي سي</td>
+</tr>
+<tr>
+<td>Aug 19 20:00</td>
+<td>MEDIA</td>
+<td>@Dexerto</td>
+<td>1431k</td>
+<td>21762</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>GTA 6 leaker Cyberleek claims it leaked the game to protest digital pre-orders and paid content</td>
+</tr>
+<tr>
+<td>Aug 19 20:04</td>
+<td>LEAK</td>
+<td>@<em>GTAVI</em></td>
+<td>56k</td>
+<td>11638</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>Cyberleek website has officially been shut down.</td>
+</tr>
+<tr>
+<td>Aug 19 20:09</td>
+<td>CULTURE</td>
+<td>@AdraMgK</td>
+<td>0k</td>
+<td>301</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>@FrenchRapUS Un Hero ce Cyberleek https://t.co/15nTq767v2</td>
+</tr>
+<tr>
+<td>Aug 19 20:10</td>
+<td>LEAK</td>
+<td>@vicecityhelp</td>
+<td>1k</td>
+<td>1537</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>CyberLeek has said he's been using burner phones and laptops to get these leaks out in an attem</td>
+</tr>
+<tr>
+<td>Aug 19 20:10</td>
+<td>LEAK</td>
+<td>@InfoXbox_</td>
+<td>2k</td>
+<td>1318</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>CYBERLEEK hizo una encuesta sobre la siguiente filtración. 💀💀💀  La sección de votaciones en su</td>
+</tr>
+<tr>
+<td>Aug 19 20:11</td>
+<td>LEAK</td>
+<td>@RinoTheBouncer</td>
+<td>98k</td>
+<td>598</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>RECAP: Rockstar’s GTA 6 leaker CyberLeek are now threatening Sony and other publishers who are</td>
+</tr>
+<tr>
+<td>Aug 19 20:23</td>
+<td>CULTURE</td>
+<td>@gaabrii00_</td>
+<td>0k</td>
+<td>533</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>@CartoonsOTMoon Cyberleek viendo que es el primero en tener las 6 estrellas de gta 6 https://t.</td>
+</tr>
+<tr>
+<td>Aug 19 20:32</td>
+<td>LEAK</td>
+<td>@SucumbaGames</td>
+<td>112k</td>
+<td>1654</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>Cyberleek abriu uma votação pra decidir entre as próximas opções de vazamento (Carro de Dia / C</td>
+</tr>
+<tr>
+<td>Aug 19 20:33</td>
+<td>CULTURE</td>
+<td>@Blabo_64</td>
+<td>0k</td>
+<td>589</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>@NelsonSpencerZ El policía encargado de detener a Cyberleek:  "Es el héroe que los gamers se me</td>
+</tr>
+<tr>
+<td>Aug 19 20:42</td>
+<td>LEAK</td>
+<td>@RRyanMalk</td>
+<td>1k</td>
+<td>274</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>GTA 6 LEAKS GETTING WILD  🗺️GTA 6 map leaked 👀  #Gta #gtavı #gtavıleak #Cyberleaks #Cyberleek h</td>
+</tr>
+<tr>
+<td>Aug 19 20:52</td>
+<td>LEAK</td>
+<td>@FriendlyAaron1</td>
+<td>1k</td>
+<td>717</td>
+<td>$0.00140</td>
+<td>-11%</td>
+<td>-33%</td>
+<td>-25%</td>
+<td>It looks like CyberLeek is from Germany. Unless it's a coincidence, someone with the name Cyber</td>
+</tr>
+<tr>
+<td>Aug 19 21:23</td>
+<td>CULTURE</td>
+<td>@ElFearless_</td>
+<td>0k</td>
+<td>1349</td>
+<td>$0.00125</td>
+<td>+1%</td>
+<td>-44%</td>
+<td>-13%</td>
+<td>@CartoonsOTMoon Cyberleek con Rockstar https://t.co/RuSAmYxI9L</td>
+</tr>
+<tr>
+<td>Aug 19 21:43</td>
+<td>LEAK</td>
+<td>@videotech</td>
+<td>218k</td>
+<td>2885</td>
+<td>$0.00125</td>
+<td>+1%</td>
+<td>-44%</td>
+<td>-13%</td>
+<td>Twitter/X suspended CyberLeek wannabe https://t.co/YSSe5NXHcE</td>
+</tr>
+<tr>
+<td>Aug 19 21:52</td>
+<td>MEDIA</td>
+<td>@DennisWerth_</td>
+<td>59k</td>
+<td>4329</td>
+<td>$0.00125</td>
+<td>+1%</td>
+<td>-44%</td>
+<td>-13%</td>
+<td>Der Hacker "CyberLeek" scheint anscheinend aus Deutschland zu kommen. Er hat Server bei Hetzner</td>
+</tr>
+<tr>
+<td>Aug 19 21:52</td>
+<td>LEAK</td>
+<td>@GTAVI_Countdown</td>
+<td>505k</td>
+<td>2329</td>
+<td>$0.00125</td>
+<td>+1%</td>
+<td>-44%</td>
+<td>-13%</td>
+<td>X has suspended the main account impersonating the GTA 6 leaker.  The website remains active. h</td>
+</tr>
+<tr>
+<td>Aug 19 22:05</td>
+<td>LEAK</td>
+<td>@VicelabsVI</td>
+<td>0k</td>
+<td>2620</td>
+<td>$0.00126</td>
+<td>-10%</td>
+<td>-46%</td>
+<td>+6%</td>
+<td>🚨 CYBERLEEK: “Tomorrow is a big day.”  Cyberleek says the Chips app footage will drop tomorrow,</td>
+</tr>
+<tr>
+<td>Aug 19 22:30</td>
+<td>CULTURE</td>
+<td>@Relaxed008</td>
+<td>1k</td>
+<td>413</td>
+<td>$0.00126</td>
+<td>-10%</td>
+<td>-46%</td>
+<td>+6%</td>
+<td>How Rockstar’s gonna do Cyberleek by the end of the GTA 6 leaks https://t.co/9btPbEfugZ</td>
+</tr>
+<tr>
+<td>Aug 19 22:46</td>
+<td>LEAK</td>
+<td>@vaultofosama</td>
+<td>10k</td>
+<td>542</td>
+<td>$0.00126</td>
+<td>-10%</td>
+<td>-46%</td>
+<td>+6%</td>
+<td>🚨 JUST IN: The GTA 6 Leaking website 'CyberLeek' has quickly added &amp; deleted what seems to</td>
+</tr>
+<tr>
+<td>Aug 19 22:53</td>
+<td>MEDIA</td>
+<td>@InsiderGamingIG</td>
+<td>373k</td>
+<td>302</td>
+<td>$0.00126</td>
+<td>-10%</td>
+<td>-46%</td>
+<td>+6%</td>
+<td>GTA 6 Leaker CYBERLEEK Is Now Making Money From Gameplay Videos https://t.co/JikUFJ7l0R</td>
+</tr>
+<tr>
+<td>Aug 19 23:18</td>
+<td>LEAK</td>
+<td>@Synaptic_UK</td>
+<td>0k</td>
+<td>1022</td>
+<td>$0.00114</td>
+<td>-18%</td>
+<td>-41%</td>
+<td>+33%</td>
+<td>NEW GTA 6 LEAK #gta6 #gtavi #cyberleek https://t.co/fGCOsSXXhm</td>
+</tr>
+<tr>
+<td>Aug 19 23:22</td>
+<td>LEAK</td>
+<td>@GTAnewsJP</td>
+<td>19k</td>
+<td>2242</td>
+<td>$0.00114</td>
+<td>-18%</td>
+<td>-41%</td>
+<td>+33%</td>
+<td>【リーク】GTA6に「リアルマネーと交換できる通貨」が存在か  ・GTA6リーカー「Cyberleek」が新たな情報を主張  ・ゲーム内に特殊な通貨が存在すると説明  ・その通貨は現実のお金</td>
+</tr>
+<tr>
+<td>Aug 20 14:03</td>
+<td>LEAK</td>
+<td>@meuplaystation</td>
+<td>436k</td>
+<td>110</td>
+<td>$0.00105</td>
+<td>+11%</td>
+<td>-7%</td>
+<td>+32%</td>
+<td>O leaker “CYBERLEEK”, que vem divulgando supostos gameplays de GTA VI, também estaria lucrando</td>
+</tr>
+<tr>
+<td>Aug 20 21:00</td>
+<td>LEAK</td>
+<td>@<em>GTAVI</em></td>
+<td>56k</td>
+<td>31413</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>We didn't hear nothing from cyberleek since his last leak 11 hours ago, I give 3 possible reaso</td>
+</tr>
+<tr>
+<td>Aug 20 21:02</td>
+<td>CULTURE</td>
+<td>@GTA6Alerts</td>
+<td>59k</td>
+<td>819</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>POV: Cyberleek leaking the entire GTA 6 build before Rockstar finishes him 💀 https://t.co/eBKCJ</td>
+</tr>
+<tr>
+<td>Aug 20 21:07</td>
+<td>CULTURE</td>
+<td>@ChocoSky69</td>
+<td>0k</td>
+<td>286</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>@Catarino_Jovial cyberleek en estos momentos: https://t.co/hB745a1UFE</td>
+</tr>
+<tr>
+<td>Aug 20 21:08</td>
+<td>CULTURE</td>
+<td>@Nuro_Citrix</td>
+<td>6k</td>
+<td>479</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>🚨 BREAKING:   The GTA VI leaker known as ‘CyberLeek’ has been found and sentenced to 48 hours i</td>
+</tr>
+<tr>
+<td>Aug 20 21:08</td>
+<td>LEAK</td>
+<td>@justxavierisunc</td>
+<td>1k</td>
+<td>3824</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>Cyberleek been TOO quiet  https://t.co/uhrS1PM0c3</td>
+</tr>
+<tr>
+<td>Aug 20 21:09</td>
+<td>CULTURE</td>
+<td>@JASON_DUVAL_VI</td>
+<td>1k</td>
+<td>1845</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>Cyberleek POV after he posted the airplane leak: https://t.co/xevXNTG4Wk</td>
+</tr>
+<tr>
+<td>Aug 20 21:10</td>
+<td>LEAK</td>
+<td>@LukeOBr67404501</td>
+<td>0k</td>
+<td>6487</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>GTA 6 Plane Leak!! #gtavı #gta6 #cyberleek #plane https://t.co/rt8U07SMzg</td>
+</tr>
+<tr>
+<td>Aug 20 21:11</td>
+<td>MEDIA</td>
+<td>@pcgamer</td>
+<td>3490k</td>
+<td>207</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>Who is Cyberleek? What we know about the GTA 6 leaker https://t.co/pbvBgKBKY7</td>
+</tr>
+<tr>
+<td>Aug 20 21:12</td>
+<td>LEAK</td>
+<td>@Subh_Subh_</td>
+<td>1k</td>
+<td>2046</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>CYBERLEEK &amp; #gtavileak https://t.co/ak4en0Bkp6</td>
+</tr>
+<tr>
+<td>Aug 20 21:14</td>
+<td>LEAK</td>
+<td>@vicecityhelp</td>
+<td>1k</td>
+<td>11574</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>CyberLeek has just leaked Jason's Dog in GTA 6  👀   - American Pitbull Mix - Says he's posting</td>
+</tr>
+<tr>
+<td>Aug 20 21:19</td>
+<td>LEAK</td>
+<td>@swishy780</td>
+<td>0k</td>
+<td>479</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>@TheGhostOfHope I don't think they caught him, but his info has leaked. He might be spooked.  (</td>
+</tr>
+<tr>
+<td>Aug 20 21:26</td>
+<td>MEDIA</td>
+<td>@twitchspion</td>
+<td>10k</td>
+<td>9504</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>‼️JUST IN: It is confirmed that the GTA VI Leaker “CyberLeek” was Officially Identified as Rudi</td>
+</tr>
+<tr>
+<td>Aug 20 21:32</td>
+<td>LEAK</td>
+<td>@GTASixInfo</td>
+<td>81k</td>
+<td>8769</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>Cyberleek has been reeeealllll quiet since the plane leak this morning. No activity at all on t</td>
+</tr>
+<tr>
+<td>Aug 20 21:40</td>
+<td>LEAK</td>
+<td>@Gottasaymypiece</td>
+<td>0k</td>
+<td>3420</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>$CYBERLEEK   🎮👾  The latest GTA VI Plane video leak ending with the leaker writing the letters</td>
+</tr>
+<tr>
+<td>Aug 20 21:42</td>
+<td>LEAK</td>
+<td>@NotiPlay_</td>
+<td>130k</td>
+<td>22738</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>Cyberleek no ha vuelto a subir otro clip de GTA 6 desde hace 12 horas.  ¿Será que lo atraparon?</td>
+</tr>
+<tr>
+<td>Aug 20 21:47</td>
+<td>CULTURE</td>
+<td>@Datingandmoney</td>
+<td>1k</td>
+<td>2302</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>@Islandhome4 Cyberleek has a point I’m tired of gaming companies trying to extort me for every</td>
+</tr>
+<tr>
+<td>Aug 20 21:50</td>
+<td>MEDIA</td>
+<td>@DailyInterw6ac</td>
+<td>1k</td>
+<td>7514</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>The Gta 6 leaker named Cyberleek has been captured, the news came just now.</td>
+</tr>
+<tr>
+<td>Aug 20 21:52</td>
+<td>CULTURE</td>
+<td>@charlessmithsgf</td>
+<td>1k</td>
+<td>254</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>guys did cyberleek get kirked yet</td>
+</tr>
+<tr>
+<td>Aug 20 21:56</td>
+<td>CULTURE</td>
+<td>@TheAgentFor</td>
+<td>20k</td>
+<td>420</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>@bgyetherr gta 6'daki muhtemel cyberleek easter egg i https://t.co/C95Cq4p2c6</td>
+</tr>
+<tr>
+<td>Aug 20 21:57</td>
+<td>LEAK</td>
+<td>@CryptoGorilla</td>
+<td>172k</td>
+<td>29</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>They sent the first hacker to a psych ward + prison for the past 4 years  Imagine what they’ll</td>
+</tr>
+<tr>
+<td>Aug 20 21:58</td>
+<td>LEAK</td>
+<td>@radaregn</td>
+<td>0k</td>
+<td>327</td>
+<td>$0.00108</td>
+<td>+23%</td>
+<td>+30%</td>
+<td>+61%</td>
+<td>تطورات مرعبة في قضية تسريبات GTA 6! 🚨💀  مجموعة اختراق ثانية تتدخل وتدعي امتلاك نسخة تطوير (Buil</td>
+</tr>
+<tr>
+<td>Aug 20 22:00</td>
+<td>CULTURE</td>
+<td>@Souza_Lyandro</td>
+<td>2k</td>
+<td>3899</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>"Cyberleek sumiu" "Não vai vazar + nada de GTA 6" "Os vazamentos acabaram finalmente"  A mãe do</td>
+</tr>
+<tr>
+<td>Aug 20 22:02</td>
+<td>LEAK</td>
+<td>@IntCyberDigest</td>
+<td>207k</td>
+<td>3328</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>Meet the GTA 6 leaker behind one of the Cyberleek channels, whom we believe to be someone from</td>
+</tr>
+<tr>
+<td>Aug 20 22:02</td>
+<td>CULTURE</td>
+<td>@JtheFrog0</td>
+<td>13k</td>
+<td>72541</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>Bro might be cooked https://t.co/5l7NFkNtVi</td>
+</tr>
+<tr>
+<td>Aug 20 22:08</td>
+<td>LEAK</td>
+<td>@carrerovYT</td>
+<td>2k</td>
+<td>742</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>Que onda a Cyberleek le metieron una nuke en su pagina?☠️</td>
+</tr>
+<tr>
+<td>Aug 20 22:16</td>
+<td>LEAK</td>
+<td>@RinoTheBouncer</td>
+<td>98k</td>
+<td>418</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>It’s starting to feel like CyberLeek is too busy playing GTA6 story missions to leak the full g</td>
+</tr>
+<tr>
+<td>Aug 20 22:18</td>
+<td>LEAK</td>
+<td>@gta6hubfr</td>
+<td>1k</td>
+<td>753</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>Silence radio du côté de Cyberleek. Leur site ne semble plus fonctionner, et aucune nouvelle fu</td>
+</tr>
+<tr>
+<td>Aug 20 22:33</td>
+<td>LEAK</td>
+<td>@TheGamingTsar</td>
+<td>0k</td>
+<td>413</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>Cyberleek hasn't uploaded another GTA 6 clip in the last 12 hours. #gta6   Did they get him?? h</td>
+</tr>
+<tr>
+<td>Aug 20 22:38</td>
+<td>LEAK</td>
+<td>@Torsena25sena</td>
+<td>0k</td>
+<td>17562</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>CyberLeek leaks new footage after Rockstar refuses to meet his demand 💀  He has PS5 version of</td>
+</tr>
+<tr>
+<td>Aug 20 22:47</td>
+<td>CULTURE</td>
+<td>@litteralyme0</td>
+<td>293k</td>
+<td>936</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>rockstar looking at cyberleek https://t.co/p2VVCagvuQ</td>
+</tr>
+<tr>
+<td>Aug 20 22:55</td>
+<td>MEDIA</td>
+<td>@laderechadiario</td>
+<td>606k</td>
+<td>833</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>🚨🎮 / LA FILTRACIÓN MÁS GRANDE DE LA HISTORIA DE LOS VIDEOJUEGOS: HACKERS AMENAZAN A ROCKSTAR CO</td>
+</tr>
+<tr>
+<td>Aug 20 22:55</td>
+<td>LEAK</td>
+<td>@neoyemm</td>
+<td>1k</td>
+<td>6682</td>
+<td>$0.00133</td>
+<td>+13%</td>
+<td>-1%</td>
+<td>+18%</td>
+<td>CyberLeek filtra nuevo gameplay después de que Rockstar se negara a cumplir su demanda.  El tip</td>
+</tr>
+<tr>
+<td>Aug 20 23:07</td>
+<td>LEAK</td>
+<td>@GTAnewsJP</td>
+<td>19k</td>
+<td>203</td>
+<td>$0.00151</td>
+<td>+10%</td>
+<td>-3%</td>
+<td>-11%</td>
+<td>【GTA6リーカー「CyberLeek」が最終声明】  ゲーム業界全体へ警告  ・CyberLeekがRockstarを含むゲーム業界へ声明  ・「反消費者的な商慣行と戦う」と主張  ・パブ</td>
+</tr>
+<tr>
+<td>Aug 20 23:26</td>
+<td>CULTURE</td>
+<td>@Yezan135</td>
+<td>30k</td>
+<td>689</td>
+<td>$0.00151</td>
+<td>+10%</td>
+<td>-3%</td>
+<td>-11%</td>
+<td>Chicos tengo una teoría... https://t.co/eJqJt78PDZ</td>
+</tr>
+<tr>
+<td>Aug 20 23:32</td>
+<td>LEAK</td>
+<td>@ThinkMo60778392</td>
+<td>0k</td>
+<td>216</td>
+<td>$0.00151</td>
+<td>+10%</td>
+<td>-3%</td>
+<td>-11%</td>
+<td>@gaming_leaker @RockstarGames Rockstar needs to take down this guy before that cyberleek guy.</td>
+</tr>
+<tr>
+<td>Aug 20 23:36</td>
+<td>CULTURE</td>
+<td>@Mora_MLG</td>
+<td>0k</td>
+<td>246</td>
+<td>$0.00151</td>
+<td>+10%</td>
+<td>-3%</td>
+<td>-11%</td>
+<td>¿No os pasa que tenéis sentimientos encontrados con lo que está pasando con Cyberleek y GTA 6?</td>
+</tr>
+<tr>
+<td>Aug 20 23:40</td>
+<td>CULTURE</td>
+<td>@GravelordDevil</td>
+<td>0k</td>
+<td>1598</td>
+<td>$0.00151</td>
+<td>+10%</td>
+<td>-3%</td>
+<td>-11%</td>
+<td>@GTA_VI_6_ Rockstar definitely adding a mission where you brutalize the fuck out of a character</td>
+</tr>
+<tr>
+<td>Aug 21 21:00</td>
+<td>CULTURE</td>
+<td>@paiNGamingBR</td>
+<td>649k</td>
+<td>9517</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>- vaze o jogo mais aguardado de década - suma por 24h - todos pensam que você foi pego pelo FBI</td>
+</tr>
+<tr>
+<td>Aug 21 21:01</td>
+<td>LEAK</td>
+<td>@theviceday</td>
+<td>0k</td>
+<td>3852</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>Cyberleek is a criminal. Full stop.  Stealing a playable build of GTA 6, dripping it day by day</td>
+</tr>
+<tr>
+<td>Aug 21 21:02</td>
+<td>CULTURE</td>
+<td>@GTA6Alerts</td>
+<td>59k</td>
+<td>258</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>Cyberleek is playing 3D chess with Rockstar Games 😭😭 https://t.co/Ai428asroC</td>
+</tr>
+<tr>
+<td>Aug 21 21:04</td>
+<td>LEAK</td>
+<td>@GamesRadar</td>
+<td>1210k</td>
+<td>39</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>GTA 6 leaker Cyberleek is now charging a $165,000 fee for a chance to buy ads on additional lea</td>
+</tr>
+<tr>
+<td>Aug 21 21:07</td>
+<td>LEAK</td>
+<td>@RockstarNation</td>
+<td>14k</td>
+<td>294</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>La pagina de Cyberleek ha regresado.   (Imagen por @GTASixInfo) https://t.co/YD0qUj6ZSL</td>
+</tr>
+<tr>
+<td>Aug 21 21:09</td>
+<td>CULTURE</td>
+<td>@JohnGregQuantum</td>
+<td>1k</td>
+<td>3134</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>@netflix Bruhhhhhhhhhhhh😂 We’ve already watched the entire gameplay! #cyberleek https://t.co/PQ</td>
+</tr>
+<tr>
+<td>Aug 21 21:15</td>
+<td>LEAK</td>
+<td>@iGrandTheftAuto</td>
+<td>117k</td>
+<td>236</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>GTA 6 leaker CYBERLEEK has updated his website with a new "Contact" section, where he is now of</td>
+</tr>
+<tr>
+<td>Aug 21 21:16</td>
+<td>LEAK</td>
+<td>@LegacyKillaHD</td>
+<td>59k</td>
+<td>4317</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>NEW: The GTA 6 leaker 'Cyberleek" has updated his website and now added a contact section.  He</td>
+</tr>
+<tr>
+<td>Aug 21 21:19</td>
+<td>CULTURE</td>
+<td>@Avenger4K</td>
+<td>7k</td>
+<td>226</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>@ghostroote7 bro really thinks hes the real cyberleek 😭 https://t.co/rFoTZ1QjrT</td>
+</tr>
+<tr>
+<td>Aug 21 21:20</td>
+<td>LEAK</td>
+<td>@<em>GTAVI</em></td>
+<td>56k</td>
+<td>1104</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>There's currently a new page on X/Twitter that could be the real cyberleek   His real location</td>
+</tr>
+<tr>
+<td>Aug 21 21:25</td>
+<td>LEAK</td>
+<td>@IntCyberDigest</td>
+<td>207k</td>
+<td>5992</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>&gt;be Rockstar Games &gt;get hacked Sept 2022 &gt;hacker dumps dozens of images and clips from unannoun</td>
+</tr>
+<tr>
+<td>Aug 21 21:38</td>
+<td>MEDIA</td>
+<td>@videotech</td>
+<td>218k</td>
+<td>2676</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>Xbox has confirmed they’re working closely with Take-Two on the ongoing Cyberleek situation.</td>
+</tr>
+<tr>
+<td>Aug 21 21:40</td>
+<td>MEDIA</td>
+<td>@Mohammed_Aigoin</td>
+<td>52k</td>
+<td>348</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>XBOX déclare bien collaborer avec Take Two et Rockstar Games pour retrouver le hacker Cyberleek</td>
+</tr>
+<tr>
+<td>Aug 21 21:45</td>
+<td>MEDIA</td>
+<td>@GTASixInfo</td>
+<td>81k</td>
+<td>766</td>
+<td>$0.00174</td>
+<td>-9%</td>
+<td>-28%</td>
+<td>+256%</td>
+<td>Xbox has confirmed they are working closely with Take Two during the Cyberleek situation.  Xbox</td>
+</tr>
+<tr>
+<td>Aug 21 22:16</td>
+<td>LEAK</td>
+<td>@DarkWebInformer</td>
+<td>226k</td>
+<td>826</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>CYBERLEEK.. create a PGP and sign your messages.</td>
+</tr>
+<tr>
+<td>Aug 21 22:17</td>
+<td>LEAK</td>
+<td>@behradjaved_com</td>
+<td>2k</td>
+<td>202</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>گروه Cyberleek که مشغول لو دادن گیم‌پلی GTA VI هست یه حرکت عجیب زده!   اونا توی سایت‌شون یه بخش</td>
+</tr>
+<tr>
+<td>Aug 21 22:21</td>
+<td>LEAK</td>
+<td>@user_1853204</td>
+<td>0k</td>
+<td>204</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>@GtaGlazer @LegacyKillaHD It was his goal from the very beginning lol the fraud literally put “</td>
+</tr>
+<tr>
+<td>Aug 21 22:26</td>
+<td>LEAK</td>
+<td>@NikTek</td>
+<td>71k</td>
+<td>1368</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>GTA 6 Leak Situation summary for Today:  &gt; GTA 6 Leaker 'Cyberleek' has posted another video to</td>
+</tr>
+<tr>
+<td>Aug 21 22:31</td>
+<td>MEDIA</td>
+<td>@Rockstar_Mag</td>
+<td>64k</td>
+<td>231</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>Xbox travaille en étroite collaboration avec Rockstar et Take Two pour l’enquête autour des lea</td>
+</tr>
+<tr>
+<td>Aug 21 22:31</td>
+<td>CULTURE</td>
+<td>@Lucas7yoshi_RS</td>
+<td>8k</td>
+<td>590</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>BREAKING: Take-Two Interactive ($TTWO) have requisitioned a GBU-43/B MOAB for use in the appreh</td>
+</tr>
+<tr>
+<td>Aug 21 22:38</td>
+<td>CULTURE</td>
+<td>@vicecityhelp</td>
+<td>1k</td>
+<td>253</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>"cYbERlEek wROte LEEK oN THe wALl tHaT MEanS hE hAS A fUll cOPy" https://t.co/qhtrEMkuTd</td>
+</tr>
+<tr>
+<td>Aug 21 22:39</td>
+<td>LEAK</td>
+<td>@SucumbaGames</td>
+<td>112k</td>
+<td>7002</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>Antes de ontem, CyberLeek cobrou pra votar nas opções de vazamentos de GTA 6. No leak de hoje,</td>
+</tr>
+<tr>
+<td>Aug 21 22:42</td>
+<td>MEDIA</td>
+<td>@MrMrKlNG</td>
+<td>202k</td>
+<td>56</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>ملخص وضع تسريبات GTA 6 لليوم من @NikTek   مسرب GTA 6 المعروف باسم Cyberleek نشر اليوم مقطع جديد</td>
+</tr>
+<tr>
+<td>Aug 21 22:43</td>
+<td>MEDIA</td>
+<td>@DetectiveSeeds0</td>
+<td>30k</td>
+<td>256</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>🚨The GTA 6 Leak timeline from start to now in a thread (will add as it progresses).  Aug 18th,</td>
+</tr>
+<tr>
+<td>Aug 21 22:48</td>
+<td>CULTURE</td>
+<td>@BeeFun__</td>
+<td>4k</td>
+<td>200</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>🚨⚠️ Okay donc CYBERLEEK « défend les joueurs », c’est ça ? 🤣  Et après, c’est moi le suceur de</td>
+</tr>
+<tr>
+<td>Aug 21 22:56</td>
+<td>LEAK</td>
+<td>@MrkelsGame</td>
+<td>11k</td>
+<td>1373</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>“Cyberleek the GTA 6 leaks is not about money”  Meanwhile Cyberleek: https://t.co/TtGTFjikRq</td>
+</tr>
+<tr>
+<td>Aug 21 22:58</td>
+<td>LEAK</td>
+<td>@NotPaloIntel</td>
+<td>268k</td>
+<td>1529</td>
+<td>$0.00158</td>
+<td>-14%</td>
+<td>-18%</td>
+<td>+556%</td>
+<td>Cyberleek ahora acepta pagos para promocionar dentro de los gameplays de Grand Theft Auto 6.  S</td>
+</tr>
+<tr>
+<td>Aug 21 23:16</td>
+<td>CULTURE</td>
+<td>@WaleyMark</td>
+<td>0k</td>
+<td>212</td>
+<td>$0.00135</td>
+<td>+5%</td>
+<td>+10%</td>
+<td>+1002%</td>
+<td>@justxavierisunc Cyberleek when he gets a missile warning on his phone: https://t.co/6AqV0yanTX</td>
+</tr>
+<tr>
+<td>Aug 21 23:18</td>
+<td>MEDIA</td>
+<td>@GTA6_HQ</td>
+<td>15k</td>
+<td>29437</td>
+<td>$0.00135</td>
+<td>+5%</td>
+<td>+10%</td>
+<td>+1002%</td>
+<td>Rockstar has reportedly put everything else on hold as the hunt for CyberLeek becomes the main</td>
+</tr>
+<tr>
+<td>Aug 21 23:23</td>
+<td>LEAK</td>
+<td>@techie_cookie</td>
+<td>0k</td>
+<td>8049</td>
+<td>$0.00135</td>
+<td>+5%</td>
+<td>+10%</td>
+<td>+1002%</td>
+<td>CyberLeek claims he will release a playable GTA VI build within a week.  He also says it could</td>
+</tr>
+<tr>
+<td>Aug 21 23:29</td>
+<td>CULTURE</td>
+<td>@HLzipkinlik</td>
+<td>0k</td>
+<td>2328</td>
+<td>$0.00135</td>
+<td>+5%</td>
+<td>+10%</td>
+<td>+1002%</td>
+<td>Rockstar "PC ye oyun çıkarmıyoruz" dedikten sonra tüm oyunu PC için sızdıran cyberleek goatı ht</td>
+</tr>
+<tr>
+<td>Aug 21 23:39</td>
+<td>LEAK</td>
+<td>@Killer__Ali</td>
+<td>0k</td>
+<td>3920</td>
+<td>$0.00135</td>
+<td>+5%</td>
+<td>+10%</td>
+<td>+1002%</td>
+<td>#Cyberleek is not gonna stop🥵 #gta6 new leaks🔥🔥 https://t.co/NUBHpLrWJC</td>
+</tr>
+<tr>
+<td>Aug 21 23:42</td>
+<td>LEAK</td>
+<td>@eXtas1stv</td>
+<td>63k</td>
+<td>444</td>
+<td>$0.00135</td>
+<td>+5%</td>
+<td>+10%</td>
+<td>+1002%</td>
+<td>🚨 EL HACKER VA A MONETIZAR LOS LEAKS 💸  Cyberleek ahora está monetizando las filtraciones de GT</td>
+</tr>
+<tr>
+<td>Aug 21 23:48</td>
+<td>LEAK</td>
+<td>@oTioZero</td>
+<td>36k</td>
+<td>573</td>
+<td>$0.00135</td>
+<td>+5%</td>
+<td>+10%</td>
+<td>+1002%</td>
+<td>E se o tal CYBERLEEK já tiver aparecido antes mas você não lembra? 🤔</td>
+</tr>
+<tr>
+<td>Aug 22 11:04</td>
+<td>LEAK</td>
+<td>@GTAonthestreet</td>
+<td>0k</td>
+<td>327</td>
+<td>$0.00145</td>
+<td>+9%</td>
+<td>+60%</td>
+<td>—</td>
+<td>NEW LEAK🚨  This is the new @Netflix intro for #GTA6 trailer from $CyberLeek  #GTAVI #RockstarGa</td>
+</tr>
+<tr>
+<td>Aug 22 19:03</td>
+<td>LEAK</td>
+<td>@GTASixInfo</td>
+<td>81k</td>
+<td>805</td>
+<td>$0.00674</td>
+<td>-17%</td>
+<td>+121%</td>
+<td>—</td>
+<td>Cyberleek has released the GTA 6 strip club video.  In the new watermark, he directly responds</td>
+</tr>
+<tr>
+<td>Aug 22 22:18</td>
+<td>CULTURE</td>
+<td>@Fabri_con_y_</td>
+<td>0k</td>
+<td>1762</td>
+<td>$0.01035</td>
+<td>+44%</td>
+<td>-4%</td>
+<td>—</td>
+<td>@OOCBananirou @cyberleek Y obvio, si ya fue protagonista del anterior https://t.co/yBriHghIVH</td>
+</tr>
+<tr>
+<td>Aug 22 22:25</td>
+<td>LEAK</td>
+<td>@Mo_ali</td>
+<td>1k</td>
+<td>321</td>
+<td>$0.01035</td>
+<td>+44%</td>
+<td>-4%</td>
+<td>—</td>
+<td>A new CyberLeek clip shows the actual GTA 6 title screen and pause menu  The video starts with</td>
+</tr>
+<tr>
+<td>Aug 22 22:35</td>
+<td>LEAK</td>
+<td>@0xSweep</td>
+<td>250k</td>
+<td>104</td>
+<td>$0.01035</td>
+<td>+44%</td>
+<td>-4%</td>
+<td>—</td>
+<td>The GTA 6 leak situation is getting completely INSANE  The leaker claims he has the entire game</td>
+</tr>
+<tr>
+<td>Aug 22 23:02</td>
+<td>CULTURE</td>
+<td>@ElLocoSAS</td>
+<td>0k</td>
+<td>265</td>
+<td>$0.01490</td>
+<td>-5%</td>
+<td>-20%</td>
+<td>—</td>
+<td>@OOCBananirou @cyberleek El bana en GTA 6 antes de GTA 6 https://t.co/Ex8pDV9fhT</td>
+</tr>
+<tr>
+<td>Aug 22 23:07</td>
+<td>LEAK</td>
+<td>@LegacyKillaHD</td>
+<td>59k</td>
+<td>2282</td>
+<td>$0.01490</td>
+<td>-5%</td>
+<td>-20%</td>
+<td>—</td>
+<td>Every time I've doubted Cyberleek, he's delivered a leak that raised eyebrows.  It went from "h</td>
+</tr>
+<tr>
+<td>Aug 22 23:44</td>
+<td>LEAK</td>
+<td>@GelNox</td>
+<td>1k</td>
+<td>247</td>
+<td>$0.01490</td>
+<td>-5%</td>
+<td>-20%</td>
+<td>—</td>
+<td>GTA 6 Leak cyberleek https://t.co/DbmRLTDE7H</td>
+</tr>
+<tr>
+<td>Aug 22 23:47</td>
+<td>LEAK</td>
+<td>@cyberlaek</td>
+<td>4k</td>
+<td>458</td>
+<td>$0.01490</td>
+<td>-5%</td>
+<td>-20%</td>
+<td>—</td>
+<td>Best clean version yet. GTA 6 LEAK  I hope Rockstar can show some sportsmanship. We’re promotin</td>
+</tr>
+<tr>
+<td>Aug 23 01:13</td>
+<td>MEDIA</td>
+<td>@coinasiacn</td>
+<td>216k</td>
+<td>39</td>
+<td>$0.00883</td>
+<td>+12%</td>
+<td>+38%</td>
+<td>—</td>
+<td>$CYBERLEEK 近期在 SOL 生态中出现了非常强劲的市场波动。从走势图来看，项目在经过 段时间的横盘整理后，买盘突然明显增强，价格快速向上突破，市场关注度也随之升温。  这轮上涨伴随</td>
+</tr>
+<tr>
+<td>Aug 23 02:51</td>
+<td>LEAK</td>
+<td>@luciacaminoss</td>
+<td>0k</td>
+<td>370</td>
+<td>$0.00989</td>
+<td>+20%</td>
+<td>+40%</td>
+<td>—</td>
+<td>Por cierto,  a saber si rockstar games y take two atraparan a CyberLeek antes del 27 por que te</td>
+</tr>
+<tr>
+<td>Aug 23 03:40</td>
+<td>MEDIA</td>
+<td>@ShitpostRock</td>
+<td>210k</td>
+<td>492</td>
+<td>$0.01186</td>
+<td>-8%</td>
+<td>+43%</td>
+<td>—</td>
+<td>''Rockstar has reportedly put everything else on hold as they hunt for CyberLeek''  ''No update</td>
+</tr>
+<tr>
+<td>Aug 23 03:45</td>
+<td>LEAK</td>
+<td>@cyberleek_io_</td>
+<td>2k</td>
+<td>318</td>
+<td>$0.01186</td>
+<td>-8%</td>
+<td>+43%</td>
+<td>—</td>
+<td>who’s ready for more tomorrow? 😏 https://t.co/BKEnM2r0SL</td>
+</tr>
+<tr>
+<td>Aug 23 05:13</td>
+<td>MEDIA</td>
+<td>@MrMrKlNG</td>
+<td>202k</td>
+<td>37</td>
+<td>$0.01222</td>
+<td>+13%</td>
+<td>—</td>
+<td>—</td>
+<td>Take-Two صعّدت الموضوع ضد Cyberleek وبدأت تستهدف حسابه الموقوف على X  رغم انه نفى وجود حساب اصل</td>
+</tr>
+</tbody>
+</table></div></details></div>
 
 <div class="bar"><span class="lbl">Timeframe:</span><button class="tf active" data-tf="all">all</button>
 <button class="tf" data-tf="1h">1h</button>
@@ -105,9 +2295,7 @@ streams), GeckoTerminal OHLCV, GoPlus</p>
 <button class="tf" data-tf="12h">12h</button>
 <button class="tf" data-tf="daily">daily</button>
 <button class="tf" data-tf="special">special</button>
-
 <span id="count"></span></div>
-
 <div id="charts"><figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_cohortsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_cohortsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_cohortsplit_1h.png" loading="lazy" alt="CYBERLEEK_cohortsplit_1h.png"></a></figure>
 <figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segments_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segments_1h.png" target="_blank"><img src="charts/CYBERLEEK_segments_1h.png" loading="lazy" alt="CYBERLEEK_segments_1h.png"></a></figure>
 <figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segmentsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segmentsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_segmentsplit_1h.png" loading="lazy" alt="CYBERLEEK_segmentsplit_1h.png"></a></figure>
@@ -129,21 +2317,14 @@ streams), GeckoTerminal OHLCV, GoPlus</p>
 </div>
 
 <script>
-const btns = document.querySelectorAll('button.tf');
-const figs = document.querySelectorAll('figure.chart');
-const count = document.getElementById('count');
-function apply(tf) {
-  let shown = 0;
-  figs.forEach(f => {
-    const vis = (tf === 'all' || f.dataset.tf === tf);
-    f.style.display = vis ? '' : 'none';
-    if (vis) shown++;
-  });
-  btns.forEach(b => b.classList.toggle('active', b.dataset.tf === tf));
-  count.textContent = shown + ' / ' + figs.length + ' charts';
-  history.replaceState(null, '', tf === 'all' ? location.pathname : '#' + tf);
-}
-btns.forEach(b => b.addEventListener('click', () => apply(b.dataset.tf)));
-apply((location.hash || '').replace('#', '') || 'all');
+const btns=document.querySelectorAll('button.tf'),figs=document.querySelectorAll('figure.chart'),
+count=document.getElementById('count');
+function apply(tf){let s=0;figs.forEach(f=>{const v=(tf==='all'||f.dataset.tf===tf);
+f.style.display=v?'':'none';if(v)s++;});
+btns.forEach(b=>b.classList.toggle('active',b.dataset.tf===tf));
+count.textContent=s+' / '+figs.length+' charts';
+history.replaceState(null,'',tf==='all'?location.pathname:'#'+tf);}
+btns.forEach(b=>b.addEventListener('click',()=>apply(b.dataset.tf)));
+apply((location.hash||'').replace('#','')||'all');
 </script>
 </main></body></html>
