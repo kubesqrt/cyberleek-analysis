@@ -5,18 +5,34 @@
 <style>
 body{margin:0;background:#0d1117;color:#e6edf3;font:15px/1.6 "Segoe UI",system-ui,sans-serif}
 main{max-width:1200px;margin:0 auto;padding:1.5rem 1rem}
-h1{font-size:1.5rem} h2{font-size:.85rem;text-transform:uppercase;letter-spacing:1.2px;
-color:#8b949e;border-bottom:1px solid #21262d;padding-bottom:.4rem}
-.panel{background:#161b22;border:1px solid #30363d;border-radius:10px;padding:1rem 1.2rem;margin:1rem 0}
-img{max-width:100%;border:1px solid #21262d;border-radius:8px}
-.cap{color:#8b949e;font-size:.78rem;margin:.6rem 0 .2rem}
-.meta{color:#8b949e;font-size:.8rem}
-ul{padding-left:1.2rem} li{margin:.25rem 0;font-size:.86rem}
+h1{font-size:1.5rem;margin:0 0 .3rem}
+h2{font-size:.85rem;text-transform:uppercase;letter-spacing:1.2px;color:#8b949e;
+border-bottom:1px solid #21262d;padding-bottom:.4rem}
+.panel{background:#161b22;border:1px solid #30363d;border-radius:10px;
+padding:1rem 1.2rem;margin:1rem 0}
+.bar{position:sticky;top:0;z-index:9;background:#161b22cc;backdrop-filter:blur(6px);
+border:1px solid #30363d;border-radius:10px;padding:.7rem 1rem;margin:1rem 0;
+display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.bar .lbl{color:#8b949e;font-size:.8rem;margin-right:.2rem}
+button.tf{background:transparent;color:#8b949e;border:1px solid #30363d;
+border-radius:14px;padding:.28rem .85rem;font-size:.85rem;cursor:pointer;
+font-family:inherit}
+button.tf:hover{color:#e6edf3;border-color:#8b949e}
+button.tf.active{color:#d29922;border-color:#d29922}
+figure.chart{margin:1rem 0;background:#161b22;border:1px solid #30363d;
+border-radius:10px;padding:.8rem}
+figure.chart img{max-width:100%;border:1px solid #21262d;border-radius:8px;display:block}
+figcaption{color:#8b949e;font-size:.78rem;margin-bottom:.5rem;
+display:flex;justify-content:space-between;gap:1rem}
+.tag{color:#d29922;border:1px solid #30363d;border-radius:10px;padding:0 .5rem;font-size:.7rem}
+.meta{color:#8b949e;font-size:.8rem} ul{padding-left:1.2rem}
+li{margin:.25rem 0;font-size:.86rem} #count{color:#8b949e;font-size:.78rem;margin-left:auto}
 </style></head><body><main>
 <h1>⚡ CYBERLEEK — Alt Analysis</h1>
-<p class="meta">Static export from Alpha Data Room · updated 2026-08-23 · price panels log-scale,
-anchored to first traded bar, stamped with candle time · sources: X (two streams),
-GeckoTerminal OHLCV, GoPlus</p>
+<p class="meta">Static export from Alpha Data Room · updated 2026-08-23 · price panels
+log-scale, anchored to first traded bar, stamped with candle time · sources: X (two
+streams), GeckoTerminal OHLCV, GoPlus</p>
+
 <div class="panel"><h2>Deep dive + significant-tweets timeline</h2><p>CyberLeek (CYBERLEEK) — Solana memecoin attached to an active GTA 6 leaker who signs</p>
 <p>leaks with the token. Launched Aug 15; ~300x from launch pool; $13.7M mcap; GoPlus clean;</p>
 <p>$1.3M liq vs $19M daily vol (churn 14.8 — hot).</p>
@@ -81,35 +97,53 @@ GeckoTerminal OHLCV, GoPlus</p>
 <li>Aug 18 20:32 LEAK @michaelpcmaster (22k f, 670 eng, gaming): Ojooooo!! Se filtró gameplay del GTA VI, así como el mapa entero del juego, el material es real (no es IA) y p</li>
 <li>Aug 18 20:32 MEDIA @MovistareSports (149k f, 1071 eng, media): 🟣 Cyberleek, quien se atribuye las nuevas filtraciones de GTA 6, explica los motivos detrás de sus acciones:  </li>
 </ul></div>
-<div class="panel"><h2>1h charts</h2>
-<div class="c"><div class="cap">CYBERLEEK_cohortsplit_1h.png</div><a href="charts/CYBERLEEK_cohortsplit_1h.png"><img src="charts/CYBERLEEK_cohortsplit_1h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_segments_1h.png</div><a href="charts/CYBERLEEK_segments_1h.png"><img src="charts/CYBERLEEK_segments_1h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_segmentsplit_1h.png</div><a href="charts/CYBERLEEK_segmentsplit_1h.png"><img src="charts/CYBERLEEK_segmentsplit_1h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_social_8d_1h.png</div><a href="charts/CYBERLEEK_social_8d_1h.png"><img src="charts/CYBERLEEK_social_8d_1h.png" loading="lazy"></a></div>
-</div>
-<div class="panel"><h2>4h charts</h2>
-<div class="c"><div class="cap">CYBERLEEK_acceleration_4h.png</div><a href="charts/CYBERLEEK_acceleration_4h.png"><img src="charts/CYBERLEEK_acceleration_4h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_cohorts_8d_4h.png</div><a href="charts/CYBERLEEK_cohorts_8d_4h.png"><img src="charts/CYBERLEEK_cohorts_8d_4h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_cohortsplit_4h.png</div><a href="charts/CYBERLEEK_cohortsplit_4h.png"><img src="charts/CYBERLEEK_cohortsplit_4h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_content_4h.png</div><a href="charts/CYBERLEEK_content_4h.png"><img src="charts/CYBERLEEK_content_4h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_engagement_4h.png</div><a href="charts/CYBERLEEK_engagement_4h.png"><img src="charts/CYBERLEEK_engagement_4h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_social_8d_4h.png</div><a href="charts/CYBERLEEK_social_8d_4h.png"><img src="charts/CYBERLEEK_social_8d_4h.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_twostream_4h.png</div><a href="charts/CYBERLEEK_twostream_4h.png"><img src="charts/CYBERLEEK_twostream_4h.png" loading="lazy"></a></div>
-</div>
-<div class="panel"><h2>6h charts</h2>
-<div class="c"><div class="cap">CYBERLEEK_social_8d_6h.png</div><a href="charts/CYBERLEEK_social_8d_6h.png"><img src="charts/CYBERLEEK_social_8d_6h.png" loading="lazy"></a></div>
-</div>
-<div class="panel"><h2>12h charts</h2>
-<div class="c"><div class="cap">CYBERLEEK_social_8d_12h.png</div><a href="charts/CYBERLEEK_social_8d_12h.png"><img src="charts/CYBERLEEK_social_8d_12h.png" loading="lazy"></a></div>
-</div>
-<div class="panel"><h2>daily charts</h2>
-<div class="c"><div class="cap">CYBERLEEK_cohorts_8d_daily.png</div><a href="charts/CYBERLEEK_cohorts_8d_daily.png"><img src="charts/CYBERLEEK_cohorts_8d_daily.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_content_daily.png</div><a href="charts/CYBERLEEK_content_daily.png"><img src="charts/CYBERLEEK_content_daily.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_social_8d_daily.png</div><a href="charts/CYBERLEEK_social_8d_daily.png"><img src="charts/CYBERLEEK_social_8d_daily.png" loading="lazy"></a></div>
-</div>
-<div class="panel"><h2>Special (timeline / streams / content)</h2>
-<div class="c"><div class="cap">CYBERLEEK_h12_legtiming.png</div><a href="charts/CYBERLEEK_h12_legtiming.png"><img src="charts/CYBERLEEK_h12_legtiming.png" loading="lazy"></a></div>
-<div class="c"><div class="cap">CYBERLEEK_newsline.png</div><a href="charts/CYBERLEEK_newsline.png"><img src="charts/CYBERLEEK_newsline.png" loading="lazy"></a></div>
+
+<div class="bar"><span class="lbl">Timeframe:</span><button class="tf active" data-tf="all">all</button>
+<button class="tf" data-tf="1h">1h</button>
+<button class="tf" data-tf="4h">4h</button>
+<button class="tf" data-tf="6h">6h</button>
+<button class="tf" data-tf="12h">12h</button>
+<button class="tf" data-tf="daily">daily</button>
+<button class="tf" data-tf="special">special</button>
+
+<span id="count"></span></div>
+
+<div id="charts"><figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_cohortsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_cohortsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_cohortsplit_1h.png" loading="lazy" alt="CYBERLEEK_cohortsplit_1h.png"></a></figure>
+<figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segments_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segments_1h.png" target="_blank"><img src="charts/CYBERLEEK_segments_1h.png" loading="lazy" alt="CYBERLEEK_segments_1h.png"></a></figure>
+<figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_segmentsplit_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_segmentsplit_1h.png" target="_blank"><img src="charts/CYBERLEEK_segmentsplit_1h.png" loading="lazy" alt="CYBERLEEK_segmentsplit_1h.png"></a></figure>
+<figure class="chart" data-tf="1h"><figcaption>CYBERLEEK_social_8d_1h.png<span class="tag">1h</span></figcaption><a href="charts/CYBERLEEK_social_8d_1h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_1h.png" loading="lazy" alt="CYBERLEEK_social_8d_1h.png"></a></figure>
+<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_acceleration_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_acceleration_4h.png" target="_blank"><img src="charts/CYBERLEEK_acceleration_4h.png" loading="lazy" alt="CYBERLEEK_acceleration_4h.png"></a></figure>
+<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_cohorts_8d_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_cohorts_8d_4h.png" target="_blank"><img src="charts/CYBERLEEK_cohorts_8d_4h.png" loading="lazy" alt="CYBERLEEK_cohorts_8d_4h.png"></a></figure>
+<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_cohortsplit_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_cohortsplit_4h.png" target="_blank"><img src="charts/CYBERLEEK_cohortsplit_4h.png" loading="lazy" alt="CYBERLEEK_cohortsplit_4h.png"></a></figure>
+<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_content_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_content_4h.png" target="_blank"><img src="charts/CYBERLEEK_content_4h.png" loading="lazy" alt="CYBERLEEK_content_4h.png"></a></figure>
+<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_engagement_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_engagement_4h.png" target="_blank"><img src="charts/CYBERLEEK_engagement_4h.png" loading="lazy" alt="CYBERLEEK_engagement_4h.png"></a></figure>
+<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_social_8d_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_social_8d_4h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_4h.png" loading="lazy" alt="CYBERLEEK_social_8d_4h.png"></a></figure>
+<figure class="chart" data-tf="4h"><figcaption>CYBERLEEK_twostream_4h.png<span class="tag">4h</span></figcaption><a href="charts/CYBERLEEK_twostream_4h.png" target="_blank"><img src="charts/CYBERLEEK_twostream_4h.png" loading="lazy" alt="CYBERLEEK_twostream_4h.png"></a></figure>
+<figure class="chart" data-tf="6h"><figcaption>CYBERLEEK_social_8d_6h.png<span class="tag">6h</span></figcaption><a href="charts/CYBERLEEK_social_8d_6h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_6h.png" loading="lazy" alt="CYBERLEEK_social_8d_6h.png"></a></figure>
+<figure class="chart" data-tf="12h"><figcaption>CYBERLEEK_social_8d_12h.png<span class="tag">12h</span></figcaption><a href="charts/CYBERLEEK_social_8d_12h.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_12h.png" loading="lazy" alt="CYBERLEEK_social_8d_12h.png"></a></figure>
+<figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_cohorts_8d_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_cohorts_8d_daily.png" target="_blank"><img src="charts/CYBERLEEK_cohorts_8d_daily.png" loading="lazy" alt="CYBERLEEK_cohorts_8d_daily.png"></a></figure>
+<figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_content_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_content_daily.png" target="_blank"><img src="charts/CYBERLEEK_content_daily.png" loading="lazy" alt="CYBERLEEK_content_daily.png"></a></figure>
+<figure class="chart" data-tf="daily"><figcaption>CYBERLEEK_social_8d_daily.png<span class="tag">daily</span></figcaption><a href="charts/CYBERLEEK_social_8d_daily.png" target="_blank"><img src="charts/CYBERLEEK_social_8d_daily.png" loading="lazy" alt="CYBERLEEK_social_8d_daily.png"></a></figure>
+<figure class="chart" data-tf="special"><figcaption>CYBERLEEK_h12_legtiming.png<span class="tag">special</span></figcaption><a href="charts/CYBERLEEK_h12_legtiming.png" target="_blank"><img src="charts/CYBERLEEK_h12_legtiming.png" loading="lazy" alt="CYBERLEEK_h12_legtiming.png"></a></figure>
+<figure class="chart" data-tf="special"><figcaption>CYBERLEEK_newsline.png<span class="tag">special</span></figcaption><a href="charts/CYBERLEEK_newsline.png" target="_blank"><img src="charts/CYBERLEEK_newsline.png" loading="lazy" alt="CYBERLEEK_newsline.png"></a></figure>
 </div>
 
+<script>
+const btns = document.querySelectorAll('button.tf');
+const figs = document.querySelectorAll('figure.chart');
+const count = document.getElementById('count');
+function apply(tf) {
+  let shown = 0;
+  figs.forEach(f => {
+    const vis = (tf === 'all' || f.dataset.tf === tf);
+    f.style.display = vis ? '' : 'none';
+    if (vis) shown++;
+  });
+  btns.forEach(b => b.classList.toggle('active', b.dataset.tf === tf));
+  count.textContent = shown + ' / ' + figs.length + ' charts';
+  history.replaceState(null, '', tf === 'all' ? location.pathname : '#' + tf);
+}
+btns.forEach(b => b.addEventListener('click', () => apply(b.dataset.tf)));
+apply((location.hash || '').replace('#', '') || 'all');
+</script>
 </main></body></html>
