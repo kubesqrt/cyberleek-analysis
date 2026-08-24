@@ -41,7 +41,7 @@ figcaption{color:#8b949e;font-size:.78rem;margin-bottom:.5rem;display:flex;justi
 <h1>⚡ Alt Analysis</h1>
 <p class="meta">Alpha Data Room · updated 2026-08-23 · consistent chart suite per token
 (01 price · 02 attention · 03 who · 04 dynamics · 05 streams) · price log-scale,
-anchored to first traded bar · price candles overlaid on every panel · build 1787549044</p>
+anchored to first traded bar · price candles overlaid on every panel · build 1787549812</p>
 
 <div class="bar"><span class="lbl">Token:</span><button class="tok" data-token="CYBERLEEK">CYBERLEEK</button><button class="tok" data-token="STONKBROKER">STONKBROKER</button><button class="tok" data-token="CLUSSY">CLUSSY</button><button class="tok" data-token="HOOKR">HOOKR</button><button class="tok" data-token="CC">CC</button><button class="tok" data-token="YOMOGI">YOMOGI</button><button class="tok" data-token="NEKO">NEKO</button>
 <span class="sep">|</span><span class="lbl">Timeframe:</span><button class="tf" data-tf="15m">15m</button><button class="tf" data-tf="1h">1h</button><button class="tf" data-tf="4h">4h</button><button class="tf" data-tf="6h">6h</button><button class="tf" data-tf="12h">12h</button><button class="tf" data-tf="daily">daily</button><button class="tf" data-tf="special">special</button><button class="tf" data-tf="all">all</button>
@@ -2437,11 +2437,7 @@ attention metrics here describe crypto Twitter only.</p></div>
 </tr>
 <tr>
 <td>Corpus</td>
-<td>1,304 cashtag tweets · 1,924 plain-word · 318 unique authors</td>
-</tr>
-<tr>
-<td>Data through</td>
-<td>Aug 24 03:53 UTC (newest tweet)</td>
+<td>1,403 cashtag tweets · 338 unique authors</td>
 </tr>
 </tbody>
 </table></div>
@@ -2495,11 +2491,7 @@ overlaid on every panel so social series read directly against price.</p></div>
 </tr>
 <tr>
 <td>Corpus</td>
-<td>1,014 cashtag tweets · 229 plain-word · 389 unique authors</td>
-</tr>
-<tr>
-<td>Data through</td>
-<td>Aug 24 03:05 UTC (newest tweet)</td>
+<td>1,065 cashtag tweets · 400 unique authors</td>
 </tr>
 </tbody>
 </table></div>
@@ -2553,11 +2545,7 @@ overlaid on every panel so social series read directly against price.</p></div>
 </tr>
 <tr>
 <td>Corpus</td>
-<td>2,481 cashtag tweets · 0 plain-word · 881 unique authors</td>
-</tr>
-<tr>
-<td>Data through</td>
-<td>Aug 24 02:58 UTC (newest tweet)</td>
+<td>2,535 cashtag tweets · 908 unique authors</td>
 </tr>
 </tbody>
 </table></div>
@@ -2632,7 +2620,7 @@ function render(){
   wrap.style.display=inter?'':'none';figsBox.style.display=inter?'none':'';
   vwBtns.forEach(b=>b.classList.toggle('active',b.dataset.view===VIEW));
   if(inter){const tfi=(TF==='all'||TF==='special')?(avail.includes('4h')?'4h':avail[0]):TF;
-    const src='interactive/'+TOK+'_'+tfi+'.html?v=1787549044';
+    const src='interactive/'+TOK+'_'+tfi+'.html?v=1787549812';
     if(ifr.getAttribute('src')!==src)ifr.setAttribute('src',src);}
   count.textContent=TOK+' · '+(inter?'interactive':shown+' charts');
   history.replaceState(null,'','#'+TOK+':'+TF);
