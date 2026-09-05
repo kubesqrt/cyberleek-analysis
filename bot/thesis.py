@@ -58,3 +58,15 @@ def card(sig, research=None, safety=None, pool=None, waves=None):
             "beneficiary": (research or {}).get("beneficiary"), "wave": wave["chain"] if wave else None, "role_in_wave": role, "thesis": (research or {}).get("thesis", []), "must_stay_true": (research or {}).get("must_stay_true", []),
             "invalidation": invalidation_rules(sig, research, pool, wave), "risks": (research or {}).get("risks", []), "safety": safety, "confidence": (research or {}).get("confidence", "low"), "sources": (research or {}).get("sources", []),
             "sizing": sig.get("size_hint"), "stop": sig.get("stop")}
+
+def long_rules(m=None, wave=None):
+    """Invalidation for an 18-month hold: no price stop; revenue, payout, unlocks, liquidity, contract, and a drawdown review."""
+    rules = [{"kind": "rev_collapse", "label": "30d revenue below 50% of its 12-month peak (two consecutive months = sell)", "threshold": 0.5, "action": "review, sell if it persists a second month"},
+             {"kind": "rev_slowdown", "label": "7d revenue below its 4-week average", "action": "note only (long hold)"},
+             {"kind": "liquidity", "label": f"best pool liquidity below 50% of entry level or 24h volume under ${C.MIN_VOL30/2/1e3:,.0f}k", "threshold": 0.5, "action": "reduce"},
+             {"kind": "contract", "label": "GoPlus verdict turns FAIL", "action": "exit"},
+             {"kind": "price_stop", "label": "price 50% below its peak since entry (drawdown review, not an automatic sale)", "threshold": 0.5, "action": "review the thesis"}]
+    if m and m.get("capture") and m["capture"] > 0: rules.append({"kind": "manual", "label": "holders' share of revenue falls to zero (fee switch reversed)", "action": "sell"})
+    if m and m.get("fdv_mcap") and m["fdv_mcap"] > 2: rules.append({"kind": "unlock", "label": f"FDV {m['fdv_mcap']:.1f}x market cap: confirm the unlock schedule; a cliff inside 18 months invalidates", "action": "size down"})
+    if wave: rules.append({"kind": "chain_wave", "chain": wave, "label": f"{wave} fees below 40% of their level at entry", "threshold": 0.4, "action": "exit wave positions"})
+    return rules

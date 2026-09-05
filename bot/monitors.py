@@ -9,7 +9,8 @@ def _db():
                          entry_rev30 REAL, entry_liq REAL, entry_chain_fees7 REAL, wave TEXT, thesis TEXT, status TEXT DEFAULT 'open', tx TEXT, closed_date TEXT, exit_px REAL, note TEXT);
                          CREATE TABLE IF NOT EXISTS monitors(id INTEGER PRIMARY KEY, position_id INTEGER, kind TEXT, label TEXT, threshold REAL, state TEXT DEFAULT 'ok', last_value TEXT, fired_at TEXT);
                          CREATE TABLE IF NOT EXISTS alerts(id INTEGER PRIMARY KEY, ts TEXT, sym TEXT, kind TEXT, text TEXT);
-                         CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY, ts TEXT, asof TEXT, payload TEXT);""")
+                         CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY, ts TEXT, asof TEXT, payload TEXT);
+                         CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY, value TEXT);""")
     return con
 
 def add_position(sig, kind, size_usd, entry_px, chain, address, thesis_card, pool=None, wave=None, chain_fees7=None, tx=None):
@@ -68,3 +69,17 @@ def evaluate(panel, pool_lookup=None, safety_lookup=None, chain_fees_lookup=None
                 fired.append((p, m, value)); con.execute("UPDATE monitors SET state='fired', fired_at=?, last_value=? WHERE id=?", (dt.datetime.utcnow().isoformat(), value, m["id"]))
             else: con.execute("UPDATE monitors SET state=?, last_value=? WHERE id=?", (new_state, value, m["id"]))
     con.commit(); return fired
+
+def setting(key, value=None):
+    con = _db()
+    if value is not None: con.execute("INSERT OR REPLACE INTO settings(key,value) VALUES(?,?)", (key, str(value))); con.commit(); return value
+    r = con.execute("SELECT value FROM settings WHERE key=?", (key,)).fetchone(); return r["value"] if r else None
+
+def add_hold(sym, size_usd, entry_px, chain=None, address=None, thesis_card=None, entry_date=None, rev30=None):
+    """Record a long-term holding (manual or from wallet sync) with long-horizon monitors."""
+    con = _db(); tc = thesis_card or {"invalidation": []}
+    cur = con.execute("INSERT INTO positions(sym,chain,address,kind,entry_date,entry_px,peak_px,size_usd,sleeve,entry_rev30,thesis) VALUES(?,?,?,?,?,?,?,?,?,?,?)",
+                      (sym, chain, address, "hold", entry_date or str(dt.date.today()), entry_px, entry_px, size_usd, "long", rev30, json.dumps(tc, default=str)))
+    pid = cur.lastrowid
+    for r in tc.get("invalidation", []): con.execute("INSERT INTO monitors(position_id,kind,label,threshold) VALUES(?,?,?,?)", (pid, r["kind"], r["label"], r.get("threshold")))
+    con.commit(); return pid

@@ -1,10 +1,22 @@
-# Revenue-breakout bot
+# Revenue bot: long-term book first, breakout feed second
 
-Finds protocols whose on-chain revenue just broke out, filters the fake ones, researches the catalyst, writes a thesis with invalidation monitors, checks the token is not a scam, plans the buy (bridge + swap with liquidity and price-impact checks) and lets you confirm it from Telegram.
+Maintains a small long-term book of revenue-generating tokens: ranks the universe on the traits that predicted 12-month returns, applies hard vetoes, sets target weights, tracks your holdings, suggests rebalancing trades and reviews every holding monthly against long-horizon invalidation rules. The revenue-breakout feed (catalyst-filtered, with research, safety checks and execution planning) runs alongside as an optional source of ideas.
 
-Everything the bot does is derived from the backtest work in `revenue/backtest/` and the Jun–Sep 2026 catalyst review.
+Everything is derived from the backtest work in `revenue/backtest/` and the Jun–Sep 2026 catalyst review.
 
-## What it does, in order
+## The long-term book (`portfolio.py`)
+
+- **Vetoes** (a name must pass all): liquid ($500k/day, $10M cap); ≥ $500k revenue in the last 30 days; ≥ 9 months of history with 80% of months above $100k; revenue ≥ 80% of its 90-day average and ≥ 30% of its 12-month peak; last quarter ≥ 40% of its best of the last four; FDV ≤ 3× market cap; P/S on FDV ≤ 60×; the token receives some of the revenue (fee switch, buybacks, distributions).
+- **Ranking**: average rank on market cap, low 60-day volatility, absolute revenue, holders' APY, revenue vs 90-day average, low FDV overhang and quarterly trend. Cheapness and short-term growth are deliberately excluded: over 12 months they carried no information or hurt.
+- **Weights**: inverse volatility, capped (default 15%, `BOOK_CAP`), book size `BOOK_SIZE` (default 12). The cap rises automatically when fewer names pass.
+- **Rebalancing** (`/rebalance`): quarterly, or when a weight drifts 30% (relative) from target, or immediately when a holding fails a structural veto (revenue collapse, structural decline, fee switch off, illiquid). Holdings that fail only a soft veto (unlock overhang, priced for perfection, short history) are marked HOLD: keep, do not add. Suggested trades come with amounts and the reason; execute them with `/buy` and `/sell`, then `/rebalanced`.
+- **Monthly review** (`/review`): KEEP / HOLD / SELL per holding with the numbers. SELL fires on revenue below 30% of its 12-month peak for two consecutive months, a fee switch reversal, or any structural veto.
+- **Monitors** for long holds (`thesis.long_rules`): revenue collapse, liquidity halving, GoPlus FAIL, a 50% drawdown review (not an automatic sale), unlock overhang, and chain-wave end for wave positions. No trading stop.
+- **Holdings**: `/hold SYM USD [entry price]` to record, `/cash USD`, or `/sync` to read ERC-20 balances of universe tokens from `WALLET_ADDRESS` across the configured chains.
+
+## The breakout feed (`signals.py`)
+
+In order:
 
 1. **Universe** – every DeFiLlama protocol with a token and ≥ $100k of 30-day revenue (`universe.py`).
 2. **Signals** (`signals.py`)
@@ -40,6 +52,11 @@ Without Telegram: `python -m bot.run_scan --limit 80`, `--safety PONS`, `--resea
 
 | Command | What it does |
 |---|---|
+| `/book` | ranked long-hold candidates with target weights, plus near misses and the veto they fail |
+| `/quality SYM` | score inputs, quarterly revenue, holders' APY, vetoes for one name |
+| `/portfolio` `/hold SYM USD [px]` `/cash USD` `/sync` | holdings |
+| `/rebalance` `/rebalanced` | drift and suggested trades; reset the quarterly clock |
+| `/review` | monthly verdict per holding |
 | `/scan` | refresh DeFiLlama revenue (with per-product breakdown), prices, market caps; scan; detect waves; evaluate monitors |
 | `/alerts` | today's TRADE / beta / EARLY / WATCH cards |
 | `/view SYM` | 14-day revenue sparkline, where the revenue comes from by product and chain, valuation, signature flags |
@@ -55,6 +72,7 @@ Without Telegram: `python -m bot.run_scan --limit 80`, `--safety PONS`, `--resea
 
 - DeFiLlama revenue is only as good as its adapters; the filters catch most artifacts, not all. `/view` shows the product breakdown so you can see a single sub-product carrying the week.
 - Market cap and FDV are current values; P/S history is a constant-supply proxy.
+- The long-term book selects survivors, not winners: applied 12 and 18 months ago it lost about as much as the sector. Use it as the veto layer and build conviction on the survivors by hand (`/research`, `/quality`).
 - The early sleeve is a lottery ticket by design: over the last six months it went 0-for-4 on everything except PONS.
 - Chain waves are the setting where first-order beneficiaries worked and second-order names did not; the bot labels the role, you decide.
 - Nothing here is investment advice. Keep `LIVE_TRADING` off until you have watched the dry-run plans for a while.

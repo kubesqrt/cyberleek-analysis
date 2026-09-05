@@ -3,7 +3,7 @@
 import asyncio, json, logging, uuid, datetime as dt
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Application, CommandHandler, CallbackQueryHandler, ContextTypes
-from . import config as C, universe as UV, safety as SF, research as RS, thesis as TH, execute as EX, monitors as MO, report as RP, scheduler as SC
+from . import config as C, universe as UV, safety as SF, research as RS, thesis as TH, execute as EX, monitors as MO, report as RP, scheduler as SC, portfolio as PF
 
 log = logging.getLogger("bot"); ST = SC.State
 
@@ -16,7 +16,7 @@ async def send(update, text, **kw):
 def ensure_state():
     if ST.panel is None:
         asof, payload = MO.last_scan()
-        if payload: ST.signals, ST.waves, ST.asof = payload["signals"], payload["waves"], asof
+        if payload: ST.signals, ST.waves, ST.asof, ST.book = payload["signals"], payload["waves"], asof, payload.get("book")
         ST.universe = ST.universe or UV.build()
 
 def find_signal(sym):
@@ -29,10 +29,79 @@ def entity_or_signal_card(sym):
     card = s or {"sym": e["symbol"], "name": e["name"], "gecko": e["gecko"], "slugs": e["slugs"], "date": ST.asof, "verdict": "n/a", "rule": "n/a", "chains": e.get("chains") or [], "category": e.get("category"), "young": False, "stop": C.TRAIL_STOP, "size_hint": "10%"}
     return e, card
 
+# ---------------- long-term book commands
+async def cmd_book(update: Update, ctx):
+    if not allowed(update): return
+    ensure_state()
+    if not ST.book: await send(update, "No book yet. Run /scan."); return
+    await send(update, RP.book_view(ST.book))
+
+async def cmd_quality(update: Update, ctx):
+    if not allowed(update): return
+    ensure_state()
+    if not ctx.args or ST.panel is None: await send(update, "Usage: /quality SYM (run /scan first)"); return
+    e = UV.find(ST.universe, ctx.args[0]); c = next((k for k in ST.panel.REV.columns if e and ST.panel.meta[k]["gecko"] == e["gecko"]), None)
+    if not c: await send(update, "Unknown token or not in the panel."); return
+    m = await asyncio.to_thread(PF.metrics, ST.panel, c, ST.panel.asof(), e, ST.panel.market(c), PF.holders_rev30(e))
+    await send(update, RP.quality_view(m, PF.vetoes(m)))
+
+async def cmd_portfolio(update: Update, ctx):
+    if not allowed(update): return
+    ensure_state(); hs = PF.holdings(ST.panel); cash = float(MO.setting("cash") or 0)
+    await send(update, RP.portfolio_view(hs, cash, sum(h["value"] for h in hs) + cash))
+
+async def cmd_rebalance(update: Update, ctx):
+    if not allowed(update): return
+    ensure_state()
+    if not ST.book: await send(update, "No book yet. Run /scan."); return
+    hs = PF.holdings(ST.panel); cash = float(MO.setting("cash") or 0)
+    await send(update, RP.rebalance_view(PF.rebalance(ST.book, hs, cash, last_rebalance=MO.setting("last_rebalance"))))
+
+async def cmd_rebalanced(update: Update, ctx):
+    if not allowed(update): return
+    MO.setting("last_rebalance", str(dt.date.today())); await send(update, "Rebalance clock reset; next scheduled review in 90 days.")
+
+async def cmd_review(update: Update, ctx):
+    if not allowed(update): return
+    ensure_state()
+    if not ST.book or ST.panel is None: await send(update, "Run /scan first."); return
+    rv = await asyncio.to_thread(PF.review, ST.book, PF.holdings(ST.panel), ST.panel, ST.universe); await send(update, RP.review_view(rv))
+
+async def cmd_hold(update: Update, ctx):
+    if not allowed(update): return
+    ensure_state()
+    if len(ctx.args) < 2: await send(update, "Usage: /hold SYM USD [entry_price] — record a long-term holding"); return
+    e = UV.find(ST.universe, ctx.args[0])
+    if not e: await send(update, "Unknown token."); return
+    usd = float(ctx.args[1]); c = next((k for k in ST.panel.REV.columns if ST.panel.meta[k]["gecko"] == e["gecko"]), None) if ST.panel is not None else None
+    px = float(ctx.args[2]) if len(ctx.args) > 2 else (float(ST.panel.PX[c].ffill().iloc[-1]) if c else 0.0)
+    m = await asyncio.to_thread(PF.metrics, ST.panel, c, ST.panel.asof(), e, ST.panel.market(c), PF.holders_rev30(e)) if c else None
+    ch, addr, pool, _ = await asyncio.to_thread(SF.token_location, e)
+    tc = {"invalidation": TH.long_rules(m)}; pid = MO.add_hold(e["symbol"], usd, px, ch, addr, tc, rev30=(m or {}).get("rev30"))
+    await send(update, f"Recorded {e['symbol']} ${usd:,.0f} @ {px:.4g} as #{pid} with {len(tc['invalidation'])} long-horizon monitors.")
+
+async def cmd_cash(update: Update, ctx):
+    if not allowed(update): return
+    if not ctx.args: await send(update, f"Cash: ${float(MO.setting('cash') or 0):,.0f}. Usage: /cash USD"); return
+    MO.setting("cash", float(ctx.args[0])); await send(update, f"Cash set to ${float(ctx.args[0]):,.0f}.")
+
+async def cmd_sync(update: Update, ctx):
+    if not allowed(update): return
+    ensure_state()
+    if not C.WALLET_ADDRESS or C.WALLET_ADDRESS.endswith("dEaD"): await send(update, "Set WALLET_ADDRESS first."); return
+    await send(update, "Reading wallet balances across chains… (a minute or two)")
+    bal = await asyncio.to_thread(PF.sync_wallet, ST.universe)
+    have = {h["sym"] for h in PF.holdings()}; added = []
+    for sym, (chain, addr, units, usd) in bal.items():
+        if sym in have or usd < 50: continue
+        e = UV.find(ST.universe, sym); px = usd / units if units else 0
+        pid = MO.add_hold(sym, usd, px, chain, addr, {"invalidation": TH.long_rules()}); added.append(f"{sym} ${usd:,.0f} (#{pid})")
+    await send(update, ("Added: " + ", ".join(added)) if added else "No new universe tokens found in the wallet." + f"\nSeen: {', '.join(f'{k} ${v[3]:,.0f}' for k, v in bal.items()) or 'nothing'}")
+
 # ---------------- commands
 async def cmd_help(update: Update, ctx):
     if not allowed(update): return
-    await send(update, "<b>Revenue bot</b>\n/scan — refresh data and scan now (takes a few minutes)\n/alerts — today's tradeable signals\n/view SYM — detailed view\n/research SYM — catalyst, thesis, invalidation\n/thesis — chain waves and how to express them\n/safety SYM — scam and liquidity checks\n/buy SYM USD [FROM_CHAIN] — plan a buy (bridge+swap), confirm to execute\n/sell SYM [FRACTION] — plan a sell\n/watch SYM — monitor invalidation without buying\n/positions · /monitors · /close ID\n"
+    await send(update, "<b>Revenue bot — long-term book</b>\n/book — ranked long-hold candidates with target weights\n/quality SYM — score breakdown and vetoes\n/portfolio · /hold SYM USD [px] · /cash USD · /sync — holdings\n/rebalance — drift and suggested trades · /rebalanced — reset the quarterly clock\n/review — monthly verdict per holding (KEEP/TRIM/SELL)\n\n<b>Signals feed (optional)</b>\n/scan — refresh data and scan now (takes a few minutes)\n/alerts — today's tradeable signals\n/view SYM — detailed view\n/research SYM — catalyst, thesis, invalidation\n/thesis — chain waves and how to express them\n/safety SYM — scam and liquidity checks\n/buy SYM USD [FROM_CHAIN] — plan a buy (bridge+swap), confirm to execute\n/sell SYM [FRACTION] — plan a sell\n/watch SYM — monitor invalidation without buying\n/positions · /monitors · /close ID\n"
                  + ("🔴 LIVE trading is ON" if C.LIVE_TRADING and C.WALLET_PRIVATE_KEY else "🧪 Dry-run mode (set LIVE_TRADING=1 and WALLET_PRIVATE_KEY to execute)"))
 
 async def cmd_scan(update: Update, ctx):
@@ -167,7 +236,7 @@ def main():
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
     if not C.TELEGRAM_BOT_TOKEN: raise SystemExit("Set TELEGRAM_BOT_TOKEN")
     app = Application.builder().token(C.TELEGRAM_BOT_TOKEN).build()
-    for name, fn in [("start", cmd_help), ("help", cmd_help), ("scan", cmd_scan), ("alerts", cmd_alerts), ("view", cmd_view), ("research", cmd_research), ("thesis", cmd_thesis), ("safety", cmd_safety), ("buy", cmd_buy), ("sell", cmd_sell), ("watch", cmd_watch), ("positions", cmd_positions), ("monitors", cmd_monitors), ("close", cmd_close)]:
+    for name, fn in [("start", cmd_help), ("help", cmd_help), ("book", cmd_book), ("quality", cmd_quality), ("portfolio", cmd_portfolio), ("rebalance", cmd_rebalance), ("rebalanced", cmd_rebalanced), ("review", cmd_review), ("hold", cmd_hold), ("cash", cmd_cash), ("sync", cmd_sync), ("scan", cmd_scan), ("alerts", cmd_alerts), ("view", cmd_view), ("research", cmd_research), ("thesis", cmd_thesis), ("safety", cmd_safety), ("buy", cmd_buy), ("sell", cmd_sell), ("watch", cmd_watch), ("positions", cmd_positions), ("monitors", cmd_monitors), ("close", cmd_close)]:
         app.add_handler(CommandHandler(name, fn))
     app.add_handler(CallbackQueryHandler(on_button))
     if app.job_queue: app.job_queue.run_daily(daily_job, time=dt.time(hour=C.DAILY_HOUR_UTC, tzinfo=dt.timezone.utc))

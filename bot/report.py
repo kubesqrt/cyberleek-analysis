@@ -97,3 +97,51 @@ def monitors_view(ms):
     out = "<b>Monitors</b>\n"
     for m in ms: out += f"{'🔴' if m['state']=='fired' else '🟢'} {E(m['sym'])} · {E(m['label'])}" + (f" · {E(str(m['last_value']))}" if m.get("last_value") else "") + "\n"
     return out
+
+# ---------------- long-term book
+def book_view(book):
+    if not book or not book.get("book"): return "No names pass the long-hold vetoes today."
+    out = f"📚 <b>Long-hold book</b> ({book['asof']}) — {len(book['book'])} of {book['n_candidates']} candidates, {book['weighting']} weights capped {book['cap']:.0%}\n"
+    out += "<i>Ranked on size, low volatility, absolute revenue, holders' APY, revenue trend, low FDV overhang. Vetoes: history, revenue decline, FDV &gt; 3× cap, P/S FDV &gt; 60×, no fee switch.</i>\n\n"
+    for b in book["book"]:
+        q = " ".join(f"{v/1e6:.1f}" for v in b["rev_quarters"])
+        out += (f"<b>{E(b['sym'])}</b> {b['weight']:.0%} · #{b['rank']} q{b['quality']:.2f} · rev30 {_m(b['rev30'])} · quarters ${q}M · holders' APY {_p(b['holders_apy']) if b['holders_apy'] is not None else '—'} "
+                f"· capture {b['capture']:.0%} · P/S {_x(b['ps_fdv'])} FDV · FDV/cap {_x(b['fdv_mcap'])} · vol {b['vol60']:.0%} · 12m {_p(b['px_12m'])}\n" if b.get("capture") is not None else f"<b>{E(b['sym'])}</b> {b['weight']:.0%} · #{b['rank']}\n")
+    if book.get("near_misses"):
+        out += "\n<b>Near misses</b> (fail one veto)\n" + "".join(f"• {E(b['sym'])} #{b['rank']}: {E(b['vetoes'][0])}\n" for b in book["near_misses"])
+    return out
+
+def quality_view(m, vet):
+    q = " ".join(f"{v/1e6:.1f}" for v in m["rev_quarters"])
+    out = f"🔎 <b>{E(m['sym'])}</b> · {E(m['name'])} · {E(str(m['category']))}\nRev 30d {_m(m['rev30'])} · quarters ${q}M · vs 90d {_x(m['vs90'])} · vs 12m peak {_p((m['vs_peak12'] or 0)-1) if m['vs_peak12'] else '—'}\n"
+    out += f"Holders' APY {_p(m['holders_apy']) if m['holders_apy'] is not None else '—'} · capture {(m['capture'] or 0):.0%} · P/S {_x(m['ps_mcap'])} mcap / {_x(m['ps_fdv'])} FDV\n"
+    out += f"Mcap {_m(m['mcap'], 'M')} · FDV/cap {_x(m['fdv_mcap'])} · vol60 {m['vol60']:.0%} · 12m price {_p(m['px_12m'])} · max DD 12m {_p(m['dd_12m'])} · months ≥$100k {m['months_ok']:.0%}\n"
+    out += ("✅ passes all long-hold vetoes\n" if not vet else "".join(f"⛔ {E(v)}\n" for v in vet))
+    return out
+
+def portfolio_view(hs, cash, value):
+    if not hs and not cash: return "No holdings. Use /hold SYM USD [entry price], or /sync to read the wallet."
+    out = f"💼 <b>Portfolio</b> ≈ ${value:,.0f} (cash ${cash:,.0f})\n"
+    for h in sorted(hs, key=lambda h: -h["value"]):
+        w = h["value"] / value if value else 0
+        out += f"#{h['id']} <b>{E(h['sym'])}</b> {w:.0%} · ${h['value']:,.0f}" + (f" · {h['value']/h['size_usd']-1:+.0%} since {h['entry_date']}" if h.get("size_usd") else "") + "\n"
+    return out
+
+def rebalance_view(rb):
+    out = f"⚖️ <b>Rebalance</b> — portfolio ${rb['value']:,.0f}, " + ("quarterly rebalance due" if rb["due"] else f"next scheduled review {rb['next_review']}") + "\n"
+    if not rb["trades"]: return out + "Nothing to do: weights within tolerance and no invalidations.\n"
+    for tr in rb["trades"]:
+        icon = {"SELL": "🔴", "TRIM": "🟠", "BUY": "🟢", "ADD": "🔵", "HOLD": "⚪"}[tr["action"]]
+        amt = f" ${tr['usd']:,.0f} ({tr['from_w']:.0%} → {tr['to_w']:.0%})" if tr["action"] != "HOLD" else f" ({tr['from_w']:.0%})"
+        out += f"{icon} <b>{tr['action']} {E(tr['sym'])}</b>{amt} — {E(tr['why'])}" + (" ⚠️ urgent" if tr["urgent"] else "") + "\n"
+    out += "Execute with /buy SYM USD or /sell SYM FRACTION, then /rebalanced to reset the clock."
+    return out
+
+def review_view(rv):
+    if not rv: return "No holdings to review."
+    out = "🗓 <b>Monthly review</b>\n"
+    for r in rv:
+        icon = {"KEEP": "✅", "HOLD": "🟡", "TRIM": "🟠", "SELL": "🔴", "UNKNOWN": "❔"}[r["verdict"]]
+        m = r.get("m") or {}
+        out += f"{icon} <b>{E(r['sym'])}</b> {r['verdict']}" + (f" · {r['pnl']:+.0%}" if r.get("pnl") is not None else "") + (f" · rev30 {_m(m.get('rev30'))} · holders' APY {_p(m.get('holders_apy')) if m.get('holders_apy') is not None else '—'}" if m else "") + "\n" + "".join(f"   • {E(w)}\n" for w in r["why"])
+    return out
