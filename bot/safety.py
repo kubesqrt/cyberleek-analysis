@@ -57,6 +57,12 @@ def check(sym, chain_name, address, pool=None):
         if pool["liquidity_usd"] < C.MIN_POOL_LIQ: warn.append(f"thin pool: ${pool['liquidity_usd']/1e3:,.0f}k liquidity in the best pool")
         if pool.get("created") and (time.time() - pool["created"]) < 7 * 86400: warn.append("main pool is under 7 days old")
         info.append(f"best pool {pool['dex']} on {pool['chain']}: ${pool['liquidity_usd']/1e3:,.0f}k liquidity, ${pool['vol24h']/1e3:,.0f}k 24h volume, {pool['n_pools']} pools")
+    # Canonical OP-Stack bridged tokens (OptimismMintableERC20 on Base/OP/etc.) are minted and burned by the bridge contract:
+    # GoPlus reports that as mintable + owner_change_balance + hidden_owner. Treat the combination on a verified contract as a
+    # bridge pattern (warn), not a rug switch. Confirm on the explorer that the contract name is OptimismMintableERC20.
+    if g and chain_id in (8453, 10, 4663, 130) and g.get("is_open_source") == "1" and {"owner can change balances"} <= set(hard) and g.get("is_mintable") == "1" and g.get("hidden_owner") == "1":
+        hard = [h for h in hard if h != "owner can change balances"]; warn = [w for w in warn if w not in ("hidden owner", "mintable")]
+        warn.append("bridged-token pattern: mint/burn controlled by the canonical bridge (verify contract name OptimismMintableERC20 on the explorer)")
     score = max(0, 100 - 100 * bool(hard) - 12 * len(warn))
     verdict = "FAIL" if hard else ("WARN" if warn else ("PASS" if g else "UNVERIFIED"))
     return {"sym": sym, "chain": chain_name, "address": address, "verdict": verdict, "score": score, "hard": hard, "warn": warn, "info": info, "taxes": taxes, "top10_pct": top10, "lp_locked_pct": lp_locked, "goplus": bool(g)}
