@@ -118,7 +118,8 @@ def run(K=1.5, N=28, exit_rule="slow", stop=None, price_only=False, label=None):
                 p = pos.pop(c); val = p["units"] * pxA[t, c] * (1 - COST)
                 cash += val
                 trades.append({"sym": cols[c], "entry": str(idx[p["entry_t"]].date()), "exit": str(idx[t].date()),
-                               "ret": val / p["cost"] - 1, "days": t - p["entry_t"]})
+                               "ret": val / p["cost"] - 1, "days": t - p["entry_t"], "entry_px": p["entry_px"], "exit_px": float(pxA[t, c]),
+                               "ratio": p.get("ratio"), "reason": p.get("reason", "")})
         for c in pending_entries:
             if c not in pos and len(pos) < MAX_POS and not np.isnan(pxA[t, c]):
                 alloc = min(cash, 1.0 / MAX_POS * max(cash + sum(pp["units"] * pxA[t, k] for k, pp in pos.items() if not np.isnan(pxA[t, k])), 1e-9))
@@ -126,7 +127,7 @@ def run(K=1.5, N=28, exit_rule="slow", stop=None, price_only=False, label=None):
                 if alloc <= 0: continue
                 units = alloc * (1 - COST) / pxA[t, c]
                 cash -= alloc
-                pos[c] = {"units": units, "entry_px": pxA[t, c], "entry_t": t, "peak": pxA[t, c], "cost": alloc}
+                pos[c] = {"units": units, "entry_px": pxA[t, c], "entry_t": t, "peak": pxA[t, c], "cost": alloc, "ratio": float(ratioA[t-1, c]) if t>0 else None}
         pending_entries, pending_exits = [], []
         # mark
         mv = cash + sum(p["units"] * pxA[t, c] for c, p in pos.items() if not np.isnan(pxA[t, c]))
@@ -135,16 +136,18 @@ def run(K=1.5, N=28, exit_rule="slow", stop=None, price_only=False, label=None):
         for c, p in list(pos.items()):
             if not np.isnan(pxA[t, c]): p["peak"] = max(p["peak"], pxA[t, c])
             leave = False
-            if exA is not None and exA[t, c]: leave = True
-            if exit_rule == "hold28" and t - p["entry_t"] >= 28: leave = True
-            if stop is not None and pxA[t, c] < p["peak"] * (1 - stop): leave = True
-            if not eligA[t, c]: leave = True
+            if exA is not None and exA[t, c]: leave = True; p["reason"] = "revenue slowed"
+            if exit_rule == "hold28" and t - p["entry_t"] >= 28: leave = True; p["reason"] = "28d hold"
+            if stop is not None and pxA[t, c] < p["peak"] * (1 - stop): leave = True; p["reason"] = "trailing stop"
+            if not eligA[t, c]: leave = True; p["reason"] = "dropped from universe"
             if leave: pending_exits.append(c)
         cands = [c for c in range(len(cols)) if entryA[t, c] and c not in pos and c not in pending_exits]
         cands.sort(key=lambda c: -ratioA[t, c])
         pending_entries = cands[: max(0, MAX_POS - len(pos))]
     eq = pd.Series(equity, idx)
-    return {"label": label or f"K{K}_N{N}_{exit_rule}{'_stop'+str(stop) if stop else ''}{'_PRICE' if price_only else ''}",
+    open_pos = [{"sym": cols[c], "entry": str(idx[p["entry_t"]].date()), "entry_px": p["entry_px"], "last_px": float(pxA[T-1, c]),
+                 "unreal": float(pxA[T-1, c] / p["entry_px"] - 1), "days": T - 1 - p["entry_t"], "ratio": p.get("ratio")} for c, p in pos.items()]
+    return {"open": open_pos, "label": label or f"K{K}_N{N}_{exit_rule}{'_stop'+str(stop) if stop else ''}{'_PRICE' if price_only else ''}",
             "equity": eq, "trades": trades, "exposure": float(expo.mean()), "expo_series": pd.Series(expo, idx)}
 
 def stats(eq, trades=None, expo=None):
