@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Revenue vs Valuation — Alt Analysis</title>
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#0d1117; --panel:#161b22; --panel2:#1c2129; --border:#21262d; --border2:#30363d;
+  --ink:#e6edf3; --ink2:#9198a1; --muted:#6e7681; --grid:#21262d;
+  --s1:#3987e5; --s2:#d95926; --s3:#199e70;
+  --up:#3fb950; --down:#f85149; --chip:#21262d;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.5 "Segoe UI",system-ui,-apple-system,sans-serif}
+a{color:var(--s1);text-decoration:none} a:hover{text-decoration:underline}
+main{max-width:1400px;margin:0 auto;padding:1.1rem 1rem 4rem}
+h1{font-size:1.35rem;margin:0}
+.sub{color:var(--ink2);font-size:.85rem;margin:.15rem 0 0}
+.topbar{display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap}
+.topbar .right{margin-left:auto;color:var(--muted);font-size:.8rem}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.6rem;margin:1rem 0}
+.tile{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:.6rem .8rem}
+.tile .v{font-size:1.25rem;font-weight:600}
+.tile .l{color:var(--ink2);font-size:.75rem;margin-top:.1rem}
+.filters{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:.55rem .7rem;position:sticky;top:0;z-index:5}
+.filters label{color:var(--ink2);font-size:.75rem;display:flex;flex-direction:column;gap:.15rem}
+.filters select,.filters input[type=text]{background:var(--bg);color:var(--ink);border:1px solid var(--border2);border-radius:6px;padding:.3rem .45rem;font-size:.82rem}
+.filters input[type=text]{width:180px}
+.filters .chk{flex-direction:row;align-items:center;gap:.35rem;align-self:flex-end;padding-bottom:.35rem;cursor:pointer}
+.filters .count{margin-left:auto;color:var(--muted);font-size:.78rem;align-self:flex-end;padding-bottom:.3rem}
+.banner{background:#3d2c10;border:1px solid #6e5419;color:#e3b341;border-radius:8px;padding:.5rem .8rem;margin:.7rem 0;font-size:.82rem;display:none}
+.tablewrap{overflow-x:auto;border:1px solid var(--border);border-radius:8px;margin-top:.8rem;background:var(--panel)}
+table{border-collapse:collapse;width:100%;min-width:1240px;font-size:.83rem}
+th,td{padding:.45rem .55rem;text-align:right;white-space:nowrap}
+th{position:sticky;top:0;background:var(--panel2);color:var(--ink2);font-weight:600;font-size:.74rem;cursor:pointer;user-select:none;border-bottom:1px solid var(--border2)}
+th:hover{color:var(--ink)}
+th .dir{color:var(--s1)}
+td{border-top:1px solid var(--border)}
+th.l,td.l{text-align:left}
+tbody tr.row:hover{background:#1a2029;cursor:pointer}
+.num{font-variant-numeric:tabular-nums}
+.pos{color:var(--up)} .neg{color:var(--down)} .dim{color:var(--muted)}
+.proto{display:flex;align-items:center;gap:.5rem;min-width:210px}
+.proto img{width:20px;height:20px;border-radius:50%;background:var(--chip);flex:none}
+.proto .nm{font-weight:600}
+.proto .sym{color:var(--ink2);font-size:.72rem}
+.cat{display:inline-block;background:var(--chip);border:1px solid var(--border2);color:var(--ink2);border-radius:10px;padding:0 .45rem;font-size:.68rem;margin-left:.4rem;vertical-align:1px}
+.capbar{display:inline-block;width:44px;height:5px;border-radius:3px;background:var(--border);margin-left:.4rem;vertical-align:2px;overflow:hidden}
+.capbar i{display:block;height:100%;background:var(--s3)}
+tr.detail>td{background:var(--bg);padding:0;border-top:1px solid var(--border2)}
+.detailbox{padding:.8rem 1rem 1rem}
+.detailbox .facts{display:flex;gap:1.4rem;flex-wrap:wrap;color:var(--ink2);font-size:.8rem;margin-bottom:.6rem}
+.detailbox .facts b{color:var(--ink);font-weight:600}
+.chartcard{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:.7rem .8rem .4rem;max-width:980px}
+.chartcard h4{margin:0 0 .1rem;font-size:.85rem}
+.chartcard .legend{display:flex;gap:1rem;font-size:.72rem;color:var(--ink2);margin:.15rem 0 .3rem}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+.tip{position:fixed;pointer-events:none;background:#010409;border:1px solid var(--border2);border-radius:6px;padding:.35rem .55rem;font-size:.75rem;z-index:50;display:none;box-shadow:0 4px 14px rgba(0,0,0,.5)}
+.tip .t{color:var(--ink2)}
+.loading{color:var(--ink2);padding:2.2rem;text-align:center;font-size:.9rem}
+.note{color:var(--muted);font-size:.76rem;margin-top:1rem;line-height:1.6}
+.spin{display:inline-block;width:12px;height:12px;border:2px solid var(--border2);border-top-color:var(--s1);border-radius:50%;animation:sp 0.8s linear infinite;vertical-align:-2px;margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
+.pill{cursor:pointer;background:var(--bg);border:1px solid var(--border2);color:var(--ink2);border-radius:6px;padding:.3rem .6rem;font-size:.78rem}
+.pill:hover{color:var(--ink)}
+</style>
+</head>
+<body>
+<main>
+  <div class="topbar">
+    <div>
+      <h1>Revenue vs Valuation</h1>
+      <p class="sub">Protocol revenue (DeFiLlama) joined with token market data (CoinGecko) — does the token capture the cash flow?</p>
+    </div>
+    <div class="right" id="updated"></div>
+  </div>
+
+  <div class="tiles" id="tiles"></div>
+  <div class="banner" id="banner"></div>
+
+  <div class="filters" id="filters">
+    <label>Search
+      <input type="text" id="q" placeholder="protocol / symbol…">
+    </label>
+    <label>Category
+      <select id="cat"><option value="">All</option></select>
+    </label>
+    <label>Revenue momentum
+      <select id="mom">
+        <option value="">Any</option>
+        <option value="wow">Weekly ↑ (WoW &gt; 0)</option>
+        <option value="mom">Monthly ↑ (MoM &gt; 0)</option>
+        <option value="both">Weekly + Monthly ↑</option>
+        <option value="accel">Accelerating (WoW &gt; MoM &gt; 0)</option>
+        <option value="fading">Fading (WoW &lt; 0)</option>
+      </select>
+    </label>
+    <label>Value capture
+      <select id="cap">
+        <option value="">Any</option>
+        <option value="some">Token gets revenue (&gt;0)</option>
+        <option value="quarter">≥ 25% to holders</option>
+        <option value="half">≥ 50% to holders</option>
+        <option value="none">No holder revenue</option>
+      </select>
+    </label>
+    <label>Min 30d revenue
+      <select id="minrev">
+        <option value="0">Any</option>
+        <option value="100000">$100k</option>
+        <option value="300000" selected>$300k</option>
+        <option value="1000000">$1M</option>
+        <option value="10000000">$10M</option>
+      </select>
+    </label>
+    <label class="chk"><input type="checkbox" id="tokonly" checked> has token</label>
+    <button class="pill" id="reload" title="Refetch data">↻ refresh</button>
+    <span class="count" id="count"></span>
+  </div>
+
+  <div class="tablewrap">
+    <table id="tbl">
+      <thead><tr id="hdr"></tr></thead>
+      <tbody id="body"><tr><td colspan="13" class="loading"><span class="spin"></span>Loading DeFiLlama + CoinGecko data…</td></tr></tbody>
+    </table>
+  </div>
+
+  <p class="note">
+    <b>Method.</b> Revenue = DeFiLlama <i>dailyRevenue</i> (protocol take, not total user fees), children summed into parent protocols.
+    WoW = last 7d vs prior 7d; MoM = last 30d vs prior 30d; vs&nbsp;1y = last 30d vs trailing-1y monthly average.
+    Annualized revenue = 30d × 12.17. P/S = market cap ÷ annualized revenue; P/F = FDV ÷ annualized revenue (lower = cheaper per revenue dollar; only meaningful when the token has a claim on the business).
+    Capture = share of protocol revenue paid to token holders (DeFiLlama <i>holders revenue</i>: burns, buybacks, staker/locker distributions) — the closest on-chain proxy for “does the token capture the revenue”.
+    Mcap/FDV shows dilution overhang. Chains (L1 gas revenue) are excluded; CEX rows are hidden by default via the token filter unless their token has holder revenue. Prices/mcap/FDV: CoinGecko.
+    Click a row for the daily revenue chart. Data refreshes on load and is cached for 10 minutes in your browser.
+  </p>
+</main>
+<div class="tip" id="tip"></div>
+
+<script>
+"use strict";
+const $ = s => document.querySelector(s);
+const LLAMA = "https://api.llama.fi";
+const CG = "https://api.coingecko.com/api/v3";
+const CACHE_MIN = 10;
+
+const fmt$ = v => v==null||isNaN(v) ? "—" :
+  Math.abs(v)>=1e9 ? "$"+(v/1e9).toFixed(2)+"B" :
+  Math.abs(v)>=1e6 ? "$"+(v/1e6).toFixed(2)+"M" :
+  Math.abs(v)>=1e3 ? "$"+(v/1e3).toFixed(1)+"k" : "$"+v.toFixed(v<1?4:2);
+const fmtX = v => v==null||!isFinite(v) ? "—" : v>=1000 ? (v/1000).toFixed(1)+"k×" : v.toFixed(1)+"×";
+const fmtP = (v,dec=1) => v==null||!isFinite(v) ? "—" : (v>0?"+":"")+(100*v).toFixed(dec)+"%";
+const cls = v => v==null||!isFinite(v) ? "dim" : v>0 ? "pos" : v<0 ? "neg" : "dim";
+
+async function jget(url, opt){
+  opt = opt || {};
+  const tries = opt.retry429 ? 4 : 1;
+  for(let i=0;i<tries;i++){
+    const r = await fetch(url);
+    if(r.status===429 && i<tries-1){ await new Promise(s=>setTimeout(s, opt.backoff ? opt.backoff*(i+1) : 8000*(i+1))); continue; }
+    if(!r.ok) throw Object.assign(new Error("HTTP "+r.status), {status:r.status});
+    return r.json();
+  }
+}
+function cacheGet(k){
+  try{
+    const raw = sessionStorage.getItem(k);
+    if(!raw) return null;
+    const {t,d} = JSON.parse(raw);
+    if(Date.now()-t > CACHE_MIN*60e3) return null;
+    return d;
+  }catch(e){ return null; }
+}
+function cachePut(k,d){ try{ sessionStorage.setItem(k, JSON.stringify({t:Date.now(),d})); }catch(e){} }
+async function cached(k, fn){ const c = cacheGet(k); if(c) return c; const d = await fn(); cachePut(k,d); return d; }
+
+// ---------- data pipeline ----------
+let ENTITIES = [], VIEW = [], CG_OK = true;
+
+async function loadAll(force){
+  if(force){ try{ sessionStorage.clear(); }catch(e){} }
+  const ov = (u)=>`${LLAMA}/overview/fees?excludeTotalDataChart=true&excludeTotalDataChartBreakdown=true&dataType=${u}`;
+  const [rev, hold, fees, lite] = await Promise.all([
+    cached("rev",  ()=>jget(ov("dailyRevenue"))),
+    cached("hold", ()=>jget(ov("dailyHoldersRevenue"))),
+    cached("fees", ()=>jget(ov("dailyFees"))),
+    cached("lite", ()=>jget(`${LLAMA}/lite/protocols2?b=2`)),
+  ]);
+
+  const parents = {}; // "parent#x" -> meta
+  for(const p of (lite.parentProtocols||[])) parents[p.id] = p;
+  const bySlug = {};  // child slug -> lite protocol meta (gecko_id etc.)
+  for(const p of (lite.protocols||[])) if(p.defillamaId!=null) bySlug[slug(p.name)] = p;
+
+  function slug(n){ return String(n).toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""); }
+
+  const holdBy = {}, feesBy = {};
+  for(const p of (hold.protocols||[])) holdBy[p.slug] = p;
+  for(const p of (fees.protocols||[])) feesBy[p.slug] = p;
+
+  const ent = {}; // key -> entity
+  for(const p of (rev.protocols||[])){
+    if(p.protocolType === "chain") continue;
+    const parent = p.parentProtocol ? parents[p.parentProtocol] : null;
+    const key = p.parentProtocol || ("solo#"+p.slug);
+    const lp = bySlug[p.slug];
+    const e = ent[key] ||= {
+      key, name: parent ? parent.name : (p.displayName||p.name),
+      logo: parent ? parent.logo : p.logo,
+      category: p.category || "", chains: new Set(),
+      gecko: parent ? parent.gecko_id : (lp && lp.gecko_id) || null,
+      symbol: parent ? parent.symbol : (lp && lp.symbol) || null,
+      llamaMcap: parent ? parent.mcap : (lp && lp.mcap) || null,
+      slugs: [],
+      r24:0, r7:0, r30:0, r7p:0, r30p:0, r1yAvgM:0,
+      h30:0, h7:0, f30:0,
+    };
+    e.slugs.push(p.slug);
+    if(parent && p.category && !e.catCount) e.category = e.category || p.category;
+    e.r24 += p.total24h||0; e.r7 += p.total7d||0; e.r30 += p.total30d||0;
+    e.r7p += p.total14dto7d||0; e.r30p += p.total60dto30d||0;
+    e.r1yAvgM += p.monthlyAverage1y||0;
+    const h = holdBy[p.slug]; if(h){ e.h30 += h.total30d||0; e.h7 += h.total7d||0; }
+    const f = feesBy[p.slug]; if(f){ e.f30 += f.total30d||0; }
+  }
+
+  let list = Object.values(ent).filter(e => e.r30>0 || e.r7>0);
+  // symbols like "-" mean no token
+  for(const e of list){ if(e.symbol==="-"||e.symbol==="") e.symbol=null; if(e.gecko==="-") e.gecko=null; }
+
+  // CoinGecko enrichment
+  // prioritise higher-revenue protocols so if CG throttles, the top of the table is covered first
+  const ids = [...new Set(list.slice().sort((a,b)=>b.r30-a.r30).filter(e=>e.gecko).map(e=>e.gecko))];
+  const market = {};
+  CG_OK = true;
+  let cgFail = 0;
+  const chunks = [];
+  for(let i=0;i<ids.length;i+=250) chunks.push(ids.slice(i,i+250));
+  for(let ci=0; ci<chunks.length; ci++){
+    try{
+      const d = await cached("cgm_"+ci+"_"+chunks[ci].length, () =>
+        jget(`${CG}/coins/markets?vs_currency=usd&per_page=250&ids=${encodeURIComponent(chunks[ci].join(","))}&price_change_percentage=7d%2C30d`,
+             {retry429:true, backoff:6000}));
+      for(const c of d) market[c.id] = c;
+    }catch(err){ cgFail++; }
+    if(ci<chunks.length-1) await new Promise(r=>setTimeout(r, 2500));
+  }
+  if(cgFail>0) CG_OK = false;
+
+  for(const e of list){
+    const m = e.gecko ? market[e.gecko] : null;
+    e.price   = m ? m.current_price : null;
+    e.mcap    = m && m.market_cap ? m.market_cap : (e.llamaMcap||null);
+    e.fdv     = m ? m.fully_diluted_valuation : null;
+    e.px7     = m && m.price_change_percentage_7d_in_currency!=null ? m.price_change_percentage_7d_in_currency/100 : null;
+    e.px30    = m && m.price_change_percentage_30d_in_currency!=null ? m.price_change_percentage_30d_in_currency/100 : null;
+    e.hasToken = !!(e.mcap || e.fdv);
+    e.ann     = e.r30 * (365/30);
+    e.ps      = e.mcap && e.ann>0 ? e.mcap/e.ann : null;
+    e.pf      = e.fdv  && e.ann>0 ? e.fdv /e.ann : null;
+    e.mcfdv   = e.mcap && e.fdv ? e.mcap/e.fdv : null;
+    e.wow     = e.r7p >1000 ? e.r7 /e.r7p -1 : (e.r7>1000&&e.r7p<=1000? Infinity : null);
+    e.mom     = e.r30p>1000 ? e.r30/e.r30p-1 : (e.r30>1000&&e.r30p<=1000? Infinity : null);
+    e.vs1y    = e.r1yAvgM>1000 ? e.r30/e.r1yAvgM-1 : null;
+    e.capr    = e.r30>0 ? Math.min(e.h30/e.r30, 1.5) : null;
+  }
+  ENTITIES = list;
+  buildCatOptions();
+  $("#updated").textContent = "updated " + new Date().toLocaleString() + " · " + list.length + " protocols";
+  $("#banner").style.display = CG_OK ? "none" : "block";
+  $("#banner").textContent = "CoinGecko rate-limited this load — mcap falls back to DeFiLlama, FDV/P/F may be missing. Hit ↻ refresh in a minute.";
+  render();
+}
+
+function buildCatOptions(){
+  const cats = [...new Set(ENTITIES.map(e=>e.category).filter(Boolean))].sort();
+  const sel = $("#cat"); const cur = sel.value;
+  sel.innerHTML = '<option value="">All</option>' + cats.map(c=>`<option${c===cur?" selected":""}>${c}</option>`).join("");
+}
+
+// ---------- table ----------
+const COLS = [
+  {k:"i",     t:"#",        l:false, sort:null},
+  {k:"name",  t:"Protocol", l:true,  sort:(a,b)=>a.name.localeCompare(b.name)},
+  {k:"price", t:"Price",    sort:num("price")},
+  {k:"px7",   t:"7d %",     sort:num("px7")},
+  {k:"mcap",  t:"Mcap",     sort:num("mcap")},
+  {k:"fdv",   t:"FDV",      sort:num("fdv")},
+  {k:"r30",   t:"Rev 30d",  sort:num("r30")},
+  {k:"wow",   t:"Rev WoW",  sort:num("wow")},
+  {k:"mom",   t:"Rev MoM",  sort:num("mom")},
+  {k:"vs1y",  t:"vs 1y avg",sort:num("vs1y")},
+  {k:"ps",    t:"P/S",      sort:num("ps"), asc:true},
+  {k:"pf",    t:"P/F",      sort:num("pf"), asc:true},
+  {k:"capr",  t:"Capture",  sort:num("capr")},
+];
+function num(k){ return (a,b)=>( (b[k]??-Infinity) - (a[k]??-Infinity) ); }
+let sortKey = "r30", sortAsc = false, expanded = null;
+
+function headerRow(){
+  $("#hdr").innerHTML = COLS.map(c=>{
+    const arrow = c.k===sortKey ? `<span class="dir">${sortAsc?"↑":"↓"}</span>` : "";
+    return `<th class="${c.l?"l":""}" data-k="${c.k}">${c.t} ${arrow}</th>`;
+  }).join("");
+  document.querySelectorAll("#hdr th").forEach(th=>{
+    th.onclick = ()=>{
+      const c = COLS.find(x=>x.k===th.dataset.k);
+      if(!c || !c.sort) return;
+      if(sortKey===c.k) sortAsc = !sortAsc;
+      else { sortKey = c.k; sortAsc = !!c.asc; }
+      render();
+    };
+  });
+}
+
+function applyFilters(){
+  const q = $("#q").value.trim().toLowerCase();
+  const cat = $("#cat").value;
+  const mom = $("#mom").value;
+  const cap = $("#cap").value;
+  const minrev = +$("#minrev").value;
+  const tok = $("#tokonly").checked;
+  VIEW = ENTITIES.filter(e=>{
+    if(e.r30 < minrev) return false;
+    if(tok && !e.hasToken) return false;
+    if(cat && e.category!==cat) return false;
+    if(q && !(e.name.toLowerCase().includes(q) || (e.symbol||"").toLowerCase().includes(q))) return false;
+    if(mom==="wow"   && !(e.wow>0)) return false;
+    if(mom==="mom"   && !(e.mom>0)) return false;
+    if(mom==="both"  && !(e.wow>0 && e.mom>0)) return false;
+    if(mom==="accel" && !(e.wow>0 && e.mom>0 && e.wow>e.mom)) return false;
+    if(mom==="fading"&& !(e.wow<0)) return false;
+    if(cap==="some"    && !(e.capr>0)) return false;
+    if(cap==="quarter" && !(e.capr>=0.25)) return false;
+    if(cap==="half"    && !(e.capr>=0.5)) return false;
+    if(cap==="none"    && !(e.capr===0 || e.capr==null)) return false;
+    return true;
+  });
+  const c = COLS.find(x=>x.k===sortKey);
+  if(c && c.sort){ VIEW.sort(c.sort); if(sortAsc) VIEW.reverse(); }
+}
+
+function render(){
+  headerRow();
+  applyFilters();
+  tiles();
+  $("#count").textContent = VIEW.length + " shown";
+  const rows = VIEW.slice(0, 400).map((e,i)=>{
+    const cap = e.capr==null ? `<span class="dim">—</span>` :
+      `<span class="num">${(100*Math.min(e.capr,1)).toFixed(0)}%</span><span class="capbar"><i style="width:${Math.min(e.capr,1)*100}%"></i></span>`;
+    const inf = v => v===Infinity ? `<span class="pos">new</span>` : `<span class="num ${cls(v)}">${fmtP(v)}</span>`;
+    return `<tr class="row" data-key="${e.key}">
+      <td class="num dim">${i+1}</td>
+      <td class="l"><div class="proto">
+        <img loading="lazy" src="${e.logo||""}" onerror="this.style.visibility='hidden'">
+        <div><span class="nm">${e.name}</span> <span class="sym">${e.symbol||""}</span><span class="cat">${e.category||"?"}</span></div>
+      </div></td>
+      <td class="num">${e.price!=null?fmt$(e.price):"—"}</td>
+      <td class="num ${cls(e.px7)}">${fmtP(e.px7)}</td>
+      <td class="num">${fmt$(e.mcap)}</td>
+      <td class="num">${fmt$(e.fdv)}</td>
+      <td class="num"><b>${fmt$(e.r30)}</b></td>
+      <td>${inf(e.wow)}</td>
+      <td>${inf(e.mom)}</td>
+      <td class="num ${cls(e.vs1y)}">${fmtP(e.vs1y,0)}</td>
+      <td class="num">${fmtX(e.ps)}</td>
+      <td class="num">${fmtX(e.pf)}</td>
+      <td>${cap}</td>
+    </tr>`;
+  });
+  $("#body").innerHTML = rows.join("") || `<tr><td colspan="13" class="loading">Nothing matches these filters.</td></tr>`;
+  document.querySelectorAll("tr.row").forEach(tr=>{ tr.onclick = ()=>toggleDetail(tr); });
+}
+
+function tiles(){
+  const t30 = VIEW.reduce((s,e)=>s+e.r30,0);
+  const withTok = VIEW.filter(e=>e.hasToken);
+  const psArr = withTok.map(e=>e.ps).filter(v=>v&&isFinite(v)).sort((a,b)=>a-b);
+  const medPS = psArr.length? psArr[Math.floor(psArr.length/2)] : null;
+  const growing = VIEW.filter(e=>e.mom>0).length;
+  const capping = VIEW.filter(e=>e.capr>0).length;
+  $("#tiles").innerHTML = [
+    ["30d revenue (shown)", fmt$(t30)],
+    ["protocols shown", VIEW.length],
+    ["median P/S", medPS?fmtX(medPS):"—"],
+    ["revenue growing MoM", growing + " ("+(VIEW.length?Math.round(100*growing/VIEW.length):0)+"%)"],
+    ["tokens with holder revenue", capping],
+  ].map(([l,v])=>`<div class="tile"><div class="v">${v}</div><div class="l">${l}</div></div>`).join("");
+}
+
+// ---------- detail row & chart ----------
+async function toggleDetail(tr){
+  const key = tr.dataset.key;
+  document.querySelectorAll("tr.detail").forEach(x=>x.remove());
+  if(expanded===key){ expanded=null; return; }
+  expanded = key;
+  const e = ENTITIES.find(x=>x.key===key);
+  const d = document.createElement("tr");
+  d.className = "detail";
+  d.innerHTML = `<td colspan="13"><div class="detailbox">
+    <div class="facts">
+      <span>Ann. revenue <b>${fmt$(e.ann)}</b></span>
+      <span>Rev 24h <b>${fmt$(e.r24)}</b></span>
+      <span>Rev 7d <b>${fmt$(e.r7)}</b></span>
+      <span>Fees 30d <b>${fmt$(e.f30||null)}</b></span>
+      <span>Holders rev 30d <b>${fmt$(e.h30||null)}</b></span>
+      <span>Mcap/FDV <b>${e.mcfdv?(100*e.mcfdv).toFixed(0)+"%":"—"}</b></span>
+      <span>Price 30d <b class="${cls(e.px30)}">${fmtP(e.px30)}</b></span>
+      <span><a target="_blank" rel="noopener" href="https://defillama.com/protocol/${e.slugs[0]}">DeFiLlama ↗</a></span>
+      ${e.gecko?`<span><a target="_blank" rel="noopener" href="https://www.coingecko.com/en/coins/${e.gecko}">CoinGecko ↗</a></span>`:""}
+    </div>
+    <div class="chartcard">
+      <h4>Daily revenue — ${e.name}</h4>
+      <div class="legend"><span><i style="background:var(--s1)"></i>daily revenue</span><span><i style="background:var(--s2)"></i>7d average</span></div>
+      <div class="cbox"><div class="loading"><span class="spin"></span>loading series…</div></div>
+    </div>
+  </div></td>`;
+  tr.after(d);
+  try{
+    const series = await revenueSeries(e);
+    d.querySelector(".cbox").innerHTML = chartSVG(series);
+    wireTooltip(d.querySelector("svg"), series);
+  }catch(err){
+    d.querySelector(".cbox").innerHTML = `<div class="loading">couldn't load series (${err.message})</div>`;
+  }
+}
+
+async function revenueSeries(e){
+  const slugsWithRev = e.slugs.slice(0, 5);
+  const byDay = new Map();
+  for(const s of slugsWithRev){
+    const d = await cached("sum_"+s, ()=>jget(`${LLAMA}/summary/fees/${s}?dataType=dailyRevenue`));
+    for(const [ts,v] of (d.totalDataChart||[])){
+      byDay.set(ts, (byDay.get(ts)||0) + (v||0));
+    }
+  }
+  let pts = [...byDay.entries()].sort((a,b)=>a[0]-b[0]).slice(-180);
+  const ma = pts.map((_,i)=>{
+    const w = pts.slice(Math.max(0,i-6), i+1);
+    return w.reduce((s,p)=>s+p[1],0)/w.length;
+  });
+  return pts.map((p,i)=>({ts:p[0], v:p[1], ma:ma[i]}));
+}
+
+function chartSVG(S){
+  const W=940, H=240, padL=54, padR=10, padT=8, padB=26;
+  const iw = W-padL-padR, ih = H-padT-padB;
+  const max = Math.max(...S.map(p=>Math.max(p.v,p.ma)), 1) * 1.05;
+  const x = i => padL + iw*(i/(S.length-1||1));
+  const y = v => padT + ih*(1 - v/max);
+  const bw = Math.max(1, Math.min(6, iw/S.length - 1));
+  const bars = S.map((p,i)=>`<rect x="${(x(i)-bw/2).toFixed(1)}" y="${y(p.v).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,(H-padB-y(p.v))).toFixed(1)}" rx="1" fill="var(--s1)" opacity="0.75"/>`).join("");
+  const line = "M"+S.map((p,i)=>`${x(i).toFixed(1)},${y(p.ma).toFixed(1)}`).join(" L");
+  const gridN = 4;
+  let grid = "", labels="";
+  for(let g=1; g<=gridN; g++){
+    const gv = max*g/gridN, gy = y(gv);
+    grid += `<line x1="${padL}" x2="${W-padR}" y1="${gy}" y2="${gy}" stroke="var(--grid)" stroke-width="1"/>`;
+    labels += `<text x="${padL-6}" y="${gy+3}" text-anchor="end" font-size="10" fill="var(--muted)">${fmt$(gv).replace("$","$")}</text>`;
+  }
+  const months = {};
+  S.forEach((p,i)=>{ const d = new Date(p.ts*1000); const k = d.getUTCFullYear()+"-"+d.getUTCMonth(); if(!(k in months)) months[k]=i; });
+  const mlab = Object.values(months).filter((_,j)=>j>0 || S.length<70).map(i=>{
+    const d = new Date(S[i].ts*1000);
+    return `<text x="${x(i)}" y="${H-8}" font-size="10" fill="var(--muted)">${d.toLocaleString("en",{month:"short"})}</text>`;
+  }).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" width="100%" style="display:block">
+    ${grid}${labels}
+    <line x1="${padL}" x2="${W-padR}" y1="${H-padB}" y2="${H-padB}" stroke="var(--border2)" stroke-width="1"/>
+    ${bars}
+    <path d="${line}" fill="none" stroke="var(--s2)" stroke-width="2" stroke-linejoin="round"/>
+    ${mlab}
+    <rect class="hover" x="${padL}" y="${padT}" width="${iw}" height="${ih}" fill="transparent"/>
+    <line class="xh" y1="${padT}" y2="${H-padB}" stroke="var(--border2)" stroke-width="1" style="display:none"/>
+  </svg>`;
+}
+
+function wireTooltip(svg, S){
+  const tip = $("#tip");
+  const xh = svg.querySelector(".xh");
+  const hover = svg.querySelector(".hover");
+  const W=940, padL=54, padR=10, iw=W-padL-padR;
+  function move(ev){
+    const r = svg.getBoundingClientRect();
+    const sx = (ev.clientX - r.left) * (W / r.width);
+    const i = Math.round((sx-padL)/iw*(S.length-1));
+    if(i<0||i>=S.length){ leave(); return; }
+    const p = S[i];
+    const px = padL + iw*(i/(S.length-1||1));
+    xh.setAttribute("x1", px); xh.setAttribute("x2", px); xh.style.display="block";
+    tip.style.display="block";
+    tip.innerHTML = `<div class="t">${new Date(p.ts*1000).toISOString().slice(0,10)}</div>
+      <div><i style="display:inline-block;width:8px;height:8px;background:var(--s1);border-radius:2px;margin-right:5px"></i>rev <b class="num">${fmt$(p.v)}</b></div>
+      <div><i style="display:inline-block;width:8px;height:8px;background:var(--s2);border-radius:2px;margin-right:5px"></i>7d avg <b class="num">${fmt$(p.ma)}</b></div>`;
+    const tw = tip.offsetWidth;
+    tip.style.left = Math.min(window.innerWidth-tw-12, ev.clientX+14)+"px";
+    tip.style.top  = (ev.clientY+14)+"px";
+  }
+  function leave(){ tip.style.display="none"; xh.style.display="none"; }
+  hover.addEventListener("mousemove", move);
+  hover.addEventListener("mouseleave", leave);
+}
+
+// ---------- wiring ----------
+let deb;
+["q"].forEach(id=>$( "#"+id).addEventListener("input", ()=>{ clearTimeout(deb); deb=setTimeout(render, 150); }));
+["cat","mom","cap","minrev","tokonly"].forEach(id=>$("#"+id).addEventListener("change", render));
+$("#reload").onclick = ()=>{ $("#body").innerHTML = `<tr><td colspan="13" class="loading"><span class="spin"></span>Refreshing…</td></tr>`; loadAll(true).catch(showErr); };
+function showErr(err){
+  $("#body").innerHTML = `<tr><td colspan="13" class="loading">Failed to load data: ${err.message}. <button class="pill" onclick="location.reload()">retry</button></td></tr>`;
+}
+loadAll(false).catch(showErr);
+</script>
+</body>
+</html>
