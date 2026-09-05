@@ -79,8 +79,9 @@ def events_table():
         n = len(evs)
         rows = ""
         for h in (7, 28, 90):
-            r = [e[f"r{h}"] for e in evs if e.get(f"r{h}") is not None]
-            x = [e[f"x{h}"] for e in evs if e.get(f"x{h}") is not None]
+            ok = lambda v: isinstance(v, (int, float)) and v == v
+            r = [e[f"r{h}"] for e in evs if ok(e.get(f"r{h}"))]
+            x = [e[f"x{h}"] for e in evs if ok(e.get(f"x{h}"))]
             if not x: continue
             mean = sum(x)/len(x); sd = (sum((v-mean)**2 for v in x)/max(1,len(x)-1))**0.5; t = mean/(sd/math.sqrt(len(x))) if sd>0 else float("nan")
             med = sorted(x)[len(x)//2]; rm = sum(r)/len(r); rmed = sorted(r)[len(r)//2]
@@ -149,7 +150,8 @@ def factor_events_table():
     for tag, evs in R2["events"].items():
         rows = ""
         for h in (7, 28, 90):
-            r = [e[f"r{h}"] for e in evs if e.get(f"r{h}") is not None]; x = [e[f"x{h}"] for e in evs if e.get(f"x{h}") is not None]
+            ok = lambda v: isinstance(v, (int, float)) and v == v
+            r = [e[f"r{h}"] for e in evs if ok(e.get(f"r{h}"))]; x = [e[f"x{h}"] for e in evs if ok(e.get(f"x{h}"))]
             if not x: continue
             mean = sum(x)/len(x); sd = (sum((v-mean)**2 for v in x)/max(1,len(x)-1))**0.5; t = mean/(sd/math.sqrt(len(x))) if sd>0 else float("nan")
             rows += (f'<tr><td class="l">+{h}d</td><td class="num">{len(x)}</td><td class="num">{pct(sum(r)/len(r))}</td><td class="num">{pct(sorted(r)[len(r)//2])}</td>'
