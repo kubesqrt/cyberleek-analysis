@@ -52,8 +52,9 @@ def vetoes(m):
 STRUCTURAL = ("structural decline", "revenue 0", "token receives none", "illiquid", "revenue under")
 def is_structural(v): return any(v.startswith(p) or p in v for p in STRUCTURAL) or ("of its 12-month peak" in v)
 
-def build_book(panel, universe, n=BOOK_SIZE, weighting="invvol", cap=BOOK_CAP, log=print):
-    t = panel.asof(); rows = []
+def build_book(panel, universe, n=BOOK_SIZE, weighting="invvol", cap=BOOK_CAP, log=print, t=None, hrev_lookup=None):
+    """t: as-of date (default last complete day). hrev_lookup(entity, t) -> 30d holders revenue, for replays; default fetches live."""
+    t = t or panel.asof(); rows = []
     ents = {e["gecko"]: e for e in universe}
     for c in panel.REV.columns:
         e = ents.get(panel.meta[c]["gecko"]); mk = panel.market(c)
@@ -62,7 +63,7 @@ def build_book(panel, universe, n=BOOK_SIZE, weighting="invvol", cap=BOOK_CAP, l
         m = metrics(panel, c, t, e, mk); rows.append(m)
     log(f"  holders revenue for {len(rows)} candidates…")
     for m in rows:
-        h = holders_rev30(ents[m["gecko"]]); m["hrev30"] = h; m["capture"] = (h / m["rev30"]) if m["rev30"] > 0 else None; m["holders_apy"] = (h * 365 / 30 / m["mcap"]) if m["mcap"] else None
+        h = hrev_lookup(ents[m["gecko"]], t) if hrev_lookup else holders_rev30(ents[m["gecko"]]); m["hrev30"] = h; m["capture"] = (h / m["rev30"]) if m["rev30"] > 0 else None; m["holders_apy"] = (h * 365 / 30 / m["mcap"]) if m["mcap"] else None
         m["vetoes"] = vetoes(m)
     df = pd.DataFrame(rows)
     if df.empty: return []

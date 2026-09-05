@@ -46,8 +46,14 @@ class Panel:
         one_day = float(w.max() / r7) if r7 > 0 else float("nan")
         base = self.REV[c][t - pd.Timedelta(days=90): t]
         med = float(base.median()) if len(base) else 0.0
-        rw = self.REV[c][t - pd.Timedelta(days=C.RECURRING_WINDOW[1]): t - pd.Timedelta(days=C.RECURRING_WINDOW[0])]
-        recurring = bool(len(rw) and med > 0 and (rw.max() >= C.RECURRING_MULT * med) and (w.max() >= C.RECURRING_MULT * med))
+        # recurring lump: an ISOLATED one-day spike now (>= 3x the other days of its week) and another isolated spike
+        # 25-35 days ago (>= 3x its own +/-3-day neighbours). A steady ramp from zero does not qualify.
+        def isolated(series, i):
+            v = series.iloc[i]; nb = pd.concat([series.iloc[max(0, i - 3): i], series.iloc[i + 1: i + 4]])
+            return len(nb) >= 3 and nb.median() > 0 and v >= C.RECURRING_MULT * nb.median()
+        now_iso = len(w) >= 4 and w.drop(w.idxmax()).median() > 0 and w.max() >= C.RECURRING_MULT * w.drop(w.idxmax()).median()
+        rw_full = self.REV[c][t - pd.Timedelta(days=C.RECURRING_WINDOW[1] + 3): t - pd.Timedelta(days=C.RECURRING_WINDOW[0] - 3)]
+        recurring = bool(now_iso and any(isolated(rw_full, i) for i in range(3, max(3, len(rw_full) - 3))))
         prev = self.REV[c][t - pd.Timedelta(days=56): t - pd.Timedelta(days=7)]
         zero_share = float((prev <= 0).mean()) if len(prev) else 1.0
         fresh_product = None
@@ -111,7 +117,7 @@ class Panel:
         reasons = []
         if s["one_day_share"] == s["one_day_share"] and s["one_day_share"] >= C.ONE_DAY_SHARE_MAX: reasons.append(f"one-day spike: {s['one_day_share']:.0%} of the week's revenue on a single day")
         if s["recurring"]: reasons.append("recurring lump: a similar spike 25-35 days ago (distribution schedule, not growth)")
-        if s["zero_share"] > C.FRESH_ZERO_SHARE: reasons.append(f"fresh data source: {s['zero_share']:.0%} zero-revenue days in the prior 8 weeks")
+        if s["zero_share"] > C.FRESH_ZERO_SHARE and not s.get("young"): reasons.append(f"fresh data source: {s['zero_share']:.0%} zero-revenue days in the prior 8 weeks")
         if s["fresh_product"]: reasons.append(f"adapter change: sub-product '{s['fresh_product']}' is under {C.FRESH_PRODUCT_DAYS} days old and carries the week")
         if reasons: return "REJECT", reasons
         if s["rule"] == "breakout" and s["ps_rel"] is not None and s["ps_rel"] > C.PS_REL_MAX: return "WATCH", [f"already re-rated: P/S is {s['ps_rel']:.2f}x its own 180d median (limit {C.PS_REL_MAX:.1f}x)"]

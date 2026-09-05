@@ -39,8 +39,14 @@ def daily_messages(state):
         msgs.append("📚 Book changed: " + (f"in {', '.join(sorted(b - a))}" if b - a else "") + (f" · out {', '.join(sorted(a - b))}" if a - b else ""))
     MO.setting("book_syms", cur)
     msgs.append(RP.scan_summary(state.asof, state.signals, state.waves))
+    seen = json.loads(MO.setting("alerted") or "{}"); today = dt.date.fromisoformat(state.asof); still = []
     for s in state.signals:
-        if s["verdict"] in ("TRADE", "TRADE (beta)", "EARLY"): msgs.append(RP.alert_card(s))
+        if s["verdict"] in ("TRADE", "TRADE (beta)", "EARLY"):
+            last = seen.get(s["sym"])
+            if last and (today - dt.date.fromisoformat(last)).days < 14: still.append(s["sym"]); continue
+            msgs.append(RP.alert_card(s)); seen[s["sym"]] = state.asof
+    if still: msgs.append("Still firing (alerted in the last 14 days): " + ", ".join(still))
+    MO.setting("alerted", json.dumps(seen))
     for w in state.waves: msgs.append(RP.wave_view(w))
     fired = MO.evaluate(state.panel, pool_lookup=pool_lookup, safety_lookup=safety_lookup, chain_fees_lookup=chain_fees7)
     for p, m, value in fired:
