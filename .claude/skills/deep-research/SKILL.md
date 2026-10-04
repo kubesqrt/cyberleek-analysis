@@ -17,6 +17,8 @@ The user invoked this skill, which counts as opting in to multi-agent orchestrat
 
 ## 2. Run the workflow
 
+**Check concurrency first.** The Workflow tool runs at most `min(16, CPUs - 2)` agents at a time (`nproc` on Linux, `sysctl -n hw.ncpu` on macOS, `echo %NUMBER_OF_PROCESSORS%` on Windows). With 10+ CPUs use the Workflow tool as below. With fewer, use **orchestrator mode**: `dr.mjs` next to this file emits each phase's prompt files and absorbs agent JSON outputs; you launch one Agent per prompt file (all in one message, in parallel) with the instruction "Your full instructions are in <prompt path>. Read it first, then carry out the task exactly, including the OUTPUT CONTRACT." The command sequence is in the header comment of `dr.mjs` (`DR_RUN=<run dir> node dr.mjs <command>`); each command prints the prompt files to launch, and `absorb-*` commands print what is missing. Keep the run dir in the scratchpad or a `research/` folder.
+
 Call Workflow with:
 
 - `scriptPath`: the `workflow.js` file next to this SKILL.md (absolute path)
