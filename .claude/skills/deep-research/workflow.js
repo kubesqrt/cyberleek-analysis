@@ -18,6 +18,10 @@ const MAX = Q.depth === 'max'
 const SKEPTICS = MAX ? 3 : 2
 const MAX_ROUNDS = MAX ? 4 : 3
 const TODAY = Q.today || 'unknown (check the date of every source)'
+const EXAMPLES = Array.isArray(Q.examples) ? Q.examples.filter(Boolean) : []
+const EXAMPLES_NOTE = EXAMPLES.length ? `ILLUSTRATIVE EXAMPLES (given by the user to show what they mean; they are NOT the research target):
+${EXAMPLES.map(e => `- ${e}`).join('\n')}
+Research the general category these examples belong to. An example may appear as one data point among many, never as the focus. Look for other instances, the full range of variants, and cases that break the pattern.` : ''
 
 const TOOLS_NOTE = `Tools: first run ToolSearch with query "select:WebSearch,WebFetch" to load web tools.
 Use WebSearch mode "extended" for anything niche, recent, numeric or contested; "standard" for quick lookups.
@@ -127,9 +131,16 @@ const plan = await agent(`You are planning a deep research project.
 
 QUESTION: ${Q.question}
 ${Q.context ? `CONTEXT FROM THE USER: ${Q.context}` : ''}
+${EXAMPLES_NOTE}
 
 ${TOOLS_NOTE}
-
+${EXAMPLES.length ? `
+Anti-anchoring rules for the plan:
+- At most ONE sub-question may be about the given example(s) specifically.
+- Include a sub-question that maps the whole landscape: enumerate the other members/instances of the category, aiming for breadth.
+- Include a sub-question on how instances differ from each other and on the counter-examples that don't fit the pattern.
+- Search angles must use category-level terms, not only the example's name.
+` : ''}
 Do a few quick orienting searches first so the plan reflects the real landscape (terminology, key players, where the data lives).
 Then break the question into ${MAX ? '8-14' : '6-10'} sub-questions that together fully answer it with no big overlaps.
 Include sub-questions for: definitions/scope, the core facts, quantitative data, the strongest counter-evidence or opposing view, recent developments, and practical implications.
@@ -146,7 +157,7 @@ const research = sq => agent(`You are one researcher on a team answering:
 YOUR SUB-QUESTION (${sq.id}): ${sq.question}
 ${sq.why ? `Why it matters: ${sq.why}` : ''}
 Starting angles: ${sq.search_angles.join(' | ')}
-
+${EXAMPLES.length ? `Note: the user's example(s) (${EXAMPLES.join('; ')}) only illustrate the category. Unless your sub-question is about them, cover the broader set and don't spend your effort on them.\n` : ''}
 ${TOOLS_NOTE}
 
 ${SOURCE_RULES}
@@ -212,7 +223,7 @@ ${digest}
 Already-researched sub-questions:
 ${[...seen].join('\n')}
 
-What is still missing for a complete, trustworthy answer? Consider: unanswered items, key claims that failed verification, missing counter-evidence, missing quantitative data, missing recent developments, perspectives not represented.
+What is still missing for a complete, trustworthy answer?${EXAMPLES.length ? ` First check for anchoring: is the research over-focused on the user's illustrative example(s) (${EXAMPLES.join('; ')})? If so, propose sub-questions that broaden coverage of the category.` : ''} Consider: unanswered items, key claims that failed verification, missing counter-evidence, missing quantitative data, missing recent developments, perspectives not represented.
 Return only NEW sub-questions that would materially change or strengthen the answer (max ${MAX ? 6 : 4}). Set done=true if nothing material is missing.`,
     { phase: 'Gaps', label: `gaps:round${round}`, schema: GAPS, effort: 'high' })
 
@@ -234,7 +245,7 @@ const evidence = ledger.map(r => {
 const report = await agent(`Write the final research report answering:
 "${plan.restated_question}"
 ${Q.context ? `User context: ${Q.context}` : ''}
-
+${EXAMPLES.length ? `The user's example(s) (${EXAMPLES.join('; ')}) were illustrations. Answer at the category level, and mention the example only where it is a useful data point.\n` : ''}
 Use ONLY the evidence ledger below. Do not add facts from memory.
 - Build on claims marked confirmed. Claims marked refuted or outdated must not be stated as true (mention them only as debunked/outdated if relevant). Contested/unverified claims must be labelled as such.
 - Cite inline as markdown links [n](url) and finish with a numbered source list (title/site, date, url).

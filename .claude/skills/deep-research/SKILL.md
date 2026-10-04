@@ -10,6 +10,7 @@ The user invoked this skill, which counts as opting in to multi-agent orchestrat
 ## 1. Scope (inline, before any agents)
 
 - Restate the question in one sentence. If it is genuinely ambiguous in a way that changes the research (which market, which time window, which jurisdiction, what decision it feeds), ask the user up to 3 short questions with AskUserQuestion. Otherwise pick sensible defaults and state them.
+- **Separate examples from the target.** Users often give an example to show what they mean ("like X"), not to have X researched. For every concrete example in the request, decide whether it is the *subject* or an *illustration* of a broader category. If unclear, ask. For illustrations, write down the general category and which traits of the example matter (the pattern), and research the category with the example as only one data point. Never let the question collapse into "research X".
 - Pick depth: `max` if the user says exhaustive / no limits / tokens don't matter, else `standard`.
 - Get today's date (`date -u +%F`) to pass in, since workflow scripts can't read the clock.
 
@@ -18,7 +19,7 @@ The user invoked this skill, which counts as opting in to multi-agent orchestrat
 Call Workflow with:
 
 - `scriptPath`: the `workflow.js` file next to this SKILL.md (absolute path)
-- `args`: `{ "question": "<restated question>", "context": "<user's goal, constraints, defaults you chose>", "today": "<YYYY-MM-DD>", "depth": "standard" | "max" }`
+- `args`: `{ "question": "<restated question, phrased at the category level>", "context": "<user's goal, constraints, defaults you chose>", "examples": ["<illustrative example>: <the traits that make it relevant>"], "today": "<YYYY-MM-DD>", "depth": "standard" | "max" }`. Leave `examples` empty when the example *is* the subject.
 
 What it does:
 1. **Plan**: orienting searches, then 6-14 non-overlapping sub-questions with concrete search angles.
