@@ -156,6 +156,12 @@ code{font-family:var(--font-mono);font-size:.85em;background:var(--bg);padding:1
         <div class="out" id="x_out3"></div>
       </div>
       <div class="panel">
+        <strong>Short-video views → visits</strong>
+        <label>Video views per month (TikTok, Reels, Shorts) <input type="number" id="x_views" value="30000" min="0"></label>
+        <label>Click-through to bio link, % of views (0.1 to 1; higher when the video pushes the link) <input type="number" id="x_ctr" value="0.5" min="0" step="0.1"></label>
+        <div class="out" id="x_out5"></div>
+      </div>
+      <div class="panel">
         <strong>Social audience → visits</strong>
         <label>Followers across platforms <input type="number" id="x_fol" value="0" min="0"></label>
         <label>Monthly site visits per follower, % (3 to 15) <input type="number" id="x_fr" value="8" min="0" step="1"></label>
@@ -220,7 +226,7 @@ const SITES = {
   veryseason: {
     name: "veryseason.com",
     title: "Veryseason · \"British Time\" streetwear, UK",
-    verdict: "Tier 0, pre-traction. Store went live around 10 to 15 October 2026 with eight print-on-demand garments. No reviews app, no ad pixels, no social links, no third-party traffic data. Best estimate is effectively zero sales so far; the high case assumes an unseen personal audience.",
+    verdict: "Tier 1, launch week. Shopify store live since 10 to 15 October 2026 with eight print-on-demand garments, sold through the founder's TikTok (@veryseason, 6.8k followers, 309k likes, bio link to the store). The launch video has 4.5k views so far. No reviews, no ad pixels, no third-party traffic data. Sales depend almost entirely on TikTok click-through, so the range is wide and a viral video moves it by an order of magnitude.",
     cur: "£",
     facts: [
       ["Platform","Shopify (Dawn theme), GBP, 70+ markets enabled"],
@@ -230,15 +236,16 @@ const SITES = {
       ["Vendor","ODMPOD (print-on-demand dropship)"],
       ["Reviews","None, no reviews app installed"],
       ["Ad pixels","None detected (no Meta, TikTok, GA, Pinterest)"],
-      ["Social links","None on site"],
+      ["TikTok @veryseason","6,781 followers · 309k likes · 30 videos · since Oct 2024 · bio link → veryseason.com"],
+      ["TikTok launch video","\"it is finally dropped link in bio\": 4.5k views"],
+      ["TikTok last 12 videos","1.39m views, of which one at 1.1m and one at 219k; median ~4k"],
       ["Email / CRM","None detected"],
       ["Similarweb / Semrush","No data (below reporting threshold)"],
-      ["Search presence","No indexed mentions found"],
       ["Contact","Trade name Veryseason, info@veryseason.com, no address"]
     ],
-    notes: "Checked 18 Oct 2026 by reading the public storefront, products.json, collections.json and policy pages. Re-check in 30 days: if pixels, reviews or social links appear, move to tier 1 and re-run.",
-    assumptionNotes: "Visits: tier 0 (owner, friends, crawlers). Conversion: new store without social proof. AOV: median £49.90 × ~1.15 items. Returns: print-on-demand apparel, low because volume is tiny and returns go to the merchant. Margin: POD hoodie cost roughly £20–25 against £59.90 retail.",
-    v:[20,100,1000], c:[0.1,0.3,1.0], a:[45,55,65], r:[5,8,15], m:[35,45,55]
+    notes: "Checked 18 Oct 2026 from the public storefront, products.json, collections.json, policy pages and the public TikTok profile. Actual visit counts are only visible in the owner's Shopify analytics; traffic here is inferred from TikTok views × link click-through. Re-check in 30 days.",
+    assumptionNotes: "Visits: TikTok is the only channel. A normal month of 5 to 10 posts at the ~4k median is 20k to 40k views; at 0.3 to 1% click-through to the bio link that is roughly 100 to 400 visits (base 400 includes launch-week interest). High assumes a video breaks out again (~1m views sends 1k to 3k visits). Conversion: warm creator audience but a new store with no reviews. AOV: median £49.90 × ~1.15 items. Margin: POD hoodie cost roughly £20–25 against £59.90 retail.",
+    v:[100,400,2500], c:[0.3,0.8,1.5], a:[45,55,65], r:[5,8,15], m:[35,45,55]
   },
   custom: {
     name: "Custom site",
@@ -302,6 +309,7 @@ function crosschecks(){
   const vis = g("x_cpc")>0 ? g("x_spend")/g("x_cpc") : 0;
   $("x_out3").textContent = `≈ ${Math.round(vis).toLocaleString("en-GB")} paid visits / month`;
   $("x_out4").textContent = `≈ ${Math.round(g("x_fol")*g("x_fr")/100).toLocaleString("en-GB")} social visits / month`;
+  $("x_out5").textContent = `≈ ${Math.round(g("x_views")*g("x_ctr")/100).toLocaleString("en-GB")} visits / month from video`;
 }
 fillSelect();
 $("site").addEventListener("change", e=>loadPreset(e.target.value));

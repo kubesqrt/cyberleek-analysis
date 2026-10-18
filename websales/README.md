@@ -29,4 +29,4 @@ bottom of the page; one JSON record per analysed site is kept in `sites/`.
 
 | Site | Checked | Tier | Base net / month | Range |
 |---|---|---|---|---|
-| veryseason.com | 2026-10-18 | 0 (pre-traction) | ~£15 | £1 – £550 |
+| veryseason.com | 2026-10-18 | 1 (launch week, TikTok-driven) | ~£160 | £13 – £2,100 |
