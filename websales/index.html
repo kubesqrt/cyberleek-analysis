@@ -84,7 +84,7 @@ code{font-family:var(--font-mono);font-size:.85em;background:var(--bg);padding:1
       </div>
       <div class="row">
         <label for="cur">Currency symbol</label>
-        <input id="cur" type="text" value="£" style="width:3.5em;text-align:center">
+        <input id="cur" type="text" value="£" style="width:4.5em;text-align:center">
       </div>
     </div>
     <h3 id="siteTitle"></h3>
@@ -154,6 +154,12 @@ code{font-family:var(--font-mono);font-size:.85em;background:var(--bg);padding:1
         <label>Estimated monthly ad spend <input type="number" id="x_spend" value="0" min="0"></label>
         <label>Cost per click (apparel on Meta: 0.4 to 1.2) <input type="number" id="x_cpc" value="0.8" min="0.01" step="0.05"></label>
         <div class="out" id="x_out3"></div>
+      </div>
+      <div class="panel">
+        <strong>Waitlist → orders at launch</strong>
+        <label>Waitlist size (emails or members) <input type="number" id="x_wl" value="1086" min="0"></label>
+        <label>Purchase rate at drop, % (5 to 20 for a hyped drop, 2 to 5 for a quiet one) <input type="number" id="x_wr" value="10" min="0" step="1"></label>
+        <div class="out" id="x_out6"></div>
       </div>
       <div class="panel">
         <strong>Short-video views → visits</strong>
@@ -273,6 +279,52 @@ const SITES = {
     assumptionNotes: "Visits: 100k to 150k monthly views × 0.2 to 0.5% click-through, with the high case assuming one mid-size breakout (~200k views). Conversion: as launch month; it should rise once reviews and repeat buyers exist. AOV: median £49.90 × ~1.15 items.",
     v:[200,500,2000], c:[0.3,0.8,1.5], a:[45,55,65], r:[5,8,15], m:[35,45,55]
   },
+  osef_now: {
+    name: "osefclo.com · now (pre-launch)",
+    title: "OSEF · Swiss streetwear · pre-launch",
+    verdict: "Not trading. osefclo.com is password-locked with a waitlist form, so revenue today is CHF 0 regardless of traffic. The signals are a brand building for a drop: Klaviyo waitlist at 1,086 of a 5,000 target, a year-old TikTok (@behindosef) that never broke 1.5k views, and a new persona account (@osef0762) copying the veryseason format that pulled 392k views in six days.",
+    cur: "CHF ",
+    facts: [
+      ["Platform","Shopify (Dawn 15.4), CHF, store password-locked (\"Members Only\") with waitlist email capture"],
+      ["Store age","Shop ID 77.8bn (created well before the TikTok push); nothing purchasable today"],
+      ["Catalog","Hidden behind password; products.json returns 401. Teasers show a tracksuit and tees"],
+      ["Prices","Unknown (locked). Assumed CHF 70–140 per order"],
+      ["Apps","Klaviyo (email), Judge.me (reviews, 0 visible)"],
+      ["Ad pixels","None detected"],
+      ["Waitlist","\"1086/5000 Members\" per @behindosef bio, target 5,000"],
+      ["TikTok @osef0762","739 followers · 50k likes · 39 videos · created 28 Sep 2026 · site named in bio as plain text, no link"],
+      ["@osef0762 views, 12–17 Oct","392k across 9 videos: 124k, 106k, 86k, 35k, median ~16k"],
+      ["TikTok @behindosef","1,099 followers · 29k likes · 221 videos since Sep 2025 · recent videos 600–1,300 views"],
+      ["Instagram @osefclo","Linked from store; follower count not readable"],
+      ["Similarweb / Semrush","No data"]
+    ],
+    notes: "Checked 18 Oct 2026 from the public storefront (password page), the two public TikTok profiles (posting dates decoded from video IDs) and the Shopify page source. The store is closed, so current sales are zero by construction; the drop-month preset estimates the opening month.",
+    assumptionNotes: "All zero: nothing can be bought. Switch to the drop-month preset for the opening estimate.",
+    v:[0,0,0], c:[0,0,0], a:[0,0,0], r:[0,0,0], m:[0,0,0]
+  },
+  osef_drop: {
+    name: "osefclo.com · drop month (projected)",
+    title: "OSEF · Swiss streetwear · drop month",
+    verdict: "Projection for the month the store opens. Two traffic sources: the waitlist (1k to 2k emails by then, which converts far better than cold traffic) and @osef0762, which is running 1m to 2m views a month at the current cadence but has no clickable link in its bio. Prices are unknown, so the AOV band is an assumption about Swiss small-brand streetwear.",
+    cur: "CHF ",
+    facts: [
+      ["Platform","Shopify (Dawn 15.4), CHF, store password-locked (\"Members Only\") with waitlist email capture"],
+      ["Store age","Shop ID 77.8bn (created well before the TikTok push); nothing purchasable today"],
+      ["Catalog","Hidden behind password; products.json returns 401. Teasers show a tracksuit and tees"],
+      ["Prices","Unknown (locked). Assumed CHF 70–140 per order"],
+      ["Apps","Klaviyo (email), Judge.me (reviews, 0 visible)"],
+      ["Ad pixels","None detected"],
+      ["Waitlist","\"1086/5000 Members\" per @behindosef bio, target 5,000"],
+      ["TikTok @osef0762","739 followers · 50k likes · 39 videos · created 28 Sep 2026 · site named in bio as plain text, no link"],
+      ["@osef0762 views, 12–17 Oct","392k across 9 videos: 124k, 106k, 86k, 35k, median ~16k"],
+      ["TikTok @behindosef","1,099 followers · 29k likes · 221 videos since Sep 2025 · recent videos 600–1,300 views"],
+      ["Instagram @osefclo","Linked from store; follower count not readable"],
+      ["Similarweb / Semrush","No data"]
+    ],
+    notes: "Checked 18 Oct 2026 from the public storefront (password page), the two public TikTok profiles (posting dates decoded from video IDs) and the Shopify page source. The store is closed, so current sales are zero by construction; the drop-month preset estimates the opening month.",
+    assumptionNotes: "Visits: waitlist email to 1.5k members at 45% open and 15% click gives ~100 visits; @osef0762 at 1.5m views and 0.05 to 0.3% reaching the site (text-only bio) gives 750 to 4,500; @behindosef adds under 100. Conversion: blended, with the waitlist share converting at 5 to 15% and TikTok cold traffic at under 1%. AOV: tracksuit around CHF 120–160, tees around CHF 40. Margin: looks like own stock, not print-on-demand.",
+    v:[500,2000,8000], c:[1.0,2.0,4.0], a:[70,100,140], r:[5,10,15], m:[45,55,65]
+  },
   custom: {
     name: "Custom site",
     title: "Custom site",
@@ -336,6 +388,7 @@ function crosschecks(){
   $("x_out3").textContent = `≈ ${Math.round(vis).toLocaleString("en-GB")} paid visits / month`;
   $("x_out4").textContent = `≈ ${Math.round(g("x_fol")*g("x_fr")/100).toLocaleString("en-GB")} social visits / month`;
   $("x_out5").textContent = `≈ ${Math.round(g("x_views")*g("x_ctr")/100).toLocaleString("en-GB")} visits / month from video`;
+  $("x_out6").textContent = `≈ ${Math.round(g("x_wl")*g("x_wr")/100).toLocaleString("en-GB")} orders from the waitlist at launch`;
 }
 fillSelect();
 $("site").addEventListener("change", e=>loadPreset(e.target.value));

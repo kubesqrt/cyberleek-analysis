@@ -1,0 +1,26 @@
+{
+  "site": "osefclo.com",
+  "checked": "2026-10-18",
+  "platform": "Shopify (Dawn 15.4)",
+  "currency": "CHF",
+  "shop_id": 77809549640,
+  "myshopify": "d76a3a-2.myshopify.com",
+  "status": "password-locked, waitlist only; products.json 401",
+  "apps": ["Klaviyo", "Judge.me"],
+  "signals": {
+    "ad_pixels": [],
+    "waitlist": {"members": 1086, "target": 5000, "source": "@behindosef bio"},
+    "tiktok_osef0762": {"followers": 739, "likes": 50400, "videos": 39, "created": "2026-09-28", "bio_site_text_only": true,
+      "views_12_17_oct_2026": 392109, "videos_12_17_oct_2026": 9, "top": [124500, 106500, 86400, 35100], "median_recent": 16000},
+    "tiktok_behindosef": {"followers": 1099, "likes": 29200, "videos": 221, "created": "2025-09-11", "recent_views": "600-1300", "older_hits": [55700, 21900, 15500]},
+    "instagram": "@osefclo (count not readable)",
+    "similarweb": "no data"
+  },
+  "tier": "pre-launch",
+  "assumptions": {
+    "now": {"visits_per_month": [0,0,0], "conversion_pct": [0,0,0], "aov": [0,0,0]},
+    "drop_month": {"visits_per_month": [500,2000,8000], "conversion_pct": [1.0,2.0,4.0], "aov": [70,100,140], "returns_pct": [5,10,15], "gross_margin_pct": [45,55,65]}
+  },
+  "estimate_net_revenue_per_month": {"now": 0, "drop_month": {"low": 333, "base": 3600, "high": 38080}},
+  "verdict": "Zero today (store closed). Drop month projected at base ~CHF 3,600 with a very wide band because prices are unknown and TikTok click-through from a text-only bio is uncertain."
+}
