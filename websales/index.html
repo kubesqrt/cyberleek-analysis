@@ -223,29 +223,55 @@ code{font-family:var(--font-mono);font-size:.85em;background:var(--bg);padding:1
 
 <script>
 const SITES = {
-  veryseason: {
-    name: "veryseason.com",
-    title: "Veryseason · \"British Time\" streetwear, UK",
-    verdict: "Tier 1, launch week. Shopify store live since 10 to 15 October 2026 with eight print-on-demand garments, sold through the founder's TikTok (@veryseason, 6.8k followers, 309k likes, bio link to the store). The launch video has 4.5k views so far. No reviews, no ad pixels, no third-party traffic data. Sales depend almost entirely on TikTok click-through, so the range is wide and a viral video moves it by an order of magnitude.",
+  veryseason_launch: {
+    name: "veryseason.com · launch month (Oct 2026)",
+    title: "Veryseason · \"British Time\" streetwear, UK · launch month",
+    verdict: "Tier 1 with a viral spike. The founder's TikTok posted 12 videos in ten days and pulled 1.39m views, but 95% of that sits on two videos posted before the shop went live, and the launch video itself has 4.5k views. The question for October is how much of the viral audience went to the bio link after the shop opened.",
     cur: "£",
     facts: [
       ["Platform","Shopify (Dawn theme), GBP, 70+ markets enabled"],
-      ["Store age","~1 week (products created 11–13 Oct 2026, policies dated 15 Oct)"],
+      ["Store age","Live since ~10–15 Oct 2026 (products created 11–13 Oct, policies dated 15 Oct)"],
       ["Catalog","8 products, 129 variants, one collection"],
       ["Price range","£29.90 – £59.90, median £49.90"],
       ["Vendor","ODMPOD (print-on-demand dropship)"],
       ["Reviews","None, no reviews app installed"],
       ["Ad pixels","None detected (no Meta, TikTok, GA, Pinterest)"],
-      ["TikTok @veryseason","6,781 followers · 309k likes · 30 videos · since Oct 2024 · bio link → veryseason.com"],
-      ["TikTok launch video","\"it is finally dropped link in bio\": 4.5k views"],
-      ["TikTok last 12 videos","1.39m views, of which one at 1.1m and one at 219k; median ~4k"],
+      ["TikTok @veryseason","6,781 followers · 309k likes · 30 videos · bio link → veryseason.com"],
+      ["TikTok cadence","12 videos in 8–17 Oct 2026 (more than one a day)"],
+      ["TikTok views, 8–17 Oct","1.39m total: 1.1m (8 Oct) + 219k (10 Oct) + ten videos at 2k–28k, median ~4k"],
+      ["TikTok launch video","14 Oct, \"it is finally dropped link in bio\": 4.5k views"],
       ["Email / CRM","None detected"],
       ["Similarweb / Semrush","No data (below reporting threshold)"],
       ["Contact","Trade name Veryseason, info@veryseason.com, no address"]
     ],
-    notes: "Checked 18 Oct 2026 from the public storefront, products.json, collections.json, policy pages and the public TikTok profile. Actual visit counts are only visible in the owner's Shopify analytics; traffic here is inferred from TikTok views × link click-through. Re-check in 30 days.",
-    assumptionNotes: "Visits: TikTok is the only channel. A normal month of 5 to 10 posts at the ~4k median is 20k to 40k views; at 0.3 to 1% click-through to the bio link that is roughly 100 to 400 visits (base 400 includes launch-week interest). High assumes a video breaks out again (~1m views sends 1k to 3k visits). Conversion: warm creator audience but a new store with no reviews. AOV: median £49.90 × ~1.15 items. Margin: POD hoodie cost roughly £20–25 against £59.90 retail.",
-    v:[100,400,2500], c:[0.3,0.8,1.5], a:[45,55,65], r:[5,8,15], m:[35,45,55]
+    notes: "Checked 18 Oct 2026 from the public storefront, products.json, collections.json, policy pages and the public TikTok profile (posting dates decoded from video IDs). Actual visit counts are only visible in the owner's Shopify analytics; traffic here is inferred from TikTok views × bio-link click-through. Re-check in 30 days.",
+    assumptionNotes: "Visits (October): 1.39m views at 0.1 to 0.5% bio-link click-through is 1.4k to 7k visits, but most views predate the launch and the link, so the base takes the low end. Conversion: warm creator audience, new store, no reviews. AOV: median £49.90 × ~1.15 items. Margin: POD hoodie cost roughly £20–25 against £59.90 retail.",
+    v:[1000,3000,8000], c:[0.3,0.8,1.5], a:[45,55,65], r:[5,8,15], m:[35,45,55]
+  },
+  veryseason_runrate: {
+    name: "veryseason.com · steady month",
+    title: "Veryseason · \"British Time\" streetwear, UK · steady month",
+    verdict: "What a month without a breakout video looks like. At the current cadence of 25 to 35 posts a month and a ~4k median, that is 100k to 150k views, and 0.2 to 0.5% of those reach the shop. A single viral video adds 1k to 5k visits on top.",
+    cur: "£",
+    facts: [
+      ["Platform","Shopify (Dawn theme), GBP, 70+ markets enabled"],
+      ["Store age","Live since ~10–15 Oct 2026 (products created 11–13 Oct, policies dated 15 Oct)"],
+      ["Catalog","8 products, 129 variants, one collection"],
+      ["Price range","£29.90 – £59.90, median £49.90"],
+      ["Vendor","ODMPOD (print-on-demand dropship)"],
+      ["Reviews","None, no reviews app installed"],
+      ["Ad pixels","None detected (no Meta, TikTok, GA, Pinterest)"],
+      ["TikTok @veryseason","6,781 followers · 309k likes · 30 videos · bio link → veryseason.com"],
+      ["TikTok cadence","12 videos in 8–17 Oct 2026 (more than one a day)"],
+      ["TikTok views, 8–17 Oct","1.39m total: 1.1m (8 Oct) + 219k (10 Oct) + ten videos at 2k–28k, median ~4k"],
+      ["TikTok launch video","14 Oct, \"it is finally dropped link in bio\": 4.5k views"],
+      ["Email / CRM","None detected"],
+      ["Similarweb / Semrush","No data (below reporting threshold)"],
+      ["Contact","Trade name Veryseason, info@veryseason.com, no address"]
+    ],
+    notes: "Checked 18 Oct 2026 from the public storefront, products.json, collections.json, policy pages and the public TikTok profile (posting dates decoded from video IDs). Actual visit counts are only visible in the owner's Shopify analytics; traffic here is inferred from TikTok views × bio-link click-through. Re-check in 30 days.",
+    assumptionNotes: "Visits: 100k to 150k monthly views × 0.2 to 0.5% click-through, with the high case assuming one mid-size breakout (~200k views). Conversion: as launch month; it should rise once reviews and repeat buyers exist. AOV: median £49.90 × ~1.15 items.",
+    v:[200,500,2000], c:[0.3,0.8,1.5], a:[45,55,65], r:[5,8,15], m:[35,45,55]
   },
   custom: {
     name: "Custom site",
@@ -315,6 +341,6 @@ fillSelect();
 $("site").addEventListener("change", e=>loadPreset(e.target.value));
 $("reset").addEventListener("click", ()=>loadPreset($("site").value));
 document.querySelectorAll("input").forEach(el=>el.addEventListener("input", compute));
-loadPreset("veryseason");
+loadPreset("veryseason_launch");
 </script>
 </body></html>

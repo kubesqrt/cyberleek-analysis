@@ -29,4 +29,5 @@ bottom of the page; one JSON record per analysed site is kept in `sites/`.
 
 | Site | Checked | Tier | Base net / month | Range |
 |---|---|---|---|---|
-| veryseason.com | 2026-10-18 | 1 (launch week, TikTok-driven) | ~£160 | £13 – £2,100 |
+| veryseason.com · launch month (Oct 2026) | 2026-10-18 | 1, viral TikTok spike | ~£1,200 | £130 – £6,600 |
+| veryseason.com · steady month | 2026-10-18 | 1, TikTok-driven | ~£200 | £25 – £1,700 |

@@ -33,41 +33,97 @@
       "bio_link": "veryseason.com",
       "launch_video_views": 4520,
       "last_12_videos_views": 1390960,
-      "last_12_median_views": 4000
+      "last_12_median_views": 4000,
+      "videos_8_17_oct_2026": 12,
+      "views_8_17_oct_2026": 1390960,
+      "viral": [
+        {
+          "date": "2026-10-08",
+          "views": 1100000,
+          "desc": "love being British"
+        },
+        {
+          "date": "2026-10-10",
+          "views": 219000,
+          "desc": "be careful with tv licensing in UK"
+        }
+      ],
+      "launch_video": {
+        "date": "2026-10-14",
+        "views": 4520
+      },
+      "median_views_recent": 4000,
+      "posting_cadence": "more than daily"
     }
   },
   "tier": 1,
   "assumptions": {
-    "visits_per_month": [
-      100,
-      400,
-      2500
-    ],
-    "conversion_pct": [
-      0.3,
-      0.8,
-      1.5
-    ],
-    "aov": [
-      45,
-      55,
-      65
-    ],
-    "returns_pct": [
-      5,
-      8,
-      15
-    ],
-    "gross_margin_pct": [
-      35,
-      45,
-      55
-    ]
+    "launch_month_oct_2026": {
+      "visits_per_month": [
+        1000,
+        3000,
+        8000
+      ],
+      "conversion_pct": [
+        0.3,
+        0.8,
+        1.5
+      ],
+      "aov": [
+        45,
+        55,
+        65
+      ],
+      "returns_pct": [
+        5,
+        8,
+        15
+      ],
+      "gross_margin_pct": [
+        35,
+        45,
+        55
+      ]
+    },
+    "steady_month": {
+      "visits_per_month": [
+        200,
+        500,
+        2000
+      ],
+      "conversion_pct": [
+        0.3,
+        0.8,
+        1.5
+      ],
+      "aov": [
+        45,
+        55,
+        65
+      ],
+      "returns_pct": [
+        5,
+        8,
+        15
+      ],
+      "gross_margin_pct": [
+        35,
+        45,
+        55
+      ]
+    }
   },
   "estimate_net_revenue_per_month": {
-    "low": 13,
-    "base": 162,
-    "high": 2072
+    "launch_month_oct_2026": {
+      "low": 128,
+      "base": 1214,
+      "high": 6630
+    },
+    "steady_month": {
+      "low": 26,
+      "base": 202,
+      "high": 1658
+    }
   },
-  "verdict": "Launch week, TikTok-driven. Base ~\u00a3160/month; a breakout video can push a month past \u00a32,000. Re-check in 30 days."
+  "verdict": "Launch month riding a 1.1m-view TikTok: base ~\u00a31,200, range \u00a3130\u2013\u00a36,600. Steady month without a breakout: base ~\u00a3200, range \u00a325\u2013\u00a31,700. Re-check in 30 days."
 }
