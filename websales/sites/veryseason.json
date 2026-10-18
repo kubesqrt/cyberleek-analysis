@@ -1,0 +1,21 @@
+{
+  "site": "veryseason.com",
+  "checked": "2026-10-18",
+  "platform": "Shopify (Dawn theme)",
+  "currency": "GBP",
+  "shop_id": 105793421595,
+  "myshopify": "xvidiw-xb.myshopify.com",
+  "store_age": "~1 week: first product created 2026-10-11, frontpage collection published 2026-10-10, policies updated 2026-10-15",
+  "catalog": {"products": 8, "variants": 129, "collections": 1, "price_min": 29.9, "price_max": 59.9, "price_median": 49.9, "vendor": "ODMPOD (print-on-demand)"},
+  "signals": {"reviews_app": false, "review_count": 0, "ad_pixels": [], "social_links": [], "email_crm": null, "similarweb": "no data", "search_mentions": 0, "contact": "info@veryseason.com, no postal address"},
+  "tier": 0,
+  "assumptions": {
+    "visits_per_month": [20, 100, 1000],
+    "conversion_pct": [0.1, 0.3, 1.0],
+    "aov": [45, 55, 65],
+    "returns_pct": [5, 8, 15],
+    "gross_margin_pct": [35, 45, 55]
+  },
+  "estimate_net_revenue_per_month": {"low": 0.9, "base": 15, "high": 553},
+  "verdict": "Pre-traction. Effectively zero sales; high case assumes an unseen personal audience. Re-check in 30 days."
+}

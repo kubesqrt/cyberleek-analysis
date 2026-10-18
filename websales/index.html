@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Website Sales Estimator</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: one column of stacked panels; assumptions grid (3 scenarios) feeds a results strip, then a sensitivity table, then the method. */
+:root{
+  --bg:#f5f6f4; --panel:#ffffff; --fg:#1b2024; --muted:#5d6670; --line:#d9ded8;
+  --accent:#0f766e; --accent-soft:#d8efe9; --warn:#b45309; --warn-soft:#fdf0dc; --base-soft:#e8f1ef;
+  --font-body:"Public Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){
+  --bg:#111518; --panel:#181d21; --fg:#e6eae8; --muted:#9aa5ad; --line:#2a3238;
+  --accent:#4fd1c0; --accent-soft:#163b37; --warn:#f0b35a; --warn-soft:#3a2a12; --base-soft:#1c2a27; color-scheme:dark } }
+:root[data-theme="dark"]{
+  --bg:#111518; --panel:#181d21; --fg:#e6eae8; --muted:#9aa5ad; --line:#2a3238;
+  --accent:#4fd1c0; --accent-soft:#163b37; --warn:#f0b35a; --warn-soft:#3a2a12; --base-soft:#1c2a27; color-scheme:dark }
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font-body);font-size:15px;line-height:1.5;margin:0}
+.wrap{max-width:1040px;margin:0 auto;padding-block:28px 56px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1{font-size:1.7rem;font-weight:700;letter-spacing:-.01em;margin:0 0 .25rem;text-wrap:balance}
+h2{font-size:1.05rem;font-weight:600;margin:0 0 .75rem;text-wrap:balance}
+h3{font-size:.95rem;font-weight:600;margin:1rem 0 .4rem}
+p{margin:.4rem 0;max-width:68ch}
+.lede{color:var(--muted);margin-bottom:1.4rem}
+.eyebrow{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px 20px;margin-bottom:18px}
+.row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+label{font-size:.85rem;color:var(--muted)}
+select,input{font:inherit;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 8px;min-width:0}
+input[type=number]{font-family:var(--font-mono);font-size:.9rem;width:100%;text-align:right}
+select{padding-right:28px}
+button{font:inherit;font-weight:600;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+table{border-collapse:collapse;width:100%;font-size:.9rem}
+th,td{padding:7px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600}
+td.num,th.num{text-align:right;font-family:var(--font-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll{overflow-x:auto}
+.grid3{display:grid;grid-template-columns:minmax(150px,1.3fr) repeat(3,minmax(90px,1fr));gap:8px 10px;align-items:center}
+.grid3 .hd{font-size:.75rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:600;text-align:right}
+.grid3 .hd:first-child{text-align:left}
+.grid3 .lab{font-size:.9rem}
+.grid3 .lab small{display:block;color:var(--muted);font-size:.75rem}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:4px 0 14px}
+.kpi{padding:12px 14px;border-radius:8px;background:var(--base-soft);min-width:0}
+.kpi .v{font-family:var(--font-mono);font-size:1.45rem;font-weight:600;line-height:1.2;font-variant-numeric:tabular-nums}
+.kpi .l{font-size:.78rem;color:var(--muted);margin-top:2px}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;font-weight:600;letter-spacing:.03em}
+.pill.ok{background:var(--accent-soft);color:var(--accent)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:6px 18px;font-size:.88rem}
+.facts div{display:flex;gap:8px;justify-content:space-between;border-bottom:1px dashed var(--line);padding:4px 0;min-width:0}
+.facts span:last-child{font-family:var(--font-mono);font-size:.82rem;text-align:right}
+.sens td.base{background:var(--base-soft);font-weight:600;outline:2px solid var(--accent);outline-offset:-2px}
+.note{font-size:.85rem;color:var(--muted)}
+.mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.mini .panel{margin:0}
+.mini .out{font-family:var(--font-mono);font-size:1rem;margin-top:8px;font-variant-numeric:tabular-nums}
+.mini label{display:block;margin-top:6px}
+.mini input{width:100%;margin-top:2px}
+ul{padding-left:1.2rem;margin:.3rem 0}
+li{margin:.2rem 0}
+code{font-family:var(--font-mono);font-size:.85em;background:var(--bg);padding:1px 4px;border-radius:4px}
+@media (max-width:560px){ .grid3{grid-template-columns:minmax(110px,1.2fr) repeat(3,minmax(70px,1fr))} .grid3 .lab small{display:none} }
+@media (prefers-reduced-motion:no-preference){ .kpi .v{transition:color .2s} }
+</style>
+</head><body>
+
+<div class="wrap">
+  <div class="eyebrow">Traffic × conversion × order value</div>
+  <h1>Website Sales Estimator</h1>
+  <p class="lede">Estimates an online store's monthly sales from assumptions only. Every number here is an inference from public signals, not reported revenue. Pick a site, review the observed signals, adjust the three scenarios, read the range.</p>
+
+  <section class="panel">
+    <div class="row" style="justify-content:space-between">
+      <div class="row">
+        <label for="site">Site</label>
+        <select id="site"></select>
+        <button id="reset" type="button">Reset to preset</button>
+      </div>
+      <div class="row">
+        <label for="cur">Currency symbol</label>
+        <input id="cur" type="text" value="£" style="width:3.5em;text-align:center">
+      </div>
+    </div>
+    <h3 id="siteTitle"></h3>
+    <p id="siteVerdict" class="note"></p>
+    <div class="facts" id="facts"></div>
+    <p class="note" id="siteNotes" style="margin-top:10px"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Assumptions</h2>
+    <div class="grid3" id="inputs">
+      <div class="hd">Input</div><div class="hd">Low</div><div class="hd">Base</div><div class="hd">High</div>
+      <div class="lab">Monthly visits (sessions)<small>From traffic tools, social reach, ad spend, or the tier table below</small></div>
+      <input type="number" id="v_lo" min="0" step="1"><input type="number" id="v_ba" min="0" step="1"><input type="number" id="v_hi" min="0" step="1">
+      <div class="lab">Conversion rate, %<small>Orders ÷ sessions. Benchmarks below.</small></div>
+      <input type="number" id="c_lo" min="0" step="0.05"><input type="number" id="c_ba" min="0" step="0.05"><input type="number" id="c_hi" min="0" step="0.05">
+      <div class="lab">Average order value<small>Median catalog price × items per order</small></div>
+      <input type="number" id="a_lo" min="0" step="1"><input type="number" id="a_ba" min="0" step="1"><input type="number" id="a_hi" min="0" step="1">
+      <div class="lab">Returns and refunds, %<small>Deducted to get net revenue</small></div>
+      <input type="number" id="r_lo" min="0" max="100" step="1"><input type="number" id="r_ba" min="0" max="100" step="1"><input type="number" id="r_hi" min="0" max="100" step="1">
+      <div class="lab">Gross margin, %<small>After product cost and shipping; optional</small></div>
+      <input type="number" id="m_lo" min="0" max="100" step="1"><input type="number" id="m_ba" min="0" max="100" step="1"><input type="number" id="m_hi" min="0" max="100" step="1">
+    </div>
+    <p class="note" id="assumptionNotes" style="margin-top:12px"></p>
+  </section>
+
+  <section class="panel">
+    <h2>Estimate</h2>
+    <div class="kpis">
+      <div class="kpi"><div class="v" id="k_net"></div><div class="l">Base net revenue / month</div></div>
+      <div class="kpi"><div class="v" id="k_range"></div><div class="l">Low to high, net / month</div></div>
+      <div class="kpi"><div class="v" id="k_orders"></div><div class="l">Base orders / month</div></div>
+      <div class="kpi"><div class="v" id="k_year"></div><div class="l">Base net revenue, annualised</div></div>
+    </div>
+    <div class="scroll"><table id="results">
+      <thead><tr><th>Scenario</th><th class="num">Visits / mo</th><th class="num">Conv.</th><th class="num">Orders / mo</th><th class="num">Orders / day</th><th class="num">AOV</th><th class="num">Gross rev / mo</th><th class="num">Net rev / mo</th><th class="num">Gross profit / mo</th><th class="num">Net rev / year</th></tr></thead>
+      <tbody></tbody>
+    </table></div>
+    <p class="note">Net revenue = visits × conversion × AOV × (1 − returns). Gross profit = net revenue × gross margin. Revenue per visit for the base case: <span id="rpv" class="num" style="font-family:var(--font-mono)"></span>.</p>
+  </section>
+
+  <section class="panel sens">
+    <h2>Sensitivity: gross revenue per month</h2>
+    <p class="note">Rows sweep visits, columns sweep conversion rate, at the base average order value. The outlined cell is the base case.</p>
+    <div class="scroll"><table id="sens"><thead></thead><tbody></tbody></table></div>
+  </section>
+
+  <section class="panel">
+    <h2>Cross-checks</h2>
+    <p class="note">Independent ways to back into order volume. If one of these is available it beats the traffic model; use it to calibrate visits or conversion.</p>
+    <div class="mini" style="margin-top:10px">
+      <div class="panel">
+        <strong>Reviews → orders</strong>
+        <label>Reviews on site <input type="number" id="x_rev" value="0" min="0"></label>
+        <label>Review rate, % of orders (1 to 3 unincentivised, 5 to 8 with rewards) <input type="number" id="x_rr" value="2" min="0.1" step="0.1"></label>
+        <label>Months live <input type="number" id="x_m1" value="1" min="0.1" step="0.5"></label>
+        <div class="out" id="x_out1"></div>
+      </div>
+      <div class="panel">
+        <strong>Shopify order number → orders</strong>
+        <label>Order number seen on a confirmation (Shopify starts at #1001) <input type="number" id="x_on" value="1001" min="1001"></label>
+        <label>Months live <input type="number" id="x_m2" value="1" min="0.1" step="0.5"></label>
+        <div class="out" id="x_out2"></div>
+      </div>
+      <div class="panel">
+        <strong>Ad spend → visits</strong>
+        <label>Estimated monthly ad spend <input type="number" id="x_spend" value="0" min="0"></label>
+        <label>Cost per click (apparel on Meta: 0.4 to 1.2) <input type="number" id="x_cpc" value="0.8" min="0.01" step="0.05"></label>
+        <div class="out" id="x_out3"></div>
+      </div>
+      <div class="panel">
+        <strong>Social audience → visits</strong>
+        <label>Followers across platforms <input type="number" id="x_fol" value="0" min="0"></label>
+        <label>Monthly site visits per follower, % (3 to 15) <input type="number" id="x_fr" value="8" min="0" step="1"></label>
+        <div class="out" id="x_out4"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Method</h2>
+    <p>The model is deliberately simple: <code>revenue = visits × conversion × AOV</code>. The work is in choosing the inputs from what a public visitor can observe. Each input gets a low, base and high value so the output is a range, not a point.</p>
+
+    <h3>1. Collect signals</h3>
+    <ul>
+      <li><strong>Platform and age.</strong> Shopify exposes <code>/products.json</code> and <code>/collections.json</code>; the earliest <code>created_at</code> dates the catalog. Policy page "last updated" dates and the Shopify shop ID also date the store. Domain registration (WHOIS) gives an upper bound.</li>
+      <li><strong>Catalog.</strong> Product count, price range, variant counts, vendor field (a print-on-demand supplier such as ODMPOD or Printful means no inventory and a thin margin).</li>
+      <li><strong>Proof of demand.</strong> Reviews app installed and the review count, sold-out variants, "X bought this" widgets, press mentions.</li>
+      <li><strong>Marketing footprint.</strong> Meta, TikTok, Google, Pinterest and Snap pixels in the page source show paid acquisition. Meta Ad Library and TikTok Creative Center show live ads. Klaviyo or similar means an email program. Social links in the footer and their follower counts.</li>
+      <li><strong>Third-party traffic.</strong> Similarweb and Semrush report visits only above roughly 5,000 sessions a month. No data there is itself a signal.</li>
+    </ul>
+
+    <h3>2. Place traffic in a tier</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Tier</th><th>Typical signals</th><th class="num">Visits / month</th></tr></thead>
+      <tbody>
+        <tr><td>0 · Pre-traction</td><td>Under 3 months old, no pixels, no reviews, no social links, no traffic-tool data</td><td class="num">0 – 500</td></tr>
+        <tr><td>1 · Seed</td><td>Pixels installed, a few ads live, under 50 reviews, social under 5k followers</td><td class="num">500 – 5,000</td></tr>
+        <tr><td>2 · Growing</td><td>50 to 500 reviews, 5k to 50k followers, Similarweb starts reporting</td><td class="num">5,000 – 50,000</td></tr>
+        <tr><td>3 · Established</td><td>500 to 5,000 reviews, 50k to 500k followers, Similarweb rank, press</td><td class="num">50,000 – 500,000</td></tr>
+        <tr><td>4 · Scale</td><td>Thousands of reviews, large paid programs, brand search volume</td><td class="num">500,000+</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3>3. Pick a conversion rate</h3>
+    <div class="scroll"><table>
+      <thead><tr><th>Situation</th><th class="num">Low</th><th class="num">Base</th><th class="num">High</th></tr></thead>
+      <tbody>
+        <tr><td>New store, no reviews, cold traffic</td><td class="num">0.1%</td><td class="num">0.3%</td><td class="num">0.8%</td></tr>
+        <tr><td>Apparel and accessories, running store</td><td class="num">0.8%</td><td class="num">1.4%</td><td class="num">2.2%</td></tr>
+        <tr><td>Beauty, supplements, consumables</td><td class="num">1.5%</td><td class="num">2.5%</td><td class="num">4.0%</td></tr>
+        <tr><td>Strong brand, mostly returning or branded-search traffic</td><td class="num">2.0%</td><td class="num">3.0%</td><td class="num">5.0%</td></tr>
+        <tr><td>Paid social dominated (TikTok, Meta cold audiences)</td><td class="num">0.5%</td><td class="num">1.0%</td><td class="num">1.8%</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Shopify store medians sit around 1.4%; the top quartile is above 3%. Mobile-heavy and cold-traffic mixes pull the rate down.</p>
+
+    <h3>4. Derive the average order value</h3>
+    <p>Start from the median catalog price. Multiply by items per order (apparel 1.2 to 1.5, consumables 1.5 to 2.5, single-hero-product stores about 1.1). Reduce by the typical discount depth if sitewide sales or welcome codes are visible. Free-shipping thresholds pull AOV toward the threshold.</p>
+
+    <h3>5. Net it down and sanity-check</h3>
+    <ul>
+      <li>Apparel sees 10 to 25% returns and refunds; consumables and print-on-demand see 2 to 8%.</li>
+      <li>Gross margin: print-on-demand 35 to 55%, own-inventory apparel 55 to 70%, consumables 60 to 80%.</li>
+      <li>Compare the implied orders per day with stock signals and review velocity. A store "doing" 30 orders a day with zero reviews after six months is mis-estimated.</li>
+      <li>Where any cross-check above is available, calibrate to it and treat the traffic model as the secondary view.</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+const SITES = {
+  veryseason: {
+    name: "veryseason.com",
+    title: "Veryseason · \"British Time\" streetwear, UK",
+    verdict: "Tier 0, pre-traction. Store went live around 10 to 15 October 2026 with eight print-on-demand garments. No reviews app, no ad pixels, no social links, no third-party traffic data. Best estimate is effectively zero sales so far; the high case assumes an unseen personal audience.",
+    cur: "£",
+    facts: [
+      ["Platform","Shopify (Dawn theme), GBP, 70+ markets enabled"],
+      ["Store age","~1 week (products created 11–13 Oct 2026, policies dated 15 Oct)"],
+      ["Catalog","8 products, 129 variants, one collection"],
+      ["Price range","£29.90 – £59.90, median £49.90"],
+      ["Vendor","ODMPOD (print-on-demand dropship)"],
+      ["Reviews","None, no reviews app installed"],
+      ["Ad pixels","None detected (no Meta, TikTok, GA, Pinterest)"],
+      ["Social links","None on site"],
+      ["Email / CRM","None detected"],
+      ["Similarweb / Semrush","No data (below reporting threshold)"],
+      ["Search presence","No indexed mentions found"],
+      ["Contact","Trade name Veryseason, info@veryseason.com, no address"]
+    ],
+    notes: "Checked 18 Oct 2026 by reading the public storefront, products.json, collections.json and policy pages. Re-check in 30 days: if pixels, reviews or social links appear, move to tier 1 and re-run.",
+    assumptionNotes: "Visits: tier 0 (owner, friends, crawlers). Conversion: new store without social proof. AOV: median £49.90 × ~1.15 items. Returns: print-on-demand apparel, low because volume is tiny and returns go to the merchant. Margin: POD hoodie cost roughly £20–25 against £59.90 retail.",
+    v:[20,100,1000], c:[0.1,0.3,1.0], a:[45,55,65], r:[5,8,15], m:[35,45,55]
+  },
+  custom: {
+    name: "Custom site",
+    title: "Custom site",
+    verdict: "Fill the assumptions from the method below. Preset values here are a generic tier-1 apparel store.",
+    cur: "£",
+    facts: [["Platform","—"],["Store age","—"],["Catalog","—"],["Reviews","—"],["Ad pixels","—"],["Social","—"]],
+    notes: "",
+    assumptionNotes: "",
+    v:[1000,3000,8000], c:[0.8,1.4,2.2], a:[40,50,60], r:[10,15,20], m:[50,60,65]
+  }
+};
+const $ = id => document.getElementById(id);
+const keys = ["v","c","a","r","m"], suf = ["lo","ba","hi"];
+let cur = "£";
+const fmtMoney = n => { const abs=Math.abs(n); const s = abs>=1e6 ? (n/1e6).toFixed(2)+"m" : abs>=1e4 ? Math.round(n).toLocaleString("en-GB") : abs>=100 ? Math.round(n).toLocaleString("en-GB") : n.toFixed(abs>=10?1:2); return cur+s; };
+const fmtNum = (n,d=1) => n>=100 ? Math.round(n).toLocaleString("en-GB") : n.toFixed(d);
+
+function fillSelect(){ const s=$("site"); for (const k in SITES){ const o=document.createElement("option"); o.value=k; o.textContent=SITES[k].name; s.appendChild(o);} }
+function loadPreset(k){
+  const p = SITES[k]; cur = p.cur; $("cur").value = cur;
+  $("siteTitle").textContent = p.title; $("siteVerdict").textContent = p.verdict; $("siteNotes").textContent = p.notes; $("assumptionNotes").textContent = p.assumptionNotes;
+  $("facts").innerHTML = p.facts.map(([a,b])=>`<div><span>${a}</span><span>${b}</span></div>`).join("");
+  keys.forEach(key => suf.forEach((s,i)=>{ $(key+"_"+s).value = p[key][i]; }));
+  compute();
+}
+function read(key,i){ const v=parseFloat($(key+"_"+suf[i]).value); return isFinite(v)?v:0; }
+function scen(i){
+  const v=read("v",i), c=read("c",i)/100, a=read("a",i), r=read("r",i)/100, m=read("m",i)/100;
+  const orders=v*c, gross=orders*a, net=gross*(1-r), gp=net*m;
+  return {v,c,a,orders,gross,net,gp};
+}
+function compute(){
+  cur = $("cur").value || "";
+  const S = [scen(0),scen(1),scen(2)], names=["Low","Base","High"];
+  $("k_net").textContent = fmtMoney(S[1].net);
+  $("k_range").textContent = fmtMoney(S[0].net)+" – "+fmtMoney(S[2].net);
+  $("k_orders").textContent = fmtNum(S[1].orders);
+  $("k_year").textContent = fmtMoney(S[1].net*12);
+  $("rpv").textContent = S[1].v>0 ? fmtMoney(S[1].net/S[1].v) : "n/a";
+  $("results").querySelector("tbody").innerHTML = S.map((s,i)=>`<tr${i===1?' style="background:var(--base-soft)"':''}><td>${names[i]}</td><td class="num">${Math.round(s.v).toLocaleString("en-GB")}</td><td class="num">${(s.c*100).toFixed(2)}%</td><td class="num">${fmtNum(s.orders)}</td><td class="num">${fmtNum(s.orders/30.4,2)}</td><td class="num">${fmtMoney(s.a)}</td><td class="num">${fmtMoney(s.gross)}</td><td class="num">${fmtMoney(s.net)}</td><td class="num">${fmtMoney(s.gp)}</td><td class="num">${fmtMoney(s.net*12)}</td></tr>`).join("");
+  sensitivity(S);
+  crosschecks();
+}
+function spread(lo,ba,hi){ // 5 points: lo, geo-mid, base, geo-mid, hi
+  lo=Math.max(lo,1e-9); hi=Math.max(hi,lo); ba=Math.min(Math.max(ba,lo),hi);
+  return [lo, Math.sqrt(lo*ba), ba, Math.sqrt(ba*hi), hi];
+}
+function sensitivity(S){
+  const vs = spread(S[0].v,S[1].v,S[2].v), cs = spread(S[0].c,S[1].c,S[2].c), a=S[1].a;
+  const t=$("sens");
+  t.querySelector("thead").innerHTML = "<tr><th>Visits \\ Conv.</th>"+cs.map(c=>`<th class="num">${(c*100).toFixed(2)}%</th>`).join("")+"</tr>";
+  t.querySelector("tbody").innerHTML = vs.map((v,i)=>"<tr><td class=\"num\" style=\"text-align:left\">"+Math.round(v).toLocaleString("en-GB")+"</td>"+cs.map((c,j)=>`<td class="num${i===2&&j===2?' base':''}">${fmtMoney(v*c*a)}</td>`).join("")+"</tr>").join("");
+}
+function crosschecks(){
+  const g=id=>parseFloat($(id).value)||0;
+  const o1 = g("x_rr")>0 ? g("x_rev")/(g("x_rr")/100) : 0, m1=Math.max(g("x_m1"),0.1);
+  $("x_out1").textContent = `≈ ${fmtNum(o1,0)} orders total, ${fmtNum(o1/m1,1)} / month`;
+  const o2 = Math.max(g("x_on")-1000,0), m2=Math.max(g("x_m2"),0.1);
+  $("x_out2").textContent = `≈ ${fmtNum(o2,0)} orders total, ${fmtNum(o2/m2,1)} / month`;
+  const vis = g("x_cpc")>0 ? g("x_spend")/g("x_cpc") : 0;
+  $("x_out3").textContent = `≈ ${Math.round(vis).toLocaleString("en-GB")} paid visits / month`;
+  $("x_out4").textContent = `≈ ${Math.round(g("x_fol")*g("x_fr")/100).toLocaleString("en-GB")} social visits / month`;
+}
+fillSelect();
+$("site").addEventListener("change", e=>loadPreset(e.target.value));
+$("reset").addEventListener("click", ()=>loadPreset($("site").value));
+document.querySelectorAll("input").forEach(el=>el.addEventListener("input", compute));
+loadPreset("veryseason");
+</script>
+</body></html>
