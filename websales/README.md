@@ -33,3 +33,4 @@ bottom of the page; one JSON record per analysed site is kept in `sites/`.
 | veryseason.com · steady month | 2026-10-18 | 1, TikTok-driven | ~£200 | £25 – £1,700 |
 | osefclo.com · now | 2026-10-18 | pre-launch, store password-locked | CHF 0 | — |
 | osefclo.com · drop month (projected) | 2026-10-18 | waitlist 1,086 + TikTok 392k views/6 days | ~CHF 3,600 | CHF 330 – 38,000 |
+| bavariantimeoflife.com · drop month (Oct 2026) | 2026-10-18 | 2, live drop, 6/32 variants sold out, TikTok 1.29m views/10 days | ~€12,300 | €1,500 – €61,000 |

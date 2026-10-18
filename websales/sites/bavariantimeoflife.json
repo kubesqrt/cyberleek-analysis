@@ -1,0 +1,17 @@
+{
+  "site": "bavariantimeoflife.com",
+  "checked": "2026-10-18",
+  "platform": "Shopify",
+  "currency": "EUR",
+  "shop_id": 111078015315,
+  "myshopify": "p8gg3n-mn.myshopify.com",
+  "legal": "BBCommerce GbR, Neckarstraße 6, 81677 Munich, Germany",
+  "store_age": "products created 2026-09-29 and 2026-10-02",
+  "catalog": {"products": 2, "variants": 32, "sold_out_variants": 6, "hoodie": {"price": 79.9, "compare_at": 89.9, "sold_out": ["Plum Purple/S","Plum Purple/M","Plum Purple/L","Plum Purple/XXL"]}, "long_sleeve": {"price": 43.9, "sold_out": ["White/XS","Black/XS"]}, "material": "organic ring-spun cotton 180 g/m2, own stock"},
+  "signals": {"drop_banner": "LIMITED DROP - ENDING SOON", "email_capture": true, "reviews_app": false, "ad_pixels": [], "social_links_on_site": [],
+    "tiktok_stevenfuchsss": {"followers": 13200, "likes": 966500, "videos": 27, "created": "2026-06-20", "bio_link": "bavariantimeoflife.com/drop", "views_9_14_oct_2026": 1290500, "videos_9_14_oct_2026": 10, "top": [382500, 280500, 158500, 148100], "median_recent": 84000}},
+  "tier": 2,
+  "assumptions": {"drop_month": {"visits_per_month": [3000,10000,25000], "conversion_pct": [1.0,2.0,3.5], "aov": [55,70,85], "returns_pct": [8,12,18], "gross_margin_pct": [55,62,68]}},
+  "estimate_net_revenue_per_month": {"drop_month": {"low": 1518, "base": 12320, "high": 60988}},
+  "verdict": "Live limited drop with sold-out variants. Base ~€12k for the drop month, range €1.5k-61k. Revenue falls to near zero between drops."
+}

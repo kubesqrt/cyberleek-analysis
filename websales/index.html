@@ -325,6 +325,30 @@ const SITES = {
     assumptionNotes: "Visits: waitlist email to 1.5k members at 45% open and 15% click gives ~100 visits; @osef0762 at 1.5m views and 0.05 to 0.3% reaching the site (text-only bio) gives 750 to 4,500; @behindosef adds under 100. Conversion: blended, with the waitlist share converting at 5 to 15% and TikTok cold traffic at under 1%. AOV: tracksuit around CHF 120–160, tees around CHF 40. Margin: looks like own stock, not print-on-demand.",
     v:[500,2000,8000], c:[1.0,2.0,4.0], a:[70,100,140], r:[5,10,15], m:[45,55,65]
   },
+  bavarian_drop: {
+    name: "bavariantimeoflife.com · drop month (Oct 2026)",
+    title: "Bavarian guy · \"You Met Me at a Very Bavarian Time\" · limited drop",
+    verdict: "Tier 2, live and selling. A two-product limited drop (hoodie €79.90, long sleeve €43.90) from a Munich GbR, pushed by @stevenfuchsss: 13.2k followers, 966k likes, 1.29m views on the last ten videos (9–14 Oct) and a clickable bio link straight to the drop page. Six of 32 variants are already sold out, which is the first hard demand signal across the three brands. This is the strongest of the three by a wide margin.",
+    cur: "€",
+    facts: [
+      ["Platform","Shopify, EUR base with CHF/GBP/USD markets, EN/DE"],
+      ["Store age","Products created 29 Sep and 2 Oct 2026; shop ID 111bn (newest of the three)"],
+      ["Catalog","2 products, 32 variants: hoodie €79.90 (was €89.90), long sleeve €43.90"],
+      ["Stock signal","6 of 32 variants sold out: Plum Purple hoodie in S, M, L, XXL and both XS long sleeves"],
+      ["Product","Organic ring-spun cotton, 180 g/m², German spec sheet: own stock, not print-on-demand"],
+      ["Drop status","\"LIMITED DROP ✦ ENDING SOON\" banner; bio says \"FINAL DAYS of the drop\""],
+      ["Apps","Email list capture; no reviews app; no ad pixels detected"],
+      ["Legal","BBCommerce GbR, Neckarstraße 6, 81677 Munich; two partners"],
+      ["TikTok @stevenfuchsss","13,200 followers · 966k likes · 27 videos · created 20 Jun 2026 · bio link → /drop"],
+      ["TikTok views, 9–14 Oct","1.29m across 10 videos: 383k, 281k, 159k, 148k; median ~84k"],
+      ["Lifetime views (implied)","966k likes at a 5–8% like rate is roughly 12–20m views since June"],
+      ["Social links on site","None; Instagram not checked"],
+      ["Similarweb / Semrush","Not checked; likely below threshold"]
+    ],
+    notes: "Checked 18 Oct 2026 from products.json, the rendered home and drop pages, the legal notice and the public TikTok profile (posting dates decoded from video IDs). Shopify's bot check blocks plain fetches of the HTML, so pixel detection ran on the rendered DOM and may miss a server-side TikTok pixel. Sold-out variants give a rough unit cross-check: if the drop stocked 15–30 units per variant and six variants are gone with the rest partly sold, that is on the order of 150–400 units, consistent with the base case.",
+    assumptionNotes: "Visits: 1.29m views in ten days points to 2.5–4m for the month; a clickable bio link with a drop call-to-action converts 0.2–0.8% of views, so 3k–25k visits. Conversion: urgency plus a warm audience, but an €80 hoodie on mobile cold traffic. AOV: hoodie-heavy mix at about €65 × 1.1 items. Returns: EU apparel. Margin: organic blanks plus print at about €25–30 landed against €79.90.",
+    v:[3000,10000,25000], c:[1.0,2.0,3.5], a:[55,70,85], r:[8,12,18], m:[55,62,68]
+  },
   custom: {
     name: "Custom site",
     title: "Custom site",
@@ -394,6 +418,6 @@ fillSelect();
 $("site").addEventListener("change", e=>loadPreset(e.target.value));
 $("reset").addEventListener("click", ()=>loadPreset($("site").value));
 document.querySelectorAll("input").forEach(el=>el.addEventListener("input", compute));
-loadPreset("veryseason_launch");
+loadPreset("bavarian_drop");
 </script>
 </body></html>
